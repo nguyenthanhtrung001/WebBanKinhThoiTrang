@@ -1,7 +1,9 @@
 package management.entity;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
@@ -74,6 +76,11 @@ public class DetailsUpdatePrice {
 
 	public void setDetailsCarts(List<DetailsCart> detailsCarts) {
 		this.detailsCarts = detailsCarts;
+	}
+	public String getPrice_VND() {
+		NumberFormat vndFormat = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
+		String formattedPrice = vndFormat.format(price);
+		return formattedPrice;
 	}
 	
 	

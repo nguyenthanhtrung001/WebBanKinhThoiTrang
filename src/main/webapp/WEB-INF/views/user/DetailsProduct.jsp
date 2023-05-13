@@ -2,78 +2,125 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="ISO-8859-1">
-<title>Chi tiết sản phẩm</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <title>Document</title>
 </head>
 <body>
-	<div class="col l-12">
-	<h2>${product.name}</h2>
-	
-	</div>
-	<div class="col l-4">
-		<div class="dp_image">
-			<img
-				src="">
-		</div>
-	</div>
-	<div class="col l-4">
-		<div class="dp_sale">
-			<div class="dp_area_price">
-				<strong>${product.getPrice() }</strong>
-			</div>
-			<div class="dp_area_promo">
-				<strong>khuyến mãi</strong>
-				<div class="dp_promo">
-					<img src="./image/icon-tick.png">
-					<div id="detailPromo">Khách hàng sẽ được thử máy miễn phí tại
-						cửa hàng. Có thể đổi trả lỗi trong vòng 2 tháng.</div>
-				</div>
-			</div>
-			<div class="dp_policy">
-				<div class="dp_policy_infor">
-					<img src="./image/box.png">
-					<p>Trong hộp có: Sạc,Sách hướng dẫn...</p>
-				</div>
-				<div class="dp_policy_infor">
-					<img src="./image/box.png">
-					<p>Bảo hành chính hãng 12 tháng.</p>
-				</div>
-				<div class="dp_policy_infor">
-					<img src="./image/box.png">
-					<p>1 đổi 1 trong 1 tháng nếu lỗi, đổi sản phẩm tại nhà trong 1
-						ngày.</p>
-				</div>
-			</div>
+  <div class="container">
+    <div class="row mt-5">
+      <div class="col col-sm-5">
+        <a href=""><img src="https://via.placeholder.com/300x400.png" class="img-fluid" alt=""></a>
+      </div>
+      <div class="col col-sm-7">
+      <form method="post" action="/WebBanKinh/user/cart/add/id=${product.id}">
+       
+       
+       <div class="card">
+  
+  <div class="card-body">
+    <h1 style="margin-top: 0;" class="card-title">${product.name} </h1>
+    <p class="card-text">Một chiếc đồng hồ thời trang sẽ làm tôn lên phong cách của bạn khi kết hợp với mắt kính thời trang.</p>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item"><strong>Thương Hiệu:</strong> ${product.branch }</li>
+      <li class="list-group-item"><strong>Giá: </strong> 1.000.000 VNĐ</li>
+      <li class="list-group-item"><strong>Màu sắc: </strong>
+        <div class="btn-group" role="group" aria-label="Màu sắc">
+          <button type="button" class="btn btn-link ">Đen</button>
+          <button type="button" class="btn btn-link ">Trắng</button>
+          <button type="button" class="btn btn-link">Xanh</button>
+        </div>
+      </li>
+      <li class="list-group-item"><strong>Gọng kính:  </strong>
+        <div class="btn-group" role="group" aria-label="Gọng kính">
+          <button type="button" class="btn btn-link">Kim loại</button>
+          <button type="button" class="btn btn-link">Nhựa</button>
+        </div>
+      </li>
+        <li class="list-group-item"><strong>Số lượng: </strong>
+        <div class="input-group ml-3">
+           <div class="btn-group" role="group" aria-label="Số lượng">
+            <button class="btn btn-outline-secondary" type="button" onclick="decrement()">-</button>
+          </div>
+          <input type="text"  class="form-control" id="quantity" name=quantity value="1" style="text-align: center;">
+       
+          
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary" type="button" onclick="increment() ">+</button>
+          </div>
+        </div>
+         <p>123 sản phẩm có sẵn</p>
+      </li>
+     
+    </ul>
+    
+    
+    <button type="submit" class="btn btn-primary btn-lg mr-2"><i class="fas fa-shopping-cart"></i> Thêm vào giỏ hàng</button>
 
-			<div class="dp_area_order">
-				<a class="dp_buy_now"> <b><i class="fa fa-cart-plus"></i>
-						Thêm vào giỏ hàng</b>
-					
-				</a>
-			</div>
-		</div>
-	</div>
-	<div class="col l-4">
-		<div class="info_product">
-			<h2>Thông tin sản phẩm</h2>
-			<ul class="info">
-				<li>
-					<p>Hãng</p>
-					<div>${product.branch}</div>
-				</li>
-				<li>
-					<p>Màu màu sắc</p>
-					<div>${product.color}</div>
-				</li>
-				<li>
-					<p>Số lượng</p>
-					<div>${quantity}</div>
-				</li>
-			
-			</ul>
-		</div>
-	</div>
+	<a href="#" class="btn btn-primary btn-lg "><span class="fas fa-shopping-bag"></span> Mua ngay</a>
+
+  </div>
+</div>
+</form>
+    
+
+      </div>
+    
+    </div>
+     <!-- hết thẻ  row1-->
+     
+     <!-- khoang cach -->
+
+<br>
+<hr>
+
+
+<!-- row2 -->
+<div class="row">
+    <div class="col col-sm-12">
+        <h4>MÔ TẢ SẢN PHẨM</h4>
+    </div>
+    <div class="col col-sm-12">
+        <p>GIỚI THIỆU SẢN PHẨM VÍ NAM ĐẸP
+            VÍ NAM ĐẸP DÁNG NGANG THỜI TRANG HÀNG HIỆU CAO CẤP
+            ĐẶC ĐIỂM NỔI BẬT
+            Chất liệu da cao cấp
+            - Sản phẩm ví da được làm từ da cao cấp mềm mại, sang trọng và có thời gian sử dụng lâu dài
+            - Màu sắc đen nâu nam tính, dễ phối đồ
+            - Thiết kế ví tinh tế, nam tính
+            - Ví có kiểu dáng ngang đơn giản và nam tính nhưng tiện lợi trong việc lưu giữ tiền bạc, giấy tờ xe, thẻ
+            ATM, hình ảnh lưu niệm..
+            Kích thước
+           </p>
+    </div>
+
+</div>
+     
+     
+     
+     
+     <!--hết row 2  -->
+  </div>
+  
+  
+  
+  
+  <script>
+  function increment() {
+    var quantity = parseInt(document.getElementById("quantity").value);
+    document.getElementById("quantity").value = quantity + 1;
+  }
+  function decrement() {
+    var quantity = parseInt(document.getElementById("quantity").value);
+    if(quantity > 1){
+        document.getElementById("quantity").value = quantity - 1;
+    }
+  }
+</script>
 </body>
+
 </html>
+

@@ -18,4 +18,5 @@ public interface IProductDao {
 	long getQuantityProductsContainingString(String name);
 	
 	Product getProductById(String id);
+	List<Product>getListProducts(Boolean trangthai);
 }

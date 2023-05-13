@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import management.dao.IProductDao;
+import management.entity.Bill;
 import management.entity.Product;
 
 @Repository
@@ -126,4 +127,21 @@ public class ProductDaoImpl implements IProductDao {
 		return (Product) query.list().get(0);
 	}
 
+	@Override
+	public List<Product> getListProducts(Boolean trangthai) {
+		Session session = sessionFactory.openSession();
+		
+		String hgl = "From Product where status=?";
+		
+		Query query = session.createQuery(hgl);
+		query.setParameter(0, trangthai);
+		
+		List<Product> list = query.list();
+		session.close(); 
+		//System.out.println("Danh sach có: "+list.size()+" sp");
+		
+		return list;
+	}
+
+	
 }

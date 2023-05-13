@@ -1,0 +1,238 @@
+package management.dao.impl;
+
+
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
+
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.servlet.mvc.method.annotation.ViewMethodReturnValueHandler;
+
+import management.dao.IAccountDao;
+import management.dao.ICustomerDao;
+import management.dao.IDetailsCartDao;
+import management.dao.IRoleDao;
+import management.entity.Account;
+import management.entity.Bill;
+import management.entity.DetailsCart;
+import management.entity.Role;
+import management.entity.Staff;
+
+@Repository  
+@Transactional
+public class DetailsCartImpl implements IDetailsCartDao{
+	
+	
+	
+	@Autowired
+	private SessionFactory sessionFactory;
+	
+	@Autowired
+	private ICustomerDao customerDao;
+	
+	@Autowired
+	private IRoleDao roleDao;
+
+
+
+	@Override
+	public boolean deleteProductfor_(Long id) {
+		 Session session = sessionFactory.openSession();
+		    Transaction tx = null;
+		    
+		    try {
+		        tx = session.beginTransaction();
+		        DetailsCart detailsCart = (DetailsCart) session.get(DetailsCart.class, id);
+		        
+		        if (detailsCart != null && detailsCart.getBill() == null) {
+		            session.delete(detailsCart);
+		            tx.commit();
+		            return true;
+		        } else {
+		            return false;
+		        }
+		    } catch (Exception e) {
+		        if (tx != null) tx.rollback();
+		        e.printStackTrace();
+		        return false;
+		    } finally {
+		        session.close();
+		    }
+	}
+
+	
+
+	@Override
+	public void updateDetailsCart(int id) {
+		
+		
+	}
+
+
+
+	@Override
+	public boolean addProductfor_(DetailsCart DetailsCart) {
+		Session session = sessionFactory.openSession();
+	    Transaction tx = null;
+	    
+	    try {
+	        tx = session.beginTransaction();
+	        session.save(DetailsCart); 
+	       
+	        tx.commit(); 
+	        return true;
+	       
+	       
+	    } catch (Exception e) {
+	       
+	            tx.rollback(); 
+	           
+	        
+	        
+	        e.printStackTrace();
+	        return false;
+	    } finally {
+	        
+	            session.close(); 
+	       
+	    }
+		
+		
+	}
+
+
+
+	@Override
+	public List<DetailsCart> getDetailsCart() {
+		Session session = sessionFactory.openSession();
+
+		String hgl = "FROM DetailsCart B WHERE B.bill = null";
+
+		Query query = session.createQuery(hgl);
+
+		List<DetailsCart> list = query.list();
+		session.close();
+
+		return list;
+	}
+
+
+
+	@Override
+	public DetailsCart checkSP_cart(String maSP) {
+		Session session = sessionFactory.openSession();
+	    String hql = "FROM DetailsCart dc WHERE dc.detailsUpdatePrice.id.productId = :maSP";
+	    Query query = session.createQuery(hql);
+	    query.setParameter("maSP", maSP);
+	    List<DetailsCart> n = query.list();
+	    session.close();
+	    System.out.println("Số lượng sản phẩm trong giỏ hàng: " + n.size());
+
+	    if (n.size() > 0) return n.get(0);
+	    else return null;
+	}
+
+
+
+	@Override
+	public long getID(String masp) {
+		 Session session = sessionFactory.openSession();
+		    String hql = "SELECT dc.id FROM DetailsCart dc WHERE dc.detailsUpdatePrice.id.productId = :maSP AND dc.bill IS NULL";
+		    Query query = session.createQuery(hql);
+		    query.setParameter("maSP", masp);
+		    List<Long> resultList = query.list();
+		    session.close();
+		    System.out.println("Số lượng sản phẩm trong giỏ hàng: " + resultList.size());
+
+		    if (!resultList.isEmpty()) {
+		        return resultList.get(0);
+		    } else {
+		        return 0;
+		    }
+	}
+
+
+
+	@Override
+	public void updateQuantityById(Long id, Integer newQuantity) {
+		Session session = sessionFactory.openSession();
+	    Transaction tx = null;
+	    try {
+	        tx = session.beginTransaction();
+	        String hql = "UPDATE DetailsCart dc SET dc.quantity = :newQuantity WHERE dc.id = :id";
+	        Query query = session.createQuery(hql);
+	        query.setParameter("newQuantity", newQuantity);
+	        query.setParameter("id", id);
+	        int result = query.executeUpdate();
+	        tx.commit();
+	    } catch (HibernateException e) {
+	        if (tx != null) tx.rollback();
+	        e.printStackTrace();
+	    } finally {
+	        session.close();
+	    }
+		
+	}
+
+
+
+	@Override
+	public int getQuantitybyID(long id) {
+		Session session = sessionFactory.openSession();
+		String hql = "SELECT dc.quantity FROM DetailsCart dc WHERE dc.id = :id";
+		Query query = session.createQuery(hql);
+		query.setParameter("id", id);
+		Integer quantity = (Integer) query.uniqueResult();
+		session.close();
+
+		return quantity;
+
+	}
+
+
+
+	@Override
+	public Date getLatestApplicableDateByProductId(String productId) {
+		Session session = sessionFactory.openSession();
+	    String hql = "SELECT MAX(dup.id.applicableDate) FROM DetailsUpdatePrice dup JOIN dup.product p WHERE p.id = :productId";
+	    Query query = session.createQuery(hql);
+	    query.setParameter("productId", productId);
+	    Timestamp latestApplicableDate = (Timestamp) query.uniqueResult();
+	    session.close();
+	    return new Date(latestApplicableDate.getTime());
+	}
+
+
+
+	@Override
+	public void update_HD_DetailsCart(int id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+	@Override
+	public void update_Price_DetailsCart(int id) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	
+
+
+
+	
+
+	
+}
+	

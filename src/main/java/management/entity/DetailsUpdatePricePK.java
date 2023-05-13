@@ -14,5 +14,29 @@ public class DetailsUpdatePricePK implements Serializable {
 	private Date applicableDate;
 	
 	private String productId;
+
+	public Date getApplicableDate() {
+		return applicableDate;
+	}
+
+	public void setApplicableDate(Date applicableDate) {
+		this.applicableDate = applicableDate;
+	}
+
+	public String getProductId() {
+		return productId;
+	}
+
+	public void setProductId(String productId) {
+		this.productId = productId;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	public DetailsUpdatePricePK() {
+		super();
+	}
 	
 }
