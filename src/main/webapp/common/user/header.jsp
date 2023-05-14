@@ -1,70 +1,35 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
- <div class="header">
-          <div class="row">
-            <div class="col l-3">
-              <div class="header__logo">
-                <a class="header__logo-link" href="user/home">
-                  <img
-                    src="/assets/image/logo.jpg"
-                    alt="Trang chủ Smartphone Store"
-                    title="Trang chủ Smartphone Store"
-                  />
-                </a>
-              </div>
-            </div>
-            <div class="col l-6 flex-center">
-              <div class="header__search">
-                <form
-                  class="header__search__form"
-                  method="get"
-                  action="home"
-                >
-                  <div class="header__search__form--content flex-center">
-                    <input
-                      id="search-box"
-                      value="${paging.search}"
-                      name="search"
-                      autocomplete="off"
-                      type="text"
-                      placeholder="Nhập từ khóa tìm kiếm..."
-                    />
-                    <button type="submit">
-                      <i class="fa fa-search"></i>
-                      Tìm kiếm
-                    </button>
-                  </div>
-                </form>
-              </div>
-            </div>
-
-            <div class="col l-3">
-              <div class="header__tool flex-center">
-                <div class="header__tool__cart flex-center mr-10">
-                  <a
-                    class="header__tool__cart--link flex-center"
-                    href=""
-                  >
-                    <div class="header__tool__cart--icon flex-center">
-                      <i class="fa fa-shopping-cart"></i>
-                    </div>
-                    <span>Giỏ hàng</span>
-                    <span class="cart-number"></span>
-                  </a>
-                </div>
-
-                <div class="header__tool__member flex-center">
-                  <a
-                    class="header__tool__cart--link flex-center"
-                    href="/login"
-                  >
-                    <div class="header__tool__cart--icon flex-center">
-                      <i class="fa fa-user"></i>
-                    </div>
-                    <span>Đăng nhập</span>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+ <nav style="padding: 1em 1.5em;font-size: 16px;" class="navbar navbar-expand-lg navbar-dark bg-dark">
+  
+  <a class="navbar-brand" href="#">Eye Glasses Shop</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" href="/WebBanKinh"><i class="fas fa-home"></i> Trang Chủ</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/WebBanKinh/user/product/home"><i class="fas fa-glasses"></i> Sản Phẩm</a>
+      </li>
+     
+    </ul>
+    <form class="form-inline ml-auto" >
+      <input  style="width:350px; height:32px" class="form-control mr-sm-2" type="search" placeholder="Mắt kính thời trang" aria-label="Search">
+      <button style=" height:32px" class="btn btn-outline-light my-2 my-sm-0" type="submit">Tìm Kiếm</button>
+    </form>
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="#"><i class="fas fa-user"></i> Login</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#"><i class="fas fa-user-plus"></i> Sign Up</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#"><i class="fas fa-shopping-cart"></i> Cart</a>
+      </li>
+    </ul>
+  </div>
+</nav>

@@ -25,7 +25,7 @@
 	      <hr>
 	      <div class="row">
 	        <c:forEach var="s" items="${products}">
-	          <div class="col-md-4">
+	          <div class="col-md-3">
 	            <div class="card mb-4 box-shadow ">
 	              <a href="/WebBanKinh/user/product/detail/ma=${s.id}">
 	                <img class="card-img-top" src="https://via.placeholder.com/300x200.png?text=${s.name}" alt="${s.name}">

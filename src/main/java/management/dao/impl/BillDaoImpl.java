@@ -1,5 +1,6 @@
 package management.dao.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -98,6 +99,35 @@ public class BillDaoImpl implements IBillDao{
 		}
 		
 
+		
+	}
+	@Override
+	public Bill create_Bill(Bill bill) {
+		
+		
+		
+		Session session = sessionFactory.openSession();
+	    Transaction tx = null;
+	    
+	    try {
+	        tx = session.beginTransaction();
+	       
+	        session.save(bill); 
+	        tx.commit(); 
+	        return bill;
+	       
+	       
+	    } catch (Exception e) {
+	       
+	            tx.rollback(); 
+	            
+	        e.printStackTrace();
+	        return null;
+	    } finally {
+	        
+	            session.close(); 
+	       
+	    }
 		
 	}
 	

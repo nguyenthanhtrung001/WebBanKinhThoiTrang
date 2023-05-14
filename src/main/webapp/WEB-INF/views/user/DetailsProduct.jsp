@@ -43,15 +43,17 @@
         <li class="list-group-item"><strong>Số lượng: </strong>
         <div class="input-group ml-3">
            <div class="btn-group" role="group" aria-label="Số lượng">
-            <button class="btn btn-outline-secondary" type="button" onclick="decrement()">-</button>
-          </div>
-          <input type="text"  class="form-control" id="quantity" name=quantity value="1" style="text-align: center;">
+            <button  class="btn btn-outline-secondary" type="button" onclick="decrement()">-</button>
+         
+          <input   type="text"  class="form-control" id="quantity" name=quantity value="1" style="text-align: center;width:40px;">
        
           
           <div class="input-group-append">
             <button class="btn btn-outline-secondary" type="button" onclick="increment() ">+</button>
           </div>
+          
         </div>
+         </div>
          <p>123 sản phẩm có sẵn</p>
       </li>
      
@@ -95,7 +97,13 @@
             ATM, hình ảnh lưu niệm..
             Kích thước
            </p>
+           <br>
+        <br>
+        <br>
+        <br>
     </div>
+   
+    
 
 </div>
      

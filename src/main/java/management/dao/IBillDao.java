@@ -14,4 +14,5 @@ public interface IBillDao {
 	
 	public Bill getBill(int id);
 	public void updateStatus(int idBill, int statusNew);
+	public Bill create_Bill(Bill bill);
 }

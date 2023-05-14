@@ -4,6 +4,7 @@ import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -25,9 +26,11 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import management.bean.Message;
+import management.dao.IBillDao;
 import management.dao.IDetailsCartDao;
 import management.dao.IProductDao;
 import management.entity.Account;
+import management.entity.Bill;
 import management.entity.Customer;
 import management.entity.DetailsCart;
 import management.entity.DetailsUpdatePrice;
@@ -45,6 +48,9 @@ public class CartController {
 		
 		@Autowired
 		private IDetailsCartDao detailsCartDao;
+		@Autowired
+		private IBillDao billDao;
+		List<DetailsCart> listTmp=new ArrayList<>();
 		
 		@RequestMapping(value="cart",method = RequestMethod.GET)
 		public ModelAndView getcart(ModelMap model) {
@@ -139,6 +145,7 @@ public class CartController {
 	        // Redirect to the checkout page
 	        return "redirect:/user/cart";
 	    }
+		
 		@RequestMapping("cart/del_product/id={id}")
 		public String delete_product_id(ModelMap model, @PathVariable("id") String id,RedirectAttributes redirectAttributes) {
 			System.out.println("id:"+id);
@@ -146,13 +153,40 @@ public class CartController {
 			return "redirect:/user/cart";
 		}
 		
-		@RequestMapping(value="paying",method = RequestMethod.GET)
-		public ModelAndView getproducts(ModelMap model) {
-			
-			
-			
-			
+		
+		@RequestMapping(value = "cart/payingN", method = RequestMethod.POST)
+	    public ModelAndView paying(ModelMap model,@RequestParam(value = "productId", required = false) List<Long> productIds,@RequestParam("quantity") String quantity) {
+	        // Process the selected products here
+			List<DetailsCart> list=new ArrayList<DetailsCart>();
+			listTmp.clear();
+	        if (productIds != null) {
+	            for (long productId : productIds) {
+	              detailsCartDao.updateQuantityById(productId, Integer.parseInt(quantity));
+	               list.add(detailsCartDao.get_One_P_Cart_Pay(productId));
+	            }
+	        }
+	        else {
+		        System.out.println("No items selected");
+		    }
+	        listTmp=list;
+	        model.addAttribute("cart", list);
 			ModelAndView modelAndView = new ModelAndView("user/paying");
+			return modelAndView;
+	    }
+		@RequestMapping(value="cart/paying/success",method = RequestMethod.POST)
+		public ModelAndView success(ModelMap model) {
+			
+			Bill newBill=new Bill();
+			//newBill.setStaff(null);
+			newBill.setStatus(0);
+			newBill.setCreateDate(new Date());
+			billDao.create_Bill(newBill);
+			for (DetailsCart detailsCart : listTmp) {
+				detailsCartDao.update_HD_DetailsCart(detailsCart.getId(), newBill);
+			}
+			listTmp.clear();
+			
+			ModelAndView modelAndView = new ModelAndView("user/success");
 			return modelAndView;
 		}
 		

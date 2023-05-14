@@ -34,7 +34,7 @@ public class DetailsCart {
 
 	
 	public DetailsCart() {
-		super();
+		
 	}
 
 	public Long getId() {

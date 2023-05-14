@@ -12,13 +12,13 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 </head>
-<body>
+<body >
 
-    <div class="container mt-5">
+    <div class="container mt-5" >
         <div class="row">
             
 
-            <div class="col-md-6">
+            <div class="col-md-6" >
                 <div class="row">
                     <div class="col-md-12">
                 <div class="col-md-12 order-md-2 mb-4">
@@ -27,27 +27,18 @@
                     <span class="badge badge-secondary badge-pill">10</span>
                 </h4>
                 <ul class="list-group mb-3">
+                
+                   
+                 <c:forEach var="crt" items="${cart}">
                     <li class="list-group-item d-flex justify-content-between lh-condensed">
                         <div>
-                            <h6 class="my-0">Mắt kính x2</h6>
-                            <small class="text-muted">Miêu tả sản phẩm 1</small>
-                        </div>
-                        <span class="text-muted">$12</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between lh-condensed">
-                        <div>
-                            <h6 class="my-0">Sản phẩm x3</h6>
-                            <small class="text-muted">Miêu tả sản phẩm 2</small>
-                        </div>
-                        <span class="text-muted">$8</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between lh-condensed">
-                        <div>
-                            <h6 class="my-0">Sản phẩm 3</h6>
+                            <h6 class="my-0">${crt.detailsUpdatePrice.product.name} <strong>x${crt.quantity}</strong></h6>
                             <small class="text-muted">Miêu tả sản phẩm 3</small>
                         </div>
-                        <span class="text-muted">$5</span>
+                        <span class="text-muted">${crt.detailsUpdatePrice.getPrice_VND()}</span>
                     </li>
+                </c:forEach>
+                    
                     <li class="list-group-item d-flex justify-content-between bg-light">
                         <div class="text-success">
                             <h6 class="my-0">Mã giảm giá</h6>
@@ -79,7 +70,7 @@
 
             <div class="col-md-6">
                 <h4 class="mb-3">Thông tin thanh toán</h4>
-                <form>
+                <form method="post" action="paying/success">
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="firstName">Họ</label>
@@ -102,7 +93,7 @@
                          <div class="col-md-5 mb-3">
                             <label for="country">Quốc gia</label>
                             <select class="custom-select d-block w-100" id="country" required>
-                                <option value="">Việt Nam</option>
+                                <option value="Việt Nam">Việt Nam</option>
                                 
                             </select>
                         </div>

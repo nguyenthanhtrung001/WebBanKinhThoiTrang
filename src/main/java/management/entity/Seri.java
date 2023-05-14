@@ -34,13 +34,15 @@ public class Seri {
 	@Column(name = "NGAYBAN")
 	private Date saleDate;
 	
-	@OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+	@ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
 	@JoinColumn(name = "MASP",referencedColumnName = "MASP")
 	private Product product;
 	
 	@ManyToOne
 	@JoinColumn(name = "MAPN")
 	private Receipt receipt;
+	
+	
 	
 	@OneToMany(mappedBy = "seri")
 	private List<Warranty> warranties = new ArrayList<Warranty>();

@@ -36,12 +36,7 @@ public class DetailsCartImpl implements IDetailsCartDao{
 	@Autowired
 	private SessionFactory sessionFactory;
 	
-	@Autowired
-	private ICustomerDao customerDao;
 	
-	@Autowired
-	private IRoleDao roleDao;
-
 
 
 	@Override
@@ -73,7 +68,6 @@ public class DetailsCartImpl implements IDetailsCartDao{
 
 	@Override
 	public void updateDetailsCart(int id) {
-		
 		
 	}
 
@@ -130,7 +124,7 @@ public class DetailsCartImpl implements IDetailsCartDao{
 	@Override
 	public DetailsCart checkSP_cart(String maSP) {
 		Session session = sessionFactory.openSession();
-	    String hql = "FROM DetailsCart dc WHERE dc.detailsUpdatePrice.id.productId = :maSP";
+	    String hql = "FROM DetailsCart dc WHERE dc.detailsUpdatePrice.id.productId = :maSP and dc.bill=null";
 	    Query query = session.createQuery(hql);
 	    query.setParameter("maSP", maSP);
 	    List<DetailsCart> n = query.list();
@@ -188,14 +182,23 @@ public class DetailsCartImpl implements IDetailsCartDao{
 	@Override
 	public int getQuantitybyID(long id) {
 		Session session = sessionFactory.openSession();
-		String hql = "SELECT dc.quantity FROM DetailsCart dc WHERE dc.id = :id";
+		String hql = "SELECT dc.quantity FROM DetailsCart dc WHERE dc.id = :id and dc.bill=null";
 		Query query = session.createQuery(hql);
 		query.setParameter("id", id);
-		Integer quantity = (Integer) query.uniqueResult();
-		session.close();
+		try {
+			Integer quantity = (Integer) query.uniqueResult();
+			
+			return quantity;
+		} catch (Exception e) {
+			return 0;
 
-		return quantity;
+		}finally {
+			session.close();
+		}
+		
+		
 
+		
 	}
 
 
@@ -214,8 +217,24 @@ public class DetailsCartImpl implements IDetailsCartDao{
 
 
 	@Override
-	public void update_HD_DetailsCart(int id) {
-		// TODO Auto-generated method stub
+	public void update_HD_DetailsCart(Long id,Bill bill) {
+		Session session = sessionFactory.openSession();
+	    Transaction tx = null;
+	    try {
+	        tx = session.beginTransaction();
+	        String hql = "UPDATE DetailsCart dc SET dc.bill = :bill WHERE dc.id = :id";
+	        Query query = session.createQuery(hql);
+	        query.setParameter("bill", bill);
+	        query.setParameter("id", id);
+	        int result = query.executeUpdate();
+	        tx.commit();
+	    } catch (HibernateException e) {
+	        if (tx != null) tx.rollback();
+	        e.printStackTrace();
+	    } finally {
+	        session.close();
+	    }
+		
 		
 	}
 
@@ -225,6 +244,20 @@ public class DetailsCartImpl implements IDetailsCartDao{
 	public void update_Price_DetailsCart(int id) {
 		// TODO Auto-generated method stub
 		
+	}
+
+
+
+	@Override
+	public DetailsCart get_One_P_Cart_Pay(Long id) {
+		Session session = sessionFactory.openSession();
+		String hql = "FROM DetailsCart WHERE id = :id";
+		Query query = session.createQuery(hql);
+		query.setParameter("id", id);
+		DetailsCart p = (DetailsCart) query.uniqueResult();
+		session.close();
+
+		return p;
 	}
 	
 	

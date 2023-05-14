@@ -43,8 +43,8 @@ public class Product {
 	@Column(name = "THOIGIANTRAHANG", length = 10)
 	private String deliveryTime;
 	
-	@OneToOne(mappedBy = "product")
-	private Seri seri;
+	@OneToMany(mappedBy = "product")
+	private Set<Seri> seri; 
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "MADM")
@@ -116,11 +116,13 @@ public class Product {
 		this.deliveryTime = deliveryTime;
 	}
 
-	public Seri getSeri() {
+	
+
+	public Set<Seri> getSeri() {
 		return seri;
 	}
 
-	public void setSeri(Seri seri) {
+	public void setSeri(Set<Seri> seri) {
 		this.seri = seri;
 	}
 
