@@ -1,9 +1,13 @@
 package management.dao;
 
+
 import java.util.List;
+
+import org.springframework.stereotype.Repository;
 
 import management.entity.Product;
 
+@Repository
 public interface IProductDao {
 	List<Product> getProductsIsAcctive(boolean b,int position, int pageSize);
 	
@@ -18,5 +22,9 @@ public interface IProductDao {
 	long getQuantityProductsContainingString(String name);
 	
 	Product getProductById(String id);
+	
+	public double get_Price_new(String id);
+	
 	List<Product>getListProducts(Boolean trangthai);
+	List<Product>getListProducts(Boolean trangthai,String loai);
 }

@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
@@ -18,9 +20,10 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Table(name = "KHACH_HANG")
 public class Customer {
 	@Id
-	@Column(name = "MAKH", length = 10)
-	private String id;
-	
+	@Column(name = "MAKH")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+		
 	@Column(name = "HO", length = 50)
 	private String surname;
 	
@@ -57,13 +60,16 @@ public class Customer {
 		super();
 	}
 
-	public String getId() {
+	
+	public int getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+
+	public void setId(int id) {
 		this.id = id;
 	}
+
 
 	public String getSurname() {
 		return surname;

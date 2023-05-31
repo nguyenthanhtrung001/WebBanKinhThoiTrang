@@ -10,23 +10,24 @@
   <title>Document</title>
 </head>
 <body>
-  <div class="container">
+  <div class="container" style="font-size: 12px;">
     <div class="row mt-5">
-      <div class="col col-sm-5">
-        <a href=""><img src="https://via.placeholder.com/300x400.png" class="img-fluid" alt=""></a>
+      <div class="col col-sm-5" style="height: 320px;">
+        <a href=""><img style="height: 320px;" class="card-img-top img-fluid img-circle" src="<c:url value='/templates/image/user/${product.getProduct().getImage()}'/>"
+								alt="${product.getProduct().getName()}"> </a>
       </div>
       <div class="col col-sm-7">
-      <form method="post" action="/WebBanKinh/user/cart/add/id=${product.id}">
+      <form method="post" action="/WebBanKinh/user/cart/add/id=${product.getProduct().getId()}">
        
        
        <div class="card">
   
   <div class="card-body">
-    <h1 style="margin-top: 0;" class="card-title">${product.name} </h1>
+    <h1 style="margin-top: 0;" class="card-title">${product.getProduct().getName()} </h1>
     <p class="card-text">Một chiếc đồng hồ thời trang sẽ làm tôn lên phong cách của bạn khi kết hợp với mắt kính thời trang.</p>
     <ul class="list-group list-group-flush">
-      <li class="list-group-item"><strong>Thương Hiệu:</strong> ${product.branch }</li>
-      <li class="list-group-item"><strong>Giá: </strong> 1.000.000 VNĐ</li>
+      <li class="list-group-item"><strong>Thương Hiệu:</strong> ${product.getProduct().getBranch()}</li>
+      <li class="list-group-item"><strong>Giá: </strong>${product.getPrice_VND()}</li>
       <li class="list-group-item"><strong>Màu sắc: </strong>
         <div class="btn-group" role="group" aria-label="Màu sắc">
           <button type="button" class="btn btn-link ">Đen</button>
@@ -59,7 +60,7 @@
      
     </ul>
     
-    
+     
     <button type="submit" class="btn btn-primary btn-lg mr-2"><i class="fas fa-shopping-cart"></i> Thêm vào giỏ hàng</button>
 
 	<a href="#" class="btn btn-primary btn-lg "><span class="fas fa-shopping-bag"></span> Mua ngay</a>
@@ -86,16 +87,15 @@
         <h4>MÔ TẢ SẢN PHẨM</h4>
     </div>
     <div class="col col-sm-12">
-        <p>GIỚI THIỆU SẢN PHẨM VÍ NAM ĐẸP
-            VÍ NAM ĐẸP DÁNG NGANG THỜI TRANG HÀNG HIỆU CAO CẤP
-            ĐẶC ĐIỂM NỔI BẬT
-            Chất liệu da cao cấp
-            - Sản phẩm ví da được làm từ da cao cấp mềm mại, sang trọng và có thời gian sử dụng lâu dài
-            - Màu sắc đen nâu nam tính, dễ phối đồ
-            - Thiết kế ví tinh tế, nam tính
-            - Ví có kiểu dáng ngang đơn giản và nam tính nhưng tiện lợi trong việc lưu giữ tiền bạc, giấy tờ xe, thẻ
-            ATM, hình ảnh lưu niệm..
-            Kích thước
+    	
+        <p>GIỚI THIỆU SẢN PHẨM MẮT KÍNH
+           Một chiếc đồng hồ thời trang là một sản phẩm kết hợp giữa thời trang và chức năng đo thời gian. Nó thường được thiết kế với phong cách đẹp mắt, sang trọng và thể hiện cái nhìn riêng về thẩm mỹ của người sử dụng.
+
+Về hình dạng, đồng hồ thời trang có nhiều loại khác nhau, từ đồng hồ tròn truyền thống đến các dạng hình vuông, chữ nhật, ovan, hay ngược lại, thậm chí có thể có các hình dạng độc đáo và sáng tạo. Vỏ đồng hồ có thể được làm từ các vật liệu như thép không gỉ, titan, vàng hoặc bạc. Mặt đồng hồ thường được bảo vệ bằng kính sapphire hoặc kính khoáng chất chống trầy xước.
+
+Đồng hồ thời trang thường có các dây đeo đa dạng, bao gồm dây da, dây kim loại, dây cao su hoặc các dạng dây đeo đặc biệt khác như dây đeo bằng vải, da cá sấu hay dây đeo được trang trí bằng các hạt pha lê hay đá quý. Màu sắc của dây đeo có thể linh hoạt và phối hợp với tông màu chủ đạo của thiết kế tổng thể.
+
+Mặt số của đồng hồ thời trang thường được thiết kế với sự tinh tế và chi tiết, có thể bao gồm các vạch chỉ giờ, con số La Mã, hoặc các đường cắt đặc biệt. Kim chỉ giờ và kim phút được thiết kế tinh xảo và thường được làm từ kim loại quý như vàng hoặc bạc. Đồng hồ cũng có thể có các tính năng bổ sung như đồng hồ chronograph (đồng hồ đo thời gian đoạn), lịch ngày, và chức năng chống nước.
            </p>
            <br>
         <br>

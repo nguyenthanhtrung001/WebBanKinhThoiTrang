@@ -21,15 +21,27 @@
       <button style=" height:32px" class="btn btn-outline-light my-2 my-sm-0" type="submit">Tìm Kiếm</button>
     </form>
     <ul class="navbar-nav ml-auto">
-      <li class="nav-item">
-        <a class="nav-link" href="#"><i class="fas fa-user"></i> Login</a>
+     <li class="nav-item">
+        <a class="nav-link" href="/WebBanKinh/user/cart"><i class="fas fa-shopping-cart"></i> Giỏ Hàng</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#"><i class="fas fa-user-plus"></i> Sign Up</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#"><i class="fas fa-shopping-cart"></i> Cart</a>
-      </li>
+      <% 
+    Boolean loginValue = (Boolean) session.getAttribute("login");
+    boolean isLoggedin = loginValue != null && loginValue.booleanValue();
+    
+    if (!isLoggedin) {
+%>
+    <li class="nav-item">
+        <a class="nav-link" href="/WebBanKinh/login"><i class="fas fa-user"></i> Login</a>
+    </li>
+<% } else { %>
+    <li class="nav-item">
+        <a class="nav-link" href="#"><i class="fas fa-user"></i><em> ${sessionScope.user.name}</em></a>
+    </li>
+<% } %>
+      
+     
+     
     </ul>
+   
   </div>
 </nav>

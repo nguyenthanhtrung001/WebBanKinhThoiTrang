@@ -7,85 +7,103 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Checkout - Bootstrap 4</title>
+    <title>Đơn Hàng</title>
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-</head>
-<body >
 
-    <div class="container mt-5" >
+</head>
+<body  >
+
+    <div class="container mt-5" style="font-size: 14px;">
         <div class="row">
             
 
-            <div class="col-md-6" >
+           <div class="col-md-6">
                 <div class="row">
                     <div class="col-md-12">
-                <div class="col-md-12 order-md-2 mb-4">
-                <h4 class="d-flex justify-content-between align-items-center mb-3">
-                    <span class="text-muted">Danh sách đơn hàng</span>
-                    <span class="badge badge-secondary badge-pill">10</span>
-                </h4>
-                <ul class="list-group mb-3">
-                
-                   
-                 <c:forEach var="crt" items="${cart}">
-                    <li class="list-group-item d-flex justify-content-between lh-condensed">
-                        <div>
-                            <h6 class="my-0">${crt.detailsUpdatePrice.product.name} <strong>x${crt.quantity}</strong></h6>
-                            <small class="text-muted">Miêu tả sản phẩm 3</small>
-                        </div>
-                        <span class="text-muted">${crt.detailsUpdatePrice.getPrice_VND()}</span>
-                    </li>
-                </c:forEach>
-                    
-                    <li class="list-group-item d-flex justify-content-between bg-light">
-                        <div class="text-success">
-                            <h6 class="my-0">Mã giảm giá</h6>
-                            <small>EXAMPLECODE</small>
-                        </div>
-                        <span class="text-success">-$5</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between">
-                        <span>Tổng (USD)</span>
-                        <strong>$20</strong>
-                    </li>
-                </ul>
+                        <div class="col-md-12 order-md-2 mb-4">
+                            <h4 class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="text-muted">Danh sách đơn hàng</span>
+                                <span class="badge badge-secondary badge-pill">10</span>
+                            </h4>
+                            <ul class="list-group mb-3">
+                                <!-- Trước vòng lặp forEach, đặt biến totalAmount và gán giá trị ban đầu là 0 -->
+                                <c:set var="totalAmount" value="0" />
+                                 <c:set var="voucher" value="0" />
 
-                <form class="card p-2">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Mã giảm giá">
-                        <div class="input-group-append">
-                            <button type="submit" class="btn btn-secondary">Áp dụng</button>
+                                <c:forEach var="crt" items="${cart}">
+                                    <!-- Lấy giá tiền của sản phẩm và số lượng tương ứng -->
+                                    <c:set var="productPrice" value="${crt.detailsUpdatePrice.getPrice()}" />
+                                    <c:set var="productQuantity" value="${crt.quantity}" />
+
+                                    <!-- Tính tổng tiền cho từng sản phẩm -->
+                                    <c:set var="productTotal" value="${productPrice * productQuantity}" />
+
+                                    <!-- Cộng tổng tiền cho từng sản phẩm vào biến totalAmount -->
+                                    <c:set var="totalAmount" value="${totalAmount + productTotal}" />
+
+                                    <li class="list-group-item d-flex justify-content-between lh-condensed">
+                                        <div>
+                                            <h5 class="my-0">${crt.detailsUpdatePrice.product.name} <strong>x${crt.quantity}</strong></h5>
+                                            <small class="text-muted">Giá: ${crt.detailsUpdatePrice.getPrice_VND()} </small>
+                                        </div>
+                                       <span class="text-muted">${crt.detailsUpdatePrice.getPrice() * crt.quantity} VND</span>
+
+                                    </li>
+                                </c:forEach>
+									
+									 <li id="selectedPromotionItem" class="list-group-item d-flex justify-content-between bg-light">
+									    <div class="text-success">
+									        <h6 class="my-0">Mã giảm giá</h6>
+									        <small id="selectedPromotionName"><i>Nhấn vào áp dụng để có các mã giảm giá</i></small>
+									    </div>
+									    <span class="text-success" id="selectedPromotionAmount">0 VND</span>
+									</li>
+									
+                                <!-- Định dạng tiền tệ Việt Nam -->
+                                <li class="list-group-item d-flex justify-content-between">
+                                    <span>Tổng (VND)</span>
+                                   <input id="voucherInput" name="voucher" value="${totalAmount} VND" readonly style="font-weight: bold; text-align: right;" />
+
+                                   
+                                </li>
+                               
+
+                                <!-- Mã giảm giá -->
+                                <li class="list-group-item d-flex justify-content-between">
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#promoModal">
+                                        Áp dụng mã giảm giá
+                                    </button>
+                                </li>
+                            </ul>
+
+                            
                         </div>
                     </div>
-                </form>
-            </div>
-            </div>
                 </div>
-                 
-
             </div>
-
-
-            <div class="col-md-6">
+            
+            
+             <!-- thông tin khách h -->
+            <div class="col-md-6" style="font-size: 13px;">
                 <h4 class="mb-3">Thông tin thanh toán</h4>
                 <form method="post" action="paying/success">
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="firstName">Họ</label>
-                            <input type="text" class="form-control" id="firstName" placeholder="" value="" required>
+                            <input type="text" class="form-control" id="firstName" placeholder="" value="TMP" required>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="lastName">Tên</label>
-                            <input type="text" class="form-control" id="lastName" placeholder="" value="" required>
+                            <input type="text" class="form-control" id="lastName" placeholder="" value="${sessionScope.user.name}" required>
                         </div>
                     </div>
 
 
                     <div class="mb-3">
                         <label for="phone">Số điện thoại</label>
-                        <input type="text" class="form-control" id="address" placeholder="Nhập số điện thoại" required>
+                        <input type="text" class="form-control" id="address" value="${sessionScope.user.phoneNumber}"  placeholder="Nhập số điện thoại" required>
                     </div>
 
                      <div class="row">
@@ -150,10 +168,60 @@
     </div>
 </div>
 
+
+
+
+
+<!-- Modal mã giảm giá -->
+<div class="modal fade " id="promoModal" tabindex="-1" role="dialog" aria-labelledby="promoModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="promoModalLabel">Mã giảm giá</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Nội dung mã giảm giá -->
+               <ul class="list-group">
+    <c:forEach var="promotion" items="${listPromotion}">
+        <li class="list-group-item d-flex justify-content-between bg-light">
+            <div class="text-success">
+                <h6 class="my-0">Mã giảm giá</h6>
+                <small>${promotion.name}</small>
+            </div>
+            <span class="text-success">${promotion.getPromotionLitmit_VND()}</span>
+            <button class="btn btn-primary" class="close" data-dismiss="modal" aria-label="Close" onclick="selectPromotion('${promotion.name}','${promotion.getPromotionLitmit()}','${totalAmount }')">Chọn</button>
+        </li>
+    </c:forEach>
+</ul>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button"  class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+function selectPromotion(promotionName, promotionVoucher, total) {
+    document.getElementById("selectedPromotionName").textContent = promotionName;
+    
+    document.getElementById("selectedPromotionAmount").textContent = "-" + promotionVoucher.toLocaleString("vi-VN")+" VND";
+
+    var formattedTotal = (total - promotionVoucher).toLocaleString("vi-VN");
+    document.getElementById("voucherInput").value = formattedTotal+" VND";
+}
+</script>
+
 <!-- jQuery và các plugin của Bootstrap 4 -->
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
 </body>
 </html>
 

@@ -10,5 +10,6 @@ public interface IStaffDao {
 	List<Staff>getListStaff(int status);
 	public void addStaff(Staff staff,Account account);
 	public void updateStaff(Staff staff,Account account);
+	public Staff getStaff(String email);
 	
 }

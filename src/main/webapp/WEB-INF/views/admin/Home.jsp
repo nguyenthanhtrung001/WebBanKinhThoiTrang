@@ -1,3 +1,4 @@
+<%@ include file="/common/taglib.jsp"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -37,7 +38,7 @@
 							<div class="info-box-content">
 
 								<span class="info-box-text">Doanh Thu</span> <span
-									class="info-box-number"> 0 <small>%</small>
+									class="info-box-number"> ${total} 
 								</span>
 
 
@@ -97,31 +98,32 @@
 				<div class="row">
 					<div class="col-md-12 col-lg-12 col-sm-12">
 						<div class="white-box">
-							<div class="d-md-flex mb-3">
-								<h4 class="box-title mb-0">Top 10 Sản Phẩm Danh Thu Cao</h4>
+							<div class="d-md-flex mb-3 ml-3" >
+								<h4 class="box-title mb-0" >Top 5 Sản Phẩm Bán Chạy</h4>
 								<div class="col-md-3 col-sm-4 col-xs-6 ms-auto"></div>
 							</div>
-							<div class="table-responsive">
-								<table class="table no-wrap">
+							<div class="table-responsive ">
+								<table class="table no-wrap ml-4">
 									<thead>
 										<tr>
 											<th class="border-top-0">STT</th>
 											<th class="border-top-0">Hãng</th>
 											<th class="border-top-0">Tên Sản Phẩm</th>
-											<th class="border-top-0">Thời Gian Bảo Hành</th>
+											<th class="border-top-0">Màu Sắc</th>
+											<th class="border-top-0">Bảo Hành</th>
 
 										</tr>
 									</thead>
 									<tbody>
-										<c:forEach var="p" items="${phim}">
-											<tr>
-												<td>${p.maPhim}</td>
-												<td class="txt-oflo">${p.tenPhim }</td>
-												<td>${p.maTT==1?"Đang chiếu":"Sắp chiếu" }</td>
-												<td class="txt-oflo">${p.ngayKC }</td>
-
-											</tr>
-
+										<c:forEach var="p" items="${listTop}" varStatus="status">
+										    <tr>
+										        <td>${status.index + 1}</td>
+										        <td class="txt-oflo">${p.branch}</td>
+										        <td>${p.name}</td>
+										         <td>${p.color}</td>
+										        <td class="txt-oflo">${p.warrantyPeriod} Tháng</td>
+										  		
+										    </tr>
 										</c:forEach>
 									</tbody>
 								</table>

@@ -15,7 +15,7 @@
 </head>
 <body>
 
-	<div class="container">
+	<div class="container"style="font-size: 16px;">
 	<div class="row">
 	<div class="col col-md-2"></div>
 	
@@ -51,7 +51,7 @@
                         <td class="total-price">${crt.detailsUpdatePrice.price * crt.quantity} VNĐ</td>
                        <td>
 						  <a href="cart/del_product/id=${crt.id}">
-						    <button type="button" class="btn btn-danger remove-item">Xóa</button>
+						    <button type="button" class="btn btn-danger remove-item">Xóa </button>
 						  </a>
 						</td>
 
@@ -62,7 +62,7 @@
         <div class="text-right">
             <a href="/WebBanKinh/user/product/home" type="button" class="btn btn-primary">Tiếp tục mua hàng</a>
             <button type="submit" class="btn btn-success">Thanh toán</button>
-           <button type="button" id="remove-selected-items" class="btn btn-danger" style="display:none;">Xóa các mục đã chọn</button>
+           
         </div>
     </form>
 </div>
@@ -91,10 +91,7 @@
             $('input[type="checkbox"]').prop('checked', checked);
         });
      
-     // Xử lý sự kiện khi nút "Xóa các mục đã chọn" được click
-        $('#remove-selected-items').click(function() {
-            $('.item-checkbox:checked').closest('tr').remove();
-        });
+     
      // Xử lý sự kiện khi checkbox "select all checkbox" được chọn
         $('#select-all-checkbox').change(function() {
             var checked = $(this).prop('checked');
@@ -115,12 +112,7 @@
             }
         });
 
-        // Xử lý sự kiện khi nút "Xóa các mục đã chọn" được click
-        $('#remove-selected-items').click(function() {
-            $('.item-checkbox:checked').closest('tr').remove();
-            $('#select-all-checkbox').prop('checked', false);
-            $(this).hide();
-        });
+       
      // Xử lý sự kiện khi giá trị của ô input thay đổi
         $('.quantity-input').on('input', function() {
         var quantity = $(this).val();

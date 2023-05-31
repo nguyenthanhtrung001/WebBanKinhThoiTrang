@@ -89,4 +89,20 @@ public class StaffDaoImpl implements IStaffDao  {
 		
 	}
 
+
+
+	
+	@Override
+	public Staff getStaff(String email) {
+	email = email.trim();
+	Session session = sessionFactory.openSession();
+	String hql = "FROM Staff WHERE account.email = :email";
+	Query query = session.createQuery(hql);
+	query.setParameter("email", email);
+	Staff staff = (Staff) query.uniqueResult();
+	session.close();
+	return staff;
+	}
+	
+
 }

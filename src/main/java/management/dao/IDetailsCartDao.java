@@ -16,7 +16,7 @@ public interface IDetailsCartDao {
 	
 	public boolean addProductfor_(DetailsCart DetailsCart);
 	public boolean deleteProductfor_(Long id);
-	public List<DetailsCart> getDetailsCart(); 
+	public List<DetailsCart> getDetailsCart(int Kh); 
 	public DetailsCart get_One_P_Cart_Pay(Long id); 
 	
 	public void updateDetailsCart(int id);
@@ -27,4 +27,6 @@ public interface IDetailsCartDao {
 	public void updateQuantityById(Long id, Integer newQuantity);
 	public int getQuantitybyID(long id) ;
 	public Date getLatestApplicableDateByProductId(String productId);
+	public String get_name_customer_by_IDHD(int id);
+	public double getTotalAmountOfBillItems();
 	}

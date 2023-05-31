@@ -63,16 +63,15 @@ public class BillDaoImpl implements IBillDao{
 	}
 	@Override
 	public Bill getBill(int id) {
-		Session session = sessionFactory.openSession();
-		String hql = "FROM Bill where id=:id";
-		Query query = session.createQuery(hql);
-		query.setParameter("id", id+"");
-		Bill n =  (Bill) query.list().get(0);
-		
-		session.close();
-		
-		return n;
+	    Session session = sessionFactory.openSession();
+	    String hql = "FROM Bill WHERE id = :id";
+	    Query query = session.createQuery(hql);
+	    query.setParameter("id", id);
+	    Bill bill = (Bill) query.uniqueResult();
+	    session.close();
+	    return bill;
 	}
+
 	@Override
 	public void updateStatus(int billId, int newStatus) {
 		Session session = sessionFactory.openSession();

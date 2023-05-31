@@ -36,22 +36,15 @@
                 </tr>
               </thead>
               <tbody>
+              <c:forEach var="crt" items="${cart}">
                 <tr>
-                  <td>Áo phông nam</td>
-                  <td>300.000đ</td>
-                  <td>2</td>
-                  <td>600.000đ</td>
+                  <td>${crt.detailsUpdatePrice.product.name}</td>
+                  <td>${crt.detailsUpdatePrice.getPrice_VND()}</td>
+                  <td>${crt.quantity}</td>
+                  <td>${crt.detailsUpdatePrice.getPrice() * crt.quantity} VND</td>
                 </tr>
-                <tr>
-                  <td>Quần jean nam</td>
-                  <td>500.000đ</td>
-                  <td>1</td>
-                  <td>500.000đ</td>
-                </tr>
-                <tr>
-                  <td colspan="3" class="text-right">Tổng tiền:</td>
-                  <td>1.100.000đ</td>
-                </tr>
+               
+                </c:forEach>
               </tbody>
             </table>
           </div>

@@ -161,6 +161,8 @@
 			<artifactId>chartjs</artifactId>
 			<version>4.1.2</version>
 		</dependency>
+		<!-- email-->
+		
 	</dependencies>
 
 	<build>

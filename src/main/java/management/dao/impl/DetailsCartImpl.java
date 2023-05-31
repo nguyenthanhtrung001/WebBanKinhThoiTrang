@@ -106,18 +106,20 @@ public class DetailsCartImpl implements IDetailsCartDao{
 
 
 	@Override
-	public List<DetailsCart> getDetailsCart() {
-		Session session = sessionFactory.openSession();
+	public List<DetailsCart> getDetailsCart(int kh) {
+	    Session session = sessionFactory.openSession();
 
-		String hgl = "FROM DetailsCart B WHERE B.bill = null";
+	    String hql = "FROM DetailsCart B WHERE B.bill = NULL AND B.customer.id = :kh";
 
-		Query query = session.createQuery(hgl);
+	    Query query = session.createQuery(hql);
+	    query.setParameter("kh", kh);
 
-		List<DetailsCart> list = query.list();
-		session.close();
+	    List<DetailsCart> list = query.list();
+	    session.close();
 
-		return list;
+	    return list;
 	}
+
 
 
 
@@ -259,6 +261,45 @@ public class DetailsCartImpl implements IDetailsCartDao{
 
 		return p;
 	}
+
+
+
+	@Override
+	public String get_name_customer_by_IDHD(int id) {
+	    Session session = sessionFactory.openSession();
+	    String hql = "SELECT dc.customer.name FROM DetailsCart dc WHERE dc.bill.id = :id";
+	    Query query = session.createQuery(hql);
+	    query.setParameter("id", id);
+	    String name = (String)  query.list().get(0);
+		
+	    session.close();
+	    return name;
+	}
+
+
+
+	@Override
+	public double getTotalAmountOfBillItems() {
+		Session session = sessionFactory.openSession();
+
+		String hql = "SELECT SUM(dup.price * dc.quantity) " +
+                "FROM DetailsCart dc " +
+                "JOIN dc.detailsUpdatePrice dup " +
+                "WHERE dc.bill IS NOT NULL";
+
+	    Query query = session.createQuery(hql);
+
+	    Double totalAmount = (Double) query.uniqueResult();
+
+	    session.close();
+
+	    return totalAmount != null ? totalAmount : 0.0;
+	}
+
+
+
+
+	
 	
 	
 

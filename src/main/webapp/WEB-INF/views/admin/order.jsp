@@ -56,7 +56,7 @@
 					<div class="col-sm-6">
 						<ol class="breadcrumb float-sm-right">
 							<li class="breadcrumb-item"><a href="/admin/home">Trang Chủ</a></li>
-							<li class="breadcrumb-item active">Danh sách nhân viên</li>
+							<li class="breadcrumb-item active">Danh sách đơn hàng</li>
 						</ol>
 						
 						
@@ -71,9 +71,9 @@
 						<div class="btn-group">
 						
 						
-						<a type="submit"   class="btn btn-primary"   href="/management/admin/order" >Đang Xử Lý</a>
-						<a  type="submit" class="btn btn-primary"    href="/management/admin/order/xl"  >Đã Duyệt</a>
-						<a  type="submit" class="btn btn-primary"   href="/management/admin/order/h">Đã Hủy</a>
+						<a type="submit"   class="btn btn-primary"   href="/WebBanKinh/admin/order" >Đang Xử Lý</a>
+						<a  type="submit" class="btn btn-primary"    href="/WebBanKinh/admin/order/xl"  >Đã Duyệt</a>
+						<a  type="submit" class="btn btn-primary"   href="/WebBanKinh/admin/order/h">Đã Hủy</a>
 						<a  type="submit" class="btn btn-success" onclick="reloadPage()" ><i class="fas fa-bolt"></i></a>
 					</div>
 					</div>
@@ -127,23 +127,23 @@
 									</thead>
 
 									<tbody id="myTable">
-										<c:forEach var="bill" items="${listBill}">
+										<c:forEach var="b" items="${listBill}">
 											<tr>
-												<td>${bill.getId()}</td>
-												<td>${bill.getApplicableDate()}</td>
-												<td>${bill.getStatus() == 0 ? "Đang Xử Lý" : bill.getStatus() == 1 ? "Đã Duyệt" : "Đã Hủy"}</td>
+												<td>${b.getBill().getId()}</td>
+												<td>${b.getBill().getApplicableDate()}</td>
+												<td>${b.getBill().getStatus() == 0 ? "Đang Xử Lý" : b.getBill().getStatus() == 1 ? "Đã Duyệt" : "Đã Hủy"}</td>
 
 												<td></td>
 												<td></td>
 												
 												<td><a class="btn btn-primary float-right" style="margin: 0 2px; background: #eb7512;color: white;" data-toggle="modal"
-													data-target="#modal-edit-${bill.getId()}"> <i class="fas fa-edit"></i>
+													data-target="#modal-edit-${b.getBill().getId()}"> <i class="fas fa-edit"></i>
 												</a> 
 												
 											</tr>
 											
 											<!--  000000000000000000000000000 -->
-											<div class="modal fade" id="modal-edit-${bill.getId()}" tabindex="-1"
+											<div class="modal fade" id="modal-edit-${b.getBill().getId()}" tabindex="-1"
 												role="dialog" aria-hidden="true">
 												<div class="modal-dialog  modal-dialog-centered">
 													<div class="modal-content">
@@ -158,7 +158,7 @@
 																	<div class="bg-primary-dark block block-h-auto">
 																		<div class="row edit-product-row">
 
-																					<form  action="/management/admin/order/update"  method="POST">
+																					<form  action="/WebBanKinh/admin/order/update"  method="POST">
 																						<div class="col-sm-12">
 																							<!-- Các trường dữ liệu đơn hàng -->
 																							
@@ -166,13 +166,13 @@
 																								<label for="maDonHang">Mã đơn hàng</label> <input
 																									type="text" class="form-control" id="maDonHang"
 																									name="maDonHang" readonly
-																									value="${bill.getId()}">
+																									value="${b.getBill().getId()}">
 																							</div>
 																							<div class="form-group">
 																								<label for="tenKhachHang">Tên khách hàng</label>
 																								<input type="text" class="form-control"
 																									id="tenKhachHang" name="tenKhachHang"
-																									value="Nguyễn Thành Trung" readonly>
+																									value="${b.getName()}" readonly>
 																							</div>
 																							<div class="form-group">
 																								<label for="trangThai">Trạng thái</label> 

@@ -8,11 +8,13 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import management.dao.ICustomerDao;
+import management.entity.Account;
 import management.entity.Customer;
 
 @Repository  
@@ -79,6 +81,35 @@ public class CustomerDaoImpl implements ICustomerDao{
 		List<Customer> list = query.list();
 		
 		return list;
+	}
+
+	@Override
+	public boolean addCustomer(Customer customer, Account account) {
+		Session session = sessionFactory.openSession();
+	    Transaction tx = null;
+	    
+	    try {
+	        tx = session.beginTransaction();
+	        session.save(account); 
+	        session.save(customer); 
+	        tx.commit(); 
+	        return true;
+	       
+	       
+	    } catch (Exception e) {
+	       
+	            tx.rollback(); 
+	           
+	        
+	        
+	        e.printStackTrace();
+	        return false;
+	    } finally {
+	        
+	            session.close(); 
+	       
+	    }
+		
 	}
 	
 }

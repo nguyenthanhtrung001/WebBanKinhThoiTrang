@@ -1,5 +1,6 @@
 package management.dao.impl;
 
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import management.dao.IDetailsCartDao;
 import management.dao.IProductDao;
 import management.entity.Bill;
 import management.entity.Product;
@@ -20,6 +22,9 @@ public class ProductDaoImpl implements IProductDao {
 
 	@Autowired
 	private SessionFactory sessionFactory;
+	@Autowired
+	private IDetailsCartDao detailsCartDao;
+	
 
 	@Override
 	public List<Product> getProductsIsAcctive(boolean b, int position, int pageSize) {
@@ -141,6 +146,37 @@ public class ProductDaoImpl implements IProductDao {
 		//System.out.println("Danh sach có: "+list.size()+" sp");
 		
 		return list;
+	}
+
+	@Override
+	public double get_Price_new(String id) {
+		Date date=detailsCartDao.getLatestApplicableDateByProductId(id);
+		Session session = sessionFactory.openSession();
+		
+		String hql = "select d.price from DetailsUpdatePrice d "
+		           + "where d.id.productId = :productId and d.id.applicableDate = :applicableDate";
+		Query query = session.createQuery(hql);
+		query.setParameter("productId", id);
+		query.setParameter("applicableDate", date);
+		return (Double) query.uniqueResult();
+
+	}
+
+	@Override
+	public List<Product> getListProducts(Boolean status, String categoryId 	) {
+		Session session = sessionFactory.openSession();
+		
+		String hql = "FROM Product WHERE status = :status AND category.id = :categoryId";
+		
+		Query query = session.createQuery(hql);
+		query.setParameter("status", status);
+		query.setParameter("categoryId", categoryId);
+		
+		List<Product> productList = query.list();
+		
+		session.close(); 
+		
+		return productList;
 	}
 
 	

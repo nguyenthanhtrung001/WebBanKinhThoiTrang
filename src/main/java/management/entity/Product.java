@@ -15,9 +15,17 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.aspectj.weaver.patterns.ThisOrTargetAnnotationPointcut;
+
+
+
+
+
 @Entity
 @Table(name = "SAN_PHAM")
 public class Product {
+	
+	
 	@Id
 	@Column(name = "MASP", length = 10)
 	private String id;
@@ -159,7 +167,13 @@ public class Product {
 	}
 	
 	
-	public double getPrice() {	
-		return this.detailsUpdatePrices.get(this.detailsUpdatePrices.size() - 1).getPrice();
-	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

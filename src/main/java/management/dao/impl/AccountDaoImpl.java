@@ -33,54 +33,8 @@ public class AccountDaoImpl implements IAccountDao{
 	@Autowired
 	private IRoleDao roleDao;
 
-	@Override
-	public Account createAccountOfCustomer(Account account) {
-		
-		Session s = sessionFactory.openSession();
-		
-		try {
-			
-			s.beginTransaction();
-			
-			Role role = new Role();
-			role.setName("USER");
-			role.setId("USER");
-			
-			Long indentity = customerDao.getNumberOfCustomer();
-			
-			String idCusomer = "MAKH" + (indentity + 1);
-			
-			account.getCustomer().setId(idCusomer);
-			
-			account.getCustomer().setAccount(account);
-			
-			account.setRole(role);
-			
-			if (!roleDao.existsByName(account.getRole().getName())) {
-				
-				roleDao.createRole(account.getRole());
-				
-			}
-			
-			String saveAccount =  (String) s.save(account);
-			
-			String saveCustomer =  (String) s.save(account.getCustomer());
-			
-			s.getTransaction().commit();
-			
-			return null;
-			
-		} catch (Exception e) {
-			System.out.println(e);
-			s.getTransaction().rollback();
-			
-		} finally {
-			s.close();
-		}
-		
-		return null;
-	}
-
+	
+	
 	@Override
 	public Account checkEmail(String email) {
 		Session session = sessionFactory.openSession();
@@ -152,19 +106,13 @@ public class AccountDaoImpl implements IAccountDao{
 	@Override
 	public Account getSingleAccount(String email) {
 		Session session = sessionFactory.openSession();
-		String hql = "FROM Account where email=:email";
+		String hql = "FROM Account WHERE email = :email";
 		Query query = session.createQuery(hql);
 		query.setParameter("email", email);
-		Account n =  (Account) query.list().get(0);
-		
+		Account account = (Account) query.uniqueResult();
 		session.close();
-		
-		return n;
-		
-
-	
-		
-	}
+		return account;
+		}
 
 	@Override
 	public void updateAccount(Account account) {
@@ -186,6 +134,30 @@ public class AccountDaoImpl implements IAccountDao{
 		            session.close(); 		        
 		    }
 		
+	}
+
+	@Override
+	public Account getSingleAccount(String email, String password) {
+	Session session = sessionFactory.openSession();
+	String hql = "FROM Account WHERE email = :email AND password = :password";
+	Query query = session.createQuery(hql);
+	query.setParameter("email", email);
+	query.setParameter("password", password);
+	Account account = (Account) query.uniqueResult();
+	session.close();
+	return account;
+	}
+
+	@Override
+	public Account getSingleAccountNoPass(String email) {
+		Session session = sessionFactory.openSession();
+		String hql = "FROM Account WHERE email = :email ";
+		Query query = session.createQuery(hql);
+		query.setParameter("email", email);
+		
+		Account account = (Account) query.uniqueResult();
+		session.close();
+		return account;
 	}
 }
 	

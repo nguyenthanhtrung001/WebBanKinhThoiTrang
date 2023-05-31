@@ -21,7 +21,7 @@ public class DetailsUpdatePrice {
 	private DetailsUpdatePricePK id;
 
 	@Column(name = "GIA")
-	private Double price;
+	private double price;
 	
 	@MapsId("productId")
 	@ManyToOne
@@ -46,11 +46,11 @@ public class DetailsUpdatePrice {
 		this.id = id;
 	}
 
-	public Double getPrice() {
+	public double getPrice() {
 		return price;
 	}
 
-	public void setPrice(Double price) {
+	public void setPrice(double price) {
 		this.price = price;
 	}
 

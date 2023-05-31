@@ -44,13 +44,26 @@
       <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Tìm Kiếm</button>
     </form>
     <ul class="navbar-nav ml-auto">
-      <li class="nav-item">
-        <a class="nav-link" href="#"><i class="fas fa-user"></i> Login</a>
-      </li>
+     <% 
+    Boolean loginValue = (Boolean) session.getAttribute("login");
+    boolean isLoggedin = loginValue != null && loginValue.booleanValue();
+    
+    if (!isLoggedin) {
+%>
+    <li class="nav-item">
+        <a class="nav-link" href="/WebBanKinh/login"><i class="fas fa-user"></i> Login</a>
+    </li>
+<% } else { %>
+    <li class="nav-item">
+        <a class="nav-link" href="#"><i class="fas fa-user"></i><em> ${sessionScope.user.name}</em></a>
+    </li>
+<% } %>
+
    
       <li class="nav-item">
         <a class="nav-link" href="#"><i class="fas fa-shopping-cart"></i> Cart</a>
       </li>
+       
     </ul>
   </div>
 </nav>
@@ -100,7 +113,7 @@
 
   <div class="container">
     <div class="row">
-      <div class="col-sm-4 ">
+      <div class="col-sm-4 " >
         <img src="https://images.pexels.com/photos/2811088/pexels-photo-2811088.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="Eye Glass 1" class="img-thumbnail ">
         <h4 >Ray-Ban Wayfarer Classic</h4>
         <p>Kính được làm từ vật liệu acetate cao cấp, Kính có khả năng chống tia UV và có sẵn trong nhiều màu sắc khác nhau.</p>
@@ -115,7 +128,7 @@
        <div class="col-sm-4">
     <img src="https://images.pexels.com/photos/2887718/pexels-photo-2887718.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="Eye Glass 3" class="img-thumbnail">
     <h4>Dior Homme Blacktie227S</h4>
-    <p>Một mẫu kính mắt nam cổ điển với khung mạ vàng hoặc bạc,Kính có khả năng chống tia UV, thiết kế đơn giản nhưng sang trọng, phù hợp cho các buổi tiệc hoặc sự kiện thời trang.</p>
+    <p>Một mẫu kính mắt cổ điển với khung mạ vàng hoặc bạc,Kính có khả năng chống tia UV, thiết kế đơn giản nhưng sang trọng, phù hợp cho các buổi tiệc hoặc sự kiện thời trang.</p>
     <a href="#" class="btn btn-primary">Add to Cart</a>
 
   </div>
