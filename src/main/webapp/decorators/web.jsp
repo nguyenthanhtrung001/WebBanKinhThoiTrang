@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Cửa hàng bán mắt kính thời trang</title>
 
 <%-- <link rel="stylesheet" href="<c:url value='/resources/assets/dist/css/bootstrap.min.css'/>" /> --%>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -19,6 +19,10 @@
 <link rel="stylesheet" href='<c:url value="/templates/user/assets/css/base.css" />'>
 <link rel="stylesheet" href='<c:url value="/templates/user/assets/css/index.css" />'>
 <link rel="stylesheet" href='<c:url value="/templates/user/assets/css/detailsProduct.css"/>'>
+<link rel="stylesheet" href='<c:url value="/templates/user/assets/css/profile.css" />'>
+
+
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" crossorigin="anonymous" />
 <!-- <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
  -->

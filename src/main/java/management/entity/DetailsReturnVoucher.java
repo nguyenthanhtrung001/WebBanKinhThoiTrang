@@ -20,4 +20,5 @@ public class DetailsReturnVoucher {
 	@ManyToOne
 	@MapsId("returnVoucher")
 	private ProductReturnVoucher returnVoucher;
+	
 }

@@ -13,5 +13,8 @@ public interface ICustomerDao {
 
 	List<Customer> getListCustomer();
 	public boolean addCustomer(Customer customer,Account account);
+	
+	Customer getCustomerByEmail(String email);
+	void updateCustomer(Customer customer);
 
 }
