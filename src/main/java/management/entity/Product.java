@@ -17,10 +17,6 @@ import javax.persistence.Table;
 
 import org.aspectj.weaver.patterns.ThisOrTargetAnnotationPointcut;
 
-
-
-
-
 @Entity
 @Table(name = "SAN_PHAM")
 public class Product {
@@ -30,25 +26,34 @@ public class Product {
 	@Column(name = "MASP", length = 10)
 	private String id;
 	
-	@Column(name = "TENSP", length = 10)
+	@Column(name = "TENSP",length = 50, columnDefinition = "nvarchar(50)")
 	private String name;
 	
 	@Column(name = "HINHANH", length = 10)
 	private String image;
 	
-	@Column(name = "MAUSAC", length = 10)
+	@Column(name = "MAUSAC", length = 10,columnDefinition = "nvarchar(50)")
 	private String color;
 	
-	@Column(name = "HANG", length = 100)
+	@Column(name = "KICHTHUOC", length = 10)
+	private int size;
+	
+	@Column(name = "CHATLIEU", length = 50, columnDefinition = "nvarchar(50)")
+	private String mematerial;
+	
+	@Column(name = "MOTA", length = 5000, columnDefinition = "nvarchar(5000)")
+	private String information;
+	
+	@Column(name = "HANG", length = 100, columnDefinition = "nvarchar(100)")
 	private String branch;
 	
 	@Column(name = "TRANGTHAI")
 	private boolean status;
 	
-	@Column(name = "THOIGIANBH", length = 10)
+	@Column(name = "THOIGIANBH", length = 10, columnDefinition = "nvarchar(10)")
 	private String warrantyPeriod;
 	
-	@Column(name = "THOIGIANTRAHANG", length = 10)
+	@Column(name = "THOIGIANTRAHANG", length = 10, columnDefinition = "nvarchar(10)")
 	private String deliveryTime;
 	
 	@OneToMany(mappedBy = "product")

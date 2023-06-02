@@ -1,142 +1,179 @@
+<%@ include file="/common/taglib.jsp"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
+<c:url var="confirmBuyURL" value="receipt/confirm?listQuantity=" />
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Nhập sản phẩm về kho</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
+
 <body>
-<section class="content">
-
-			<div class="container-fluid">
-				<div class="row" style="justify-content: center;"></div>
-				<div class="col-md-12">
-					<div class="card">
-						<div class="card-header">
-							<h3 class="card-title">Chi Phiếu nhập hàng</h3>
-						</div>
-						<!-- /.card-header -->
 
 
-
-						<!-- select -->
-						<div class="card-body">
-							<form:form modelAttribute="receipt" method="POST" id="receipt"
-								action="/admin/management/receipt/add">
-								<div class="col-sm-6">
-									<div class="form-group">
-										<spring:bind path="id">
-											<div class="form-group">
-												<label for="exampleInputEmail1">Mã phiếu nhập</label>
-												<form:input type="text" path="id" />
-											</div>
-											<form:errors path="id"></form:errors>
-											<c:if test="${error != '' }">
-											${error}</c:if>
-										</spring:bind>
-
-									</div>
-								</div>
-								<div class="col-sm-6">
-									<div class="form-group">
-										<spring:bind path="supplier">
-											<div class="form-group">
-												<label for="exampleInputEmail1">Nhà cung cấp</label>
-												<form:select class="custom-select" path="supplier"
-													items="${suppliers}" itemLabel="name" itemValue="id"></form:select>
-											</div>
-											<form:errors path="supplier"></form:errors>
-										</spring:bind>
-
-									</div>
-								</div>
-								<div class="col-sm-6">
-									<div class="form-group">
-										<spring:bind path="date">
-											<div class="form-group">
-												<label for="exampleInputEmail1">Ngày lập</label>
-												<form:input type="date" path="date" />
-											</div>
-											<form:errors path="date"></form:errors>
-										</spring:bind>
-									</div>
-								</div>
-
-
-								<div class="col-sm-12">
-
-									<table id="id_table" class="table table-head-fixed text-nowrap">
-										<thead>
-											<tr>
-												<th>Tên sản phẩm</th>
-												<th>Số lượng</th>
-												<th>Đơn giá</th>
-
-											</tr>
-										</thead>
-
-										<c:forEach items="${receipt.getDetailsReceipts()}" var="dr"
-											varStatus="loop">
-											<tr>
-												<td><spring:bind
-														path="detailsReceipts[${loop.index}].product">
-														<div class="form-group">
-
-															<form:select class="custom-select"
-																path="detailsReceipts[${loop.index}].product"
-																items="${products}" itemLabel="name" itemValue="id"></form:select>
-														</div>
-														<form:errors path="detailsReceipts[${loop.index}].product"></form:errors>
-													</spring:bind></td>
-
-												<td><spring:bind
-														path="detailsReceipts[${loop.index}].quantity">
-														<div class="form-group">
-															<form:input class="form-control" type="number"
-																path="detailsReceipts[${loop.index}].quantity" />
-														</div>
-														<form:errors
-															path="detailsReceipts[${loop.index}].quantity"></form:errors>
-													</spring:bind></td>
-
-												<td><spring:bind
-														path="detailsReceipts[${loop.index}].priceImport">
-														<div class="form-group">
-															<form:input class="form-control" type="text"
-																path="detailsReceipts[${loop.index}].priceImport" />
-														</div>
-														<form:errors
-															path="detailsReceipts[${loop.index}].priceImport"></form:errors>
-													</spring:bind></td>
-											</tr>
-
-										</c:forEach>
-											<tr>
-												<td></td>
-												<td></td>
-												<td>Tổng tiền: ${receipt.sumMoney}</td>
-											</tr>
-									</table>
-
-								</div>
-								<div class=row style="justify-content: end;">
-
-									<div class="col-2">
-										<button type="submit" class="btn btn-primary">Xác
-											nhập</button>
-
-									</div>
-								</div>
-							</form:form>
-
-						</div>
-
-					</div>
-				</div>
+	<div class="container">
+		<div class="row">
+			<div class="col col-sm-12">
+				<h2 class="text-center my-4">Chi tiết phiếu nhập</h2>
 			</div>
 
 
-		</section>
+		</div>
+		<hr>
+
+		<div class="row">
+			<div class="col-sm-5">
+				<label for="state">Nhà cung cấp</label> <select name="supplier"
+					id="mySelect" class="custom-select d-block w-100" id="state"
+					required>
+					<option value="">-- Chọn nhà cung cấp --</option>
+					<c:forEach var="ncc" items="${suppliers}">
+						<option value="${ncc.id}">${ncc.name}</option>
+					</c:forEach>
+				</select>
+			</div>
+
+
+		</div>
+		<hr>
+		<div class="row">
+			<div class="col col-sm-5">
+				<div class="form-group">
+					<label for="ngaySinh">Ngày Nhập</label> <input name="date"
+						id="date" value="${ngaynhap}" class="form-control" required
+						readonly>
+
+				</div>
+			</div>
+
+		</div>
+
+
+		<hr>
+
+		<div class="col-sm-12">
+
+			<table id="id_table" class="table table-head-fixed text-nowrap">
+				<thead>
+					<tr>
+						<th>Tên sản phẩm</th>
+						<th>Số lượng</th>
+						<th>Giá nhập</th>
+						
+					</tr>
+				</thead>
+
+				<c:forEach items="${detail_receipt}" var="dr" varStatus="loop">
+					<tr>
+						<td>${dr.product.name}<input type="text" class=""
+							name="id" hidden="true" value="${dr.product.id}">
+						</td>
+						<td><input type="number" class="soLuongInput" name="soLuong"
+							value="1"></td>
+						<td><input type="number" class="giaInput" name="gia"
+							value="10.0"></td>
+
+					</tr>
+					
+
+				</c:forEach>
+				<!-- <tr>
+					<td></td>
+					<td></td>
+					<td>Tổng tiền: <span id="total"></span></td>
+				</tr> -->
+			</table>
+
+		</div>
+		<div class=row style="justify-content: end;">
+
+			<div class="col-2">
+				<button class="btn btn-primary" onclick="confirm()">Xác
+					nhập</button>
+
+			</div>
+		</div>
+
+
+
+	</div>
+	<script type="text/javascript">
+		function layGiaTri() {
+			var selectElement = document.getElementById("mySelect"); // Lấy phần tử select bằng id
+			var giaTri = selectElement.value; // Lấy giá trị của phần tử select
+			return giaTri;
+		}
+
+		function getIds() {
+			let inputs = document.getElementsByName("id");
+			var giaTri = [];
+			for (var i = 0; i < inputs.length; i++) {
+				giaTri.push(inputs[i].value);
+			}
+			return giaTri;
+		}
+
+		function getQuantities() {
+			let inputs = document.getElementsByName("soLuong");
+			var giaTri = [];
+			for (var i = 0; i < inputs.length; i++) {
+				giaTri.push(inputs[i].value);
+			}
+
+			return giaTri;
+		}
+
+		function getPrices() {
+			let inputs = document.getElementsByName("gia");
+			var giaTri = [];
+			for (var i = 0; i < inputs.length; i++) {
+				giaTri.push(inputs[i].value);
+			}
+
+			return giaTri;
+		}
+
+		function getDate() {
+			let input = document.getElementById("date");
+			return input.value;
+		}
+
+		function confirm() {
+			let listQuantitys = this.getQuantities();
+			let listPrices = this.getPrices();
+			let ids = this.getIds();
+			let date = this.getDate();
+			let supplier = this.layGiaTri();
+			console.log(listQuantitys);
+			console.log(listPrices);
+
+			window.location.href = '${confirmBuyURL}' + listQuantitys
+					+ "&listPrice=" + listPrices + "&ids=" + ids + "&date="
+					+ date + "&supplier=" + supplier
+
+			/* $.ajax({
+			 type: "POST",
+			 url: '${confirmBuyURL}' + listQuantitys + "&listPrice=" + listPrices + "&ids=" + ids + "&date=" + date,
+			 success: function(response) {
+			
+			}}) */
+		}
+
+		
+	</script>
+
 </body>
+
 </html>

@@ -24,10 +24,10 @@ public class Customer {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 		
-	@Column(name = "HO", length = 50)
+	@Column(name = "HO",columnDefinition = "nvarchar(50)")
 	private String surname;
 	
-	@Column(name = "TEN", length = 50)
+	@Column(name = "TEN",columnDefinition = "nvarchar(50)")
 	private String name;
 	
 	@Column(name = "SDT", length = 10)
