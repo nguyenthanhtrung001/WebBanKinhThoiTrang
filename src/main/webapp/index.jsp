@@ -55,7 +55,7 @@
     </li>
 <% } else { %>
     <li class="nav-item">
-        <a class="nav-link" href="#"><i class="fas fa-user"></i><em> ${sessionScope.user.name}</em></a>
+        <a class="nav-link" href="user/profile" ><i class="fas fa-user"></i><em> ${sessionScope.user.name}</em></a>
     </li>
 <% } %>
 

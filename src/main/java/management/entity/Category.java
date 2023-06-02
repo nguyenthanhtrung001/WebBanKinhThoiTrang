@@ -16,12 +16,12 @@ public class Category {
 	@Column(name = "MADM", length = 10)
 	private String id;
 	
-	@Column(name = "TENDM", length = 250)
+	@Column(name = "TENDM", columnDefinition = "nvarchar(250)")
 	private String name;
 	
-	@Column(name = "TRANGTHAI")
-	private boolean status;
-	
+//	@Column(name = "TRANGTHAI")
+//	private boolean status;
+
 	@OneToMany(mappedBy = "category")
 	private List<Product> products = new ArrayList<Product>();
 
@@ -43,14 +43,6 @@ public class Category {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public boolean isStatus() {
-		return status;
-	}
-
-	public void setStatus(boolean status) {
-		this.status = status;
 	}
 
 	public List<Product> getProducts() {

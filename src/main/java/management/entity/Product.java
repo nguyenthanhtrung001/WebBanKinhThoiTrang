@@ -1,7 +1,6 @@
 package management.entity;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -12,44 +11,42 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
-import org.aspectj.weaver.patterns.ThisOrTargetAnnotationPointcut;
-
-
-
-
 
 @Entity
 @Table(name = "SAN_PHAM")
 public class Product {
-	
-	
+
 	@Id
 	@Column(name = "MASP", length = 10)
 	private String id;
 	
-	@Column(name = "TENSP", length = 10)
-	private String name;
+	@Column(name = "TENSP", columnDefinition = "nvarchar(100)")
+	private String name; 
 	
-	@Column(name = "HINHANH", length = 10)
-	private String image;
-	
-	@Column(name = "MAUSAC", length = 10)
+	@Column(name = "MAUSAC",columnDefinition = "nvarchar(100)")
 	private String color;
 	
-	@Column(name = "HANG", length = 100)
+	@Column(name = "CHATLIEU",columnDefinition = "nvarchar(100)")
+	private String material;
+	
+	@Column(name = "KICHTHUOC")
+	private Double size;
+	
+	@Column(name = "MOTA",columnDefinition = "nvarchar(1000)")
+	private String describtion;
+	
+	@Column(name = "HANG", columnDefinition = "nvarchar(100)")
 	private String branch;
 	
 	@Column(name = "TRANGTHAI")
 	private boolean status;
 	
-	@Column(name = "THOIGIANBH", length = 10)
-	private String warrantyPeriod;
+	@Column(name = "THOIGIANBH_THANG")
+	private int warrantyPeriod;
 	
-	@Column(name = "THOIGIANTRAHANG", length = 10)
-	private String deliveryTime;
+	@Column(name = "THOIGIANTRAHANG_NGAY")
+	private int deliveryTime;
 	
 	@OneToMany(mappedBy = "product")
 	private Set<Seri> seri; 
@@ -84,20 +81,36 @@ public class Product {
 		this.name = name;
 	}
 
-	public String getImage() {
-		return image;
-	}
-
-	public void setImage(String image) {
-		this.image = image;
-	}
-
 	public String getColor() {
 		return color;
 	}
 
 	public void setColor(String color) {
 		this.color = color;
+	}
+
+	public String getMaterial() {
+		return material;
+	}
+
+	public void setMaterial(String material) {
+		this.material = material;
+	}
+
+	public Double getSize() {
+		return size;
+	}
+
+	public void setSize(Double size) {
+		this.size = size;
+	}
+
+	public String getDescribtion() {
+		return describtion;
+	}
+
+	public void setDescribtion(String describtion) {
+		this.describtion = describtion;
 	}
 
 	public String getBranch() {
@@ -108,23 +121,29 @@ public class Product {
 		this.branch = branch;
 	}
 
-	public String getWarrantyPeriod() {
+	public boolean isStatus() {
+		return status;
+	}
+
+	public void setStatus(boolean status) {
+		this.status = status;
+	}
+
+	public int getWarrantyPeriod() {
 		return warrantyPeriod;
 	}
 
-	public void setWarrantyPeriod(String warrantyPeriod) {
+	public void setWarrantyPeriod(int warrantyPeriod) {
 		this.warrantyPeriod = warrantyPeriod;
 	}
 
-	public String getDeliveryTime() {
+	public int getDeliveryTime() {
 		return deliveryTime;
 	}
 
-	public void setDeliveryTime(String deliveryTime) {
+	public void setDeliveryTime(int deliveryTime) {
 		this.deliveryTime = deliveryTime;
 	}
-
-	
 
 	public Set<Seri> getSeri() {
 		return seri;
@@ -158,22 +177,6 @@ public class Product {
 		this.detailsUpdatePrices = detailsUpdatePrices;
 	}
 
-	public boolean isStatus() {
-		return status;
-	}
-
-	public void setStatus(boolean status) {
-		this.status = status;
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 }

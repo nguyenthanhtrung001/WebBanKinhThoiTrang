@@ -112,4 +112,36 @@ public class CustomerDaoImpl implements ICustomerDao{
 		
 	}
 	
+	@Override
+	public Customer getCustomerByEmail(String email) {
+		Session s = sessionFactory.openSession();
+
+		String hql = "FROM Customer WHERE account.email = :email";
+
+		Query query = s.createQuery(hql);
+
+		query.setParameter("email", email);
+
+		return (Customer) query.uniqueResult();
+	}
+	
+	@Override
+	public void updateCustomer(Customer customer) {
+		
+		Session session = sessionFactory.openSession();
+		Transaction transaction = null;
+		try {
+			transaction = session.beginTransaction();
+			session.update(customer);		
+			transaction.commit();
+		} catch (Exception e) {
+			if (transaction != null) {
+				transaction.rollback(); 
+			}
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+	}
+	
 }

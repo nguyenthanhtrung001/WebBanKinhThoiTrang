@@ -16,13 +16,13 @@ public class Supplier {
 	@Column(name = "MANCC",length = 10)
 	private String id;
 	
-	@Column(name = "TENNCC", length = 200)
+	@Column(name = "TENNCC", columnDefinition = "nvarchar(200)")
 	private String name;
 	
 	@Column(name = "SDT",length = 10)
 	private String phoneNumber;
 	
-	@Column(name = "DIACHI", length = 500)
+	@Column(name = "DIACHI", columnDefinition = "nvarchar(500)")
 	private String address;
 	
 	@OneToMany(mappedBy = "supplier")

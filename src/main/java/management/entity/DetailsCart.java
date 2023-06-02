@@ -23,10 +23,10 @@ public class DetailsCart {
 	private DetailsUpdatePrice detailsUpdatePrice; 
 	
 	@Column(name = "SOLUONG")
-	private Integer quantity;
+	private int quantity;
 	
-	@Column(name = "TRANGTHAI")
-	private boolean status;
+//	@Column(name = "TRANGTHAI")
+//	private boolean status;
 	
 	@ManyToOne
 	@JoinColumn(name="MAHD", nullable=true)
@@ -67,14 +67,6 @@ public class DetailsCart {
 
 	public void setQuantity(Integer quantity) {
 		this.quantity = quantity;
-	}
-
-	public boolean isStatus() {
-		return status;
-	}
-
-	public void setStatus(boolean status) {
-		this.status = status;
 	}
 
 	public Bill getBill() {

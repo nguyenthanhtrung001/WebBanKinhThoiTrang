@@ -11,11 +11,10 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+
 import javax.persistence.Table;
 
 @Entity
@@ -29,10 +28,15 @@ public class Seri {
 	private Double importPrice;
 	
 	@Column(name = "TRANGTHAI")
-	private boolean status;
+	private int status;
 	
 	@Column(name = "NGAYBAN")
 	private Date saleDate;
+	
+	@ManyToOne
+	@JoinColumn(name = "MAHD")
+	private Bill bill;
+	
 	
 	@ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
 	@JoinColumn(name = "MASP",referencedColumnName = "MASP")
@@ -73,11 +77,19 @@ public class Seri {
 		this.importPrice = importPrice;
 	}
 
-	public boolean isStatus() {
+	public int getStatus() {
 		return status;
 	}
 
-	public void setStatus(boolean status) {
+	public Bill getBill() {
+		return bill;
+	}
+
+	public void setBill(Bill bill) {
+		this.bill = bill;
+	}
+
+	public void setStatus(int status) {
 		this.status = status;
 	}
 

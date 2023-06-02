@@ -1,15 +1,12 @@
 package management.entity;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -37,6 +34,60 @@ public class ProductExchangeVoucher {
 	private Staff staff;
 	
 	@OneToMany(mappedBy = "exchangeVoucher")
-	private Set<DetailsExchangeVoucher> detailsExchangeVouchers; 
+	private Set<DetailsExchangeVoucher> detailsExchangeVouchers;
+
+	public ProductExchangeVoucher() {
+		super();
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public Date getExchangeDate() {
+		return exchangeDate;
+	}
+
+	public void setExchangeDate(Date exchangeDate) {
+		this.exchangeDate = exchangeDate;
+	}
+
+	public ProductReturnVoucher getProductReturnVoucher() {
+		return productReturnVoucher;
+	}
+
+	public void setProductReturnVoucher(ProductReturnVoucher productReturnVoucher) {
+		this.productReturnVoucher = productReturnVoucher;
+	}
+
+	public Customer getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
+
+	public Staff getStaff() {
+		return staff;
+	}
+
+	public void setStaff(Staff staff) {
+		this.staff = staff;
+	}
+
+	public Set<DetailsExchangeVoucher> getDetailsExchangeVouchers() {
+		return detailsExchangeVouchers;
+	}
+
+	public void setDetailsExchangeVouchers(Set<DetailsExchangeVoucher> detailsExchangeVouchers) {
+		this.detailsExchangeVouchers = detailsExchangeVouchers;
+	} 
+	
+	
 	
 }

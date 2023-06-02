@@ -2,12 +2,10 @@ package management.controller;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
-import javax.xml.bind.DatatypeConverter;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -20,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import management.dao.IAccountDao;
 import management.dao.IStaffDao;
-import management.dao.impl.AccountDaoImpl;
 import management.entity.Account;
 import management.entity.Customer;
 import management.entity.Staff;

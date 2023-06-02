@@ -24,24 +24,19 @@ public class Customer {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 		
-	@Column(name = "HO", length = 50)
-	private String surname;
-	
-	@Column(name = "TEN", length = 50)
+	@Column(name = "HOTEN", columnDefinition = "nvarchar(100)")
 	private String name;
 	
 	@Column(name = "SDT", length = 10)
 	private String phoneNumber;
 	
-	@Column(name = "GIOITINH", length = 10)
-	private String gender;
+	@Column(name = "GIOITINH")
+	private boolean gender;
 	
-	@Column(name = "DIACHI", length = 1000)
+	@Column(name = "DIACHI",  columnDefinition = "nvarchar(1000)")
 	private String address;
 	
-	@Column(name = "ANH", length = 500)
-	private String image;
-	
+
 	@Column(name = "NGAYSINH")
 	@DateTimeFormat(pattern = "dd-mm-yyyy")
 	private Date dateOfBirth;
@@ -59,7 +54,6 @@ public class Customer {
 	public Customer() {
 		super();
 	}
-
 	
 	public int getId() {
 		return id;
@@ -68,15 +62,6 @@ public class Customer {
 
 	public void setId(int id) {
 		this.id = id;
-	}
-
-
-	public String getSurname() {
-		return surname;
-	}
-
-	public void setSurname(String surname) {
-		this.surname = surname;
 	}
 
 	public String getName() {
@@ -95,11 +80,11 @@ public class Customer {
 		this.phoneNumber = phoneNumber;
 	}
 
-	public String getGender() {
+	public boolean getGender() {
 		return gender;
 	}
 
-	public void setGender(String gender) {
+	public void setGender(boolean gender) {
 		this.gender = gender;
 	}
 
@@ -109,14 +94,6 @@ public class Customer {
 
 	public void setAddress(String address) {
 		this.address = address;
-	}
-
-	public String getImage() {
-		return image;
-	}
-
-	public void setImage(String image) {
-		this.image = image;
 	}
 
 	public Date getDateOfBirth() {

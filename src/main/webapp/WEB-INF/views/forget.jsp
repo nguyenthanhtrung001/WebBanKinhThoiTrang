@@ -30,7 +30,7 @@
 			  <!--    <i class="fa-solid fa-xmark iconclose"></i> -->
 				<h2>Quên mật khẩu</h2>
 				<div style="color: red;font-style: italic;font-size: larger;margin-bottom: 5px;">${messageA}</div>
-                <form action="http://localhost:8080/QuanLyRapChieuPhim/forget/reset.htm" method="post" name="dang-ky">
+                <form action="forget/reset" method="post" name="dang-ky">
                 <p
 					style="color: #ff3366; font-size: 12px; display: inline;">
 					${errorTK}</p>
@@ -51,7 +51,7 @@
                 <a style="color: red;" href="">Quên mật khẩu</a>-->
                 <input type="submit" name="submit" value="Gửi email" />
                 <label class="psw-text"> Bạn chưa có tài khoản? 
-                <a href="http://localhost:8080/QuanLyRapChieuPhim/register.htm" style="color: red;">Đăng ký</a>
+                <a href="register" style="color: red;">Đăng ký</a>
                 </label>
                 </form>	
 		</div>

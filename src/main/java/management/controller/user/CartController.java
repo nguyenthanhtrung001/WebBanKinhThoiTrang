@@ -2,25 +2,19 @@ package management.controller.user;
 
 import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.apache.jasper.tagplugins.jstl.core.ForEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,21 +24,16 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import management.bean.Message;
 import management.dao.IBillDao;
 import management.dao.IDetailsCartDao;
-import management.dao.IProductDao;
 
 import management.dao.IPromotionDao;
 import management.dao.ISeriDao;
-import management.entity.Account;
 import management.entity.Bill;
 import management.entity.Customer;
 import management.entity.DetailsCart;
 import management.entity.DetailsUpdatePrice;
 import management.entity.DetailsUpdatePricePK;
-import management.entity.Product;
 import management.entity.Promotion;
-import management.entity.Role;
 import management.entity.Seri;
-import management.entity.Staff;
 
 @Controller
 @RequestMapping("/user/")
@@ -62,12 +51,6 @@ public class CartController {
 	List<DetailsCart> listTmp = new ArrayList<>();
 
 	
-	@RequestMapping(value="profile",method = RequestMethod.GET)
-	public ModelAndView getProfile(ModelMap model) {
-		
-		ModelAndView modelAndView = new ModelAndView("user/account");
-		return modelAndView;
-	}
 
 	@RequestMapping(value = "cart", method = RequestMethod.GET)
 	public ModelAndView getcart(ModelMap model,  HttpServletRequest request) {

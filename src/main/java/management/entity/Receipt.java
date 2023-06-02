@@ -22,6 +22,10 @@ public class Receipt {
 	@Column(name = "NGAYNHAP")
 	private Date importDate;
 	
+	public Receipt() {
+		super();
+	}
+
 	@ManyToOne
 	@JoinColumn(name = "MANCC")
 	private Supplier supplier;
@@ -61,8 +65,5 @@ public class Receipt {
 		this.series = series;
 	}
 
-	public Receipt() {
-		super();
-	}
-	
+
 }
