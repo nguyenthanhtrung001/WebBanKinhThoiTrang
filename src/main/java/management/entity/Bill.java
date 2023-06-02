@@ -25,11 +25,29 @@ public class Bill {
 	@Column(name = "TRANGTHAI")
 	private int status;
 	
-	@Column(name = "NGAYAD")
-	private Date createDate;
+	@Column(name = "DIACHI_NHAN", columnDefinition = "nvarchar(1000)")
+	private String address;
+	
+	@Column(name = "SDT_NHAN", columnDefinition = "nvarchar(10)")
+	private String telephone;
+	
+	@Column(name = "HOTEN_NHAN", columnDefinition = "nvarchar(100)")
+	private String fullName;
+	
+	@Column(name = "GHICHU", columnDefinition = "nvarchar(1000)")
+	private String note;
+	
+//	@Column(name = "NGAYAD")
+//	private Date createDate;
 	
 	@Column(name = "NGAYTAOHOADON")
 	private Date applicableDate;
+	
+	@Column(name = "TONGTIEN")
+	private int totalPrice;
+	
+	@Column(name = "TIENKM")
+	private int promotionlPrice;
 	
 	@ManyToOne
 	@JoinColumn(name = "MASHIP")
@@ -41,6 +59,17 @@ public class Bill {
 	
 	@OneToMany(mappedBy = "bill")
 	private List<DetailsCart> detailsCarts;
+	
+	@OneToMany(mappedBy = "bill")
+	private List<Seri> series = new ArrayList<Seri>();
+	
+	public List<Seri> getSeries() {
+		return series;
+	}
+
+	public void setSeries(List<Seri> series) {
+		this.series = series;
+	}
 
 	public Bill() {
 		super();
@@ -49,17 +78,12 @@ public class Bill {
 	public int getId() {
 		return id;
 	}
-	
-
-	public int getStatus() {
-		return status;
-	}
 
 	public void setId(int id) {
 		this.id = id;
 	}
 
-	public int isStatus() {
+	public int getStatus() {
 		return status;
 	}
 
@@ -67,12 +91,36 @@ public class Bill {
 		this.status = status;
 	}
 
-	public Date getCreateDate() {
-		return createDate;
+	public String getAddress() {
+		return address;
 	}
 
-	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getTelephone() {
+		return telephone;
+	}
+
+	public void setTelephone(String telephone) {
+		this.telephone = telephone;
+	}
+
+	public String getFullName() {
+		return fullName;
+	}
+
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
+	}
+
+	public String getNote() {
+		return note;
+	}
+
+	public void setNote(String note) {
+		this.note = note;
 	}
 
 	public Date getApplicableDate() {
@@ -99,7 +147,29 @@ public class Bill {
 		this.staff = staff;
 	}
 
+	public List<DetailsCart> getDetailsCarts() {
+		return detailsCarts;
+	}
 
+	public void setDetailsCarts(List<DetailsCart> detailsCarts) {
+		this.detailsCarts = detailsCarts;
+	}
+
+	public int getTotalPrice() {
+		return totalPrice;
+	}
+
+	public void setTotalPrice(int totalPrice) {
+		this.totalPrice = totalPrice;
+	}
+
+	public int getPromotionlPrice() {
+		return promotionlPrice;
+	}
+
+	public void setPromotionlPrice(int promotionlPrice) {
+		this.promotionlPrice = promotionlPrice;
+	}
 	
 	
 }

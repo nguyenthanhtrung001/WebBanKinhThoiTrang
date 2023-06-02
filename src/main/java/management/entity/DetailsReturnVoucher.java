@@ -20,5 +20,34 @@ public class DetailsReturnVoucher {
 	@ManyToOne
 	@MapsId("returnVoucher")
 	private ProductReturnVoucher returnVoucher;
+
+	public DetailsReturnVoucher() {
+		super();
+	}
+
+	public DetailsReturnVoucherPk getId() {
+		return id;
+	}
+
+	public void setId(DetailsReturnVoucherPk id) {
+		this.id = id;
+	}
+
+	public Seri getSeri() {
+		return seri;
+	}
+
+	public void setSeri(Seri seri) {
+		this.seri = seri;
+	}
+
+	public ProductReturnVoucher getReturnVoucher() {
+		return returnVoucher;
+	}
+
+	public void setReturnVoucher(ProductReturnVoucher returnVoucher) {
+		this.returnVoucher = returnVoucher;
+	}
+	
 	
 }

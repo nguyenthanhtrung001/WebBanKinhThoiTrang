@@ -11,8 +11,43 @@ public class DetailsReturnVoucherPk implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	private String seri;
-	
 	private String returnVoucher;
+
+	
+	
+	public DetailsReturnVoucherPk() {
+		super();
+	}
+
+	public String getSeri() {
+		return seri;
+	}
+
+
+
+	public void setSeri(String seri) {
+		this.seri = seri;
+	}
+
+
+
+	public String getReturnVoucher() {
+		return returnVoucher;
+	}
+
+
+
+	public void setReturnVoucher(String returnVoucher) {
+		this.returnVoucher = returnVoucher;
+	}
+
+
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+
 
 	@Override
 	public int hashCode() {

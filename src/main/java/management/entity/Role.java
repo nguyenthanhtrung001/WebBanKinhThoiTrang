@@ -17,7 +17,7 @@ public class Role implements Serializable{
 	@Column(name = "MACV", length = 10)
 	private String id;
 	
-	@Column(name = "TENCV",length = 100)
+	@Column(name = "TENCV",columnDefinition = "nvarchar(20)")
 	private String name;
 	
 	@OneToMany(mappedBy = "role")

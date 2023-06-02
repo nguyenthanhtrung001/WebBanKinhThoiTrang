@@ -25,10 +25,10 @@
 			<props>
 				<prop key="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</prop>
 				<prop key="hibernate.show_sql">true</prop>
-				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<prop key="hibernate.hbm2ddl.auto">create</prop>
 			</props>
 		</property>
-		<property name="packagesToScan" value="management.entity,management.bean" />
+		<property name="packagesToScan" value="management.entity" />
 	</bean>
 
 	<!-- Upload file -->

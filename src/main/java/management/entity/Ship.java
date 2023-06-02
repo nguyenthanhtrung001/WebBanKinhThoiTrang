@@ -16,7 +16,7 @@ public class Ship {
 	@Column(name = "MASHIP",length = 10)
 	private String id;
 	
-	@Column(name = "TEN", length = 100)
+	@Column(name = "TEN", columnDefinition = "nvarchar(100)")
 	private String name;
 	
 	@Column(name = "GIA")
@@ -27,4 +27,50 @@ public class Ship {
 	
 	@OneToMany(mappedBy = "ship")
 	private List<ProductReturnVoucher> productReturnVouchers = new ArrayList<ProductReturnVoucher>();
+
+	public Ship() {
+		super();
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Double getPrice() {
+		return price;
+	}
+
+	public void setPrice(Double price) {
+		this.price = price;
+	}
+
+	public List<Bill> getBills() {
+		return bills;
+	}
+
+	public void setBills(List<Bill> bills) {
+		this.bills = bills;
+	}
+
+	public List<ProductReturnVoucher> getProductReturnVouchers() {
+		return productReturnVouchers;
+	}
+
+	public void setProductReturnVouchers(List<ProductReturnVoucher> productReturnVouchers) {
+		this.productReturnVouchers = productReturnVouchers;
+	}
+	
+	
 }

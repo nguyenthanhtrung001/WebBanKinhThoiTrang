@@ -77,13 +77,12 @@ public class DetailsUpdatePrice {
 	public void setDetailsCarts(List<DetailsCart> detailsCarts) {
 		this.detailsCarts = detailsCarts;
 	}
+	
 	public String getPrice_VND() {
 		NumberFormat vndFormat = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
 		String formattedPrice = vndFormat.format(price);
 		return formattedPrice;
 	}
-	
-	
 	
 	
 }

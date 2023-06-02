@@ -1,8 +1,6 @@
 package management.entity;
 
-import java.text.NumberFormat;
 import java.util.Date;
-import java.util.Locale;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -21,7 +19,7 @@ public class Promotion {
 	@Column(name = "MAKM", length = 10)
 	private String id;
 
-	@Column(name = "TENKM", length = 500)
+	@Column(name = "TENKM", columnDefinition = "nvarchar(500)")
 	private String name;
 
 	@Column(name = "NGAYBD")
@@ -39,6 +37,10 @@ public class Promotion {
 	
 	@OneToMany(mappedBy = "promotion",fetch = FetchType.EAGER)
 	private Set<DetailsPromotion> detailsPromotions;
+
+	public Promotion() {
+		super();
+	}
 
 	public String getId() {
 		return id;
@@ -75,11 +77,6 @@ public class Promotion {
 	public Double getPromotionLitmit() {
 		return promotionLitmit;
 	}
-	public String getPromotionLitmit_VND() {
-		NumberFormat vndFormat = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
-		String formattedPrice = vndFormat.format(promotionLitmit);
-		return formattedPrice;
-	}
 
 	public void setPromotionLitmit(Double promotionLitmit) {
 		this.promotionLitmit = promotionLitmit;
@@ -100,11 +97,5 @@ public class Promotion {
 	public void setDetailsPromotions(Set<DetailsPromotion> detailsPromotions) {
 		this.detailsPromotions = detailsPromotions;
 	}
-
-	public Promotion() {
-		super();
-	} 
-	
-	
 
 }
