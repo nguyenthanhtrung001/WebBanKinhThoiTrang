@@ -10,7 +10,11 @@ public class BasePath {
 	public BasePath() {
 		//Đường dẫn link lưu ảnh trong máy 
 		pathImgCustomer = "C:\\Users\\xuan\\"
-				+ "git\\DoAnWeb\\src\\main\\webapp\\templates\\user\\assets\\image\\";
+				+ "git\\WebBanKinhThoiTrang\\src\\main\\webapp\\templates\\image\\customer\\";
+		pathImgStaff = "C:\\Users\\xuan\\"
+				+ "git\\WebBanKinhThoiTrang\\src\\main\\webapp\\templates\\image\\staff\\";
+		pathImgProduct = "C:\\Users\\xuan\\"
+				+ "git\\WebBanKinhThoiTrang\\src\\main\\webapp\\templates\\image\\product\\";
 	}
 	
 	public String getPathImgCustomer() {

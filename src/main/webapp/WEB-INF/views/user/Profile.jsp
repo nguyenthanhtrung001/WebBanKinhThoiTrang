@@ -10,10 +10,6 @@
 </head>
 <body>
 	<div class="container background_img_profile">
-		<div class="row center header_profile">
-			<strong><code>Thông tin bản thân</code></strong>
-		</div>
-
 		<div class="col-sm-12 khung_chua_profile input_profile">
 			<div class="row">
 				<div class="col-sm-6 center">
@@ -76,7 +72,7 @@
 				</div>
 				<div class="modal-body">
 					<form class="contener1-fix" method="post"
-						enctype="multipart/form-data" action="/management/user/profile">
+						enctype="multipart/form-data" action="/WebBanKinh/user/profile">
 
 						<div class="col-md-6">
 							<div class="row">
