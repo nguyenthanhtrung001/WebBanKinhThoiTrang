@@ -51,9 +51,6 @@ public class Account {
 		this.password = password;
 	}
 
-	public int isStatus() {
-		return status;
-	}
 
 	public void setStatus(int status) {
 		this.status = status;
