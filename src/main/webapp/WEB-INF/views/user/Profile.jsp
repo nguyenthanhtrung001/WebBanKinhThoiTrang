@@ -18,21 +18,17 @@
 			<div class="row">
 				<div class="col-sm-6 center">
 					<img class="avatar_profile" alt="Ảnh đại diện"
-						src="<c:url value='/templates/user/assets/image/${customer.getImage()}'/>">
+						src="<c:url value='/templates/user/assets/image/${customer.getId()}.jpg'/>">
 				</div>
 				<div class="col-sm-6 " style="margin-top: 20px;">
 					<div class="form-group">
-						<label for="ho">Họ</label> <input type="text" name="ho"
-							value="${customer.getSurname()}" class="form-control" readonly>
-					</div>
-					<div class="form-group">
-						<label for="ten">Tên</label> <input type="text" name="ten"
+						<label for="ten">Họ và tên</label> <input type="text" name="hoTen"
 							value="${customer.getName()}" class="form-control" readonly>
 					</div>
 
 					<div class="form-group">
 						<label for="gioiTinh">Giới Tính</label> <input
-							value="${customer.getGender()}" class="form-control" readonly>
+							value="${customer.getGender()?'Nam':'Nữ'}" class="form-control" readonly>
 					</div>
 					<div class="form-group">
 						<label for="ngaySinh">Ngày Sinh</label> <input type="date"
@@ -87,7 +83,7 @@
 								<div class="form-group"
 									style="margin-top: 30px; margin-left: 30px;">
 									<img class="avatar_update_profile"
-										src="<c:url value='/templates/user/assets/image/${customer.getImage()}'/>"
+										src="<c:url value='/templates/user/assets/image/${customer.getId()}.jpg'/>"
 										id="imgPreview"> <br>
 								</div>
 							</div>
@@ -96,7 +92,7 @@
 								<label for="imageInput">Chọn ảnh</label>
 							</div>
 							<div class="row" style="margin: center; weidth: 40%;">
-								<input type="file" name="file" value="${customer.getImage()}"
+								<input type="file" name="file" value="${customer.getId()}.jpg"
 									id="imageInput" onchange="previewImage()" accept="image/*">
 							</div>
 						</div>
@@ -104,15 +100,10 @@
 						<div class="col-md-6 input_profile">
 							<input type="hidden" name="id" value="${customer.getId()}"
 								required> <input type="hidden" name="anhGoc"
-								value="${customer.getImage()}" required>
+								value="${customer.getId()}.jpg" required>
 
 							<div class="form-group">
-								<label for="ho">Họ</label> <input type="text" name="ho"
-									value="${customer.getSurname()}" class="form-control" required>
-							</div>
-
-							<div class="form-group">
-								<label for="ten">Tên</label> <input type="text" name="ten"
+								<label for="hoTen">Họ và tên</label> <input type="text" name="hoTen"
 									value="${customer.getName()}" class="form-control" required>
 							</div>
 

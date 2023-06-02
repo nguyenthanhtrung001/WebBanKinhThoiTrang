@@ -6,9 +6,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-import javax.naming.Context;
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -37,13 +36,16 @@ public class ProfileController {
 	private ICustomerDao customerDao;
 
 	@GetMapping("profile")
-	public ModelAndView showProfile() {
+	public ModelAndView showProfile(HttpServletRequest request) {
 		ModelAndView modelAndView = new ModelAndView("user/Profile");
 
-		Customer customer = customerDao.getCustomerByEmail("xthinh04052002@gmail.com");
-
-//		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-//		Date date = formatter.parse()custome.getDateOfBirth());
+		HttpSession session=request.getSession();
+		Customer kh = (Customer)session.getAttribute("user");
+		
+		if(kh == null) {
+			return new ModelAndView("redirect:/login");
+		}
+		Customer customer = customerDao.getCustomerByEmail(kh.getAccount().getEmail());
 
 		System.out.println(customer);
 		modelAndView.addObject("customer", customer);
@@ -51,11 +53,11 @@ public class ProfileController {
 	}
 
 	@PostMapping("profile")
-	public ModelAndView editProfile(@RequestParam("ho") String ho, @RequestParam("ten") String ten,
+	public ModelAndView editProfile(@RequestParam("ho") String hoTen,
 			@RequestParam("gioiTinh") String gioiTinh, @RequestParam("ngaySinh") String ngaySinh,
 			@RequestParam("diaChi") String diaChi, @RequestParam("sdt") String sdt, @RequestParam("email") String email,
 			@RequestParam("file") MultipartFile file, @RequestParam("anhGoc") String anhGoc,
-			@RequestParam("id") String id) {
+			@RequestParam("id") int id) {
 
 		ModelAndView modelAndView = new ModelAndView("user/Profile");
 		Session session = sessionFactory.openSession();
@@ -76,14 +78,12 @@ public class ProfileController {
 
 			Customer customer = new Customer();
 			
-			customer.setId(Integer.parseInt(id));
-			customer.setSurname(ho);
-			customer.setName(ten);
-			customer.setGender(gioiTinh);
+			customer.setId(id);
+			customer.setName(hoTen);
+//			customer.setGender(gioiTinh);
 			customer.setDateOfBirth(ngaySinhDate);
 			customer.setAddress(diaChi);
 			customer.setPhoneNumber(sdt);
-			customer.setImage(anhGoc);
 			customer.setAccount((Account) session.get(Account.class, email));
 			
 			customerDao.updateCustomer(customer);
