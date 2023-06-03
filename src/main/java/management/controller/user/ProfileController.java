@@ -53,7 +53,7 @@ public class ProfileController {
 	}
 
 	@PostMapping("profile")
-	public ModelAndView editProfile(@RequestParam("ho") String hoTen,
+	public ModelAndView editProfile(@RequestParam("hoTen") String hoTen,
 			@RequestParam("gioiTinh") String gioiTinh, @RequestParam("ngaySinh") String ngaySinh,
 			@RequestParam("diaChi") String diaChi, @RequestParam("sdt") String sdt, @RequestParam("email") String email,
 			@RequestParam("file") MultipartFile file, @RequestParam("anhGoc") String anhGoc,
@@ -72,11 +72,14 @@ public class ProfileController {
 				System.out.println("Upload ảnh: " + file.getOriginalFilename() + " thành công");
 				file.transferTo(new File(path));
 				anhGoc = id + ".jpg";
-				Thread.sleep(5000);
+				Thread.sleep(7000);
 				System.out.println(path);
 			}
 
 			Customer customer = new Customer();
+			
+			System.out.println("hoTen: "+hoTen);
+			
 			
 			customer.setId(id);
 			customer.setName(hoTen);
@@ -105,5 +108,13 @@ public class ProfileController {
 			session.close();
 		}
 
+	}
+	
+	@GetMapping("logout")
+	public ModelAndView logout(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		session.removeAttribute("user");
+		ModelAndView modelAndView = new ModelAndView("redirect:/login");
+		return modelAndView;
 	}
 }

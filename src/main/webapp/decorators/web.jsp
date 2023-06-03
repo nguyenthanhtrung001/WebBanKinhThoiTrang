@@ -19,19 +19,20 @@
 <link rel="stylesheet" href='<c:url value="/templates/user/assets/css/base.css" />'>
 <link rel="stylesheet" href='<c:url value="/templates/user/assets/css/index.css" />'>
 <link rel="stylesheet" href='<c:url value="/templates/user/assets/css/detailsProduct.css"/>'>
+
 <link rel="stylesheet" href='<c:url value="/templates/user/assets/css/profile.css" />'>
 
-
-
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" crossorigin="anonymous" />
-<!-- <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
- -->
- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="<c:url value='/templates/admin/paging/jquery.twbsPagination.js'/>"></script>
 
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 
 
 <script src="<c:url value='/templates/admin/paging/jquery.twbsPagination.js'/>"></script>
