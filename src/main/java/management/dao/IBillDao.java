@@ -15,9 +15,11 @@ public interface IBillDao {
 	public List<Bill> getListBill();
 //	trạng thái đang chờ xử lý
 	List<Bill> getListBillTT(int status);
+	public Bill getBill(int id);
 	
+	public Bill create_Bill(Bill bill);
 	Bill getBill(String id);
-	void updateStatus(String idBill, int statusNew);
+	public void updateStatus(int idBill, int statusNew);
 	
 	//--------------------
 	List<Bill> getListBillOfCustomer(int id);

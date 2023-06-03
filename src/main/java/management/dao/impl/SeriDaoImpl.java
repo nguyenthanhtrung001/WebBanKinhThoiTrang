@@ -26,26 +26,26 @@ public class SeriDaoImpl implements ISeriDao{
 	public long getQuantitySeriOfProduct(String idProdcut) {
 		Session s = sessionFactory.openSession();
 
-		String hql = "select count(s) from Seri s where s.product.id = ? and s.status = ?";
+		String hql = "select count(s) from Seri s where s.product.id = ? and s.saleDate = null";
 
 		Query query = s.createQuery(hql);
 
 		query.setParameter(0, idProdcut);
 		
-		query.setParameter(1, false);
+		
 
 		return (long) query.uniqueResult();
 	}
 
 	@Override
-	public List<Seri> get_List_SeriOfProduct(String idProdcut,Boolean status) {
+	public List<Seri> get_List_SeriOfProduct_sale(String idProdcut) {
 		Session session = sessionFactory.openSession();
-		String hql = "from Seri s where s.product.id = ? and s.status = ?";
+		String hql = "from Seri s where s.product.id = ? and s.saleDate != null";
 		Query query = session.createQuery(hql);
 
 		query.setParameter(0, idProdcut);
 		
-		query.setParameter(1, status);
+		
 		List<Seri> list =  query.list();
 		session.close();
 		return list;
@@ -80,7 +80,7 @@ public class SeriDaoImpl implements ISeriDao{
 
 	    String hql = "SELECT s.product.id, COUNT(s.id) AS SOSERICount " +
 	                 "FROM Seri s " +
-	                 "WHERE s.status = true " +
+	                 "WHERE s.saleDate != null " +
 	                 "GROUP BY s.product.id " +
 	                 "ORDER BY SOSERICount DESC";
 
@@ -96,6 +96,20 @@ public class SeriDaoImpl implements ISeriDao{
 
 	    session.close();
 	    return topSeriList;
+	}
+
+	@Override
+	public List<Seri> get_List_SeriOfProduct(String idProdcut) {
+		Session session = sessionFactory.openSession();
+		String hql = "from Seri s where s.product.id = ? and s.saleDate = null";
+		Query query = session.createQuery(hql);
+
+		query.setParameter(0, idProdcut);
+		
+		
+		List<Seri> list =  query.list();
+		session.close();
+		return list;
 	}
 
 }

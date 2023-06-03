@@ -32,7 +32,7 @@
                   <th>Sản phẩm</th>
                   <th>Giá</th>
                   <th>Số lượng</th>
-                  <th>Tổng cộng</th>
+                  <th>Thành Tiền</th>
                 </tr>
               </thead>
               <tbody>
@@ -43,10 +43,19 @@
                   <td>${crt.quantity}</td>
                   <td>${crt.detailsUpdatePrice.getPrice() * crt.quantity} VND</td>
                 </tr>
-               
-                </c:forEach>
+									
+				</c:forEach>
+                
               </tbody>
             </table>
+            <div class="row">
+										<div class="col-md-9"></div>
+										<div class="col-md-3">
+										<h5>Phí vận chuyển: ${ship } </h5>
+										<h5>Tổng tiền: ${total+ship} VND</h5>
+										</div>
+										
+									</div>
           </div>
         </div>
       </div>

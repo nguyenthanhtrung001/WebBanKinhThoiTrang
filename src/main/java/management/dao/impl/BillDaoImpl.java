@@ -78,33 +78,8 @@ public class BillDaoImpl implements IBillDao {
 		return n;
 	}
 
-	@Override
-	public void updateStatus(String billId, int newStatus) {
-		Session session = sessionFactory.openSession();
-		Transaction transaction = session.beginTransaction();
-		try {
-
-			Bill bill = getBill(billId);
-			System.out.println("id sap updatw:" + bill.getId());
-
-			bill.setStatus(newStatus);
-
-			session.update(bill);
-
-			transaction.commit();
-			System.out.println("success");
-
-		} catch (Exception e) {
-			System.out.println("update fail");
-			e.printStackTrace();
-			transaction.rollback();
-		} finally {
-
-			session.close();
-		}
-
-	}
-
+	
+	
 	// -----------------------
 	@Override
 	public List<Bill> getListBillOfCustomer(int id) {
@@ -217,6 +192,75 @@ public class BillDaoImpl implements IBillDao {
 		
         return count.intValue();
 	}
+
+	@Override
+	public Bill getBill(int id) {
+		 Session session = sessionFactory.openSession();
+		    String hql = "FROM Bill WHERE id = :id";
+		    Query query = session.createQuery(hql);
+		    query.setParameter("id", id);
+		    Bill bill = (Bill) query.uniqueResult();
+		    session.close();
+		    return bill;
+	}
+
+	@Override
+	public Bill create_Bill(Bill bill) {
+		Session session = sessionFactory.openSession();
+	    Transaction tx = null;
+	    
+	    try {
+	        tx = session.beginTransaction();
+	       
+	        session.save(bill); 
+	        tx.commit(); 
+	        return bill;
+	       
+	       
+	    } catch (Exception e) {
+	       
+	            tx.rollback(); 
+	            
+	        e.printStackTrace();
+	        return null;
+	    } finally {
+	        
+	            session.close(); 
+	       
+	    }
+	}
+
+	
+	@Override
+	public void updateStatus(int billId, int newStatus) {
+		Session session = sessionFactory.openSession();
+		Transaction transaction = session.beginTransaction();
+		try {
+		    
+			Bill bill = getBill(billId);
+			System.out.println("id sap updatw:"+bill.getId());
+
+			bill.setStatus(newStatus);
+
+			session.update(bill);
+
+			transaction.commit();
+			System.out.println("success");
+		    
+		} catch (Exception e) {
+		    System.out.println("update fail");
+		    e.printStackTrace();
+		    transaction.rollback();
+		} finally {
+		   
+		    session.close();
+		}
+		
+
+		
+	}
+
+	
 	
 	
 }

@@ -116,7 +116,7 @@ public class StaffController {
 			nv.setPhoneNumber(sdt);
 			nv.setDateOfBirth(ngaySinhDate);
 			nv.setcMND(cmnd);
-			nv.setImage(anh);
+		//	nv.setImage(anh);
 			nv.setAccount(tk);
 
 			staffDao.addStaff(nv, tk);
@@ -174,7 +174,7 @@ public class StaffController {
 			nv.setPhoneNumber(sdt);
 			nv.setDateOfBirth(ngaySinhDate);
 			nv.setcMND(cmnd);
-			nv.setImage(anh);
+		//	nv.setImage(anh);
 			nv.setId(id);
 			staffDao.updateStaff(nv, tk);
 
