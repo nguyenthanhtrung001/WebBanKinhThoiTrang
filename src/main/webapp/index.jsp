@@ -44,6 +44,9 @@
       <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Tìm Kiếm</button>
     </form>
     <ul class="navbar-nav ml-auto">
+    <li class="nav-item">
+        <a class="nav-link" href="/WebBanKinh/user/cart"><i class="fas fa-shopping-cart"></i> Cart</a>
+      </li>
      <% 
     Boolean loginValue = (Boolean) session.getAttribute("login");
     boolean isLoggedin = loginValue != null && loginValue.booleanValue();
@@ -54,15 +57,22 @@
         <a class="nav-link" href="/WebBanKinh/login"><i class="fas fa-user"></i> Login</a>
     </li>
 <% } else { %>
-    <li class="nav-item">
-        <a class="nav-link" href="user/profile" ><i class="fas fa-user"></i><em> ${sessionScope.user.name}</em></a>
-    </li>
-<% } %>
+    
+    <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <i class="fas fa-user"></i><em> ${sessionScope.user.name}</em>
+    </a>
+    <div class="dropdown-menu" style="font-size:18px;" aria-labelledby="userDropdown">	
+        <!-- Các mục trong danh sách -->
+        <a class="dropdown-item bg-light" href="/WebBanKinh/user/profile">Thông tin cá nhân</a>
+        <a class="dropdown-item bg-light" href="#">Xem danh sách phiếu đổi</a>
+        <a class="dropdown-item bg-light" href="/WebBanKinh/user/history">Xem lịch sử đơn đặt hàng</a>
+        <a class="dropdown-item bg-light" href="#">Đổi mật khẩu</a>
+        <a class="dropdown-item bg-light" href="/WebBanKinh/user/logout">Đăng xuất</a>
 
-   
-      <li class="nav-item">
-        <a class="nav-link" href="#"><i class="fas fa-shopping-cart"></i> Cart</a>
-      </li>
+        <!-- ...Thêm mục khác nếu cần -->
+    </div>
+<% } %>
        
     </ul>
   </div>

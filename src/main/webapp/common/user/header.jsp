@@ -45,11 +45,10 @@
     <div class="dropdown-menu" style="font-size:18px;" aria-labelledby="userDropdown">	
         <!-- Các mục trong danh sách -->
         <a class="dropdown-item bg-light" href="/WebBanKinh/user/profile">Thông tin cá nhân</a>
-        <a class="dropdown-item bg-light" href="#"></a>
         <a class="dropdown-item bg-light" href="#">Xem danh sách phiếu đổi</a>
-        <a class="dropdown-item bg-light" href="#">Xem lịch sử đơn đặt hàng</a>
+        <a class="dropdown-item bg-light" href="/WebBanKinh/user/history">Xem lịch sử đơn đặt hàng</a>
         <a class="dropdown-item bg-light" href="#">Đổi mật khẩu</a>
-        <a class="dropdown-item bg-light" href="#">Đăng xuất</a>
+        <a class="dropdown-item bg-light" href="/WebBanKinh/user/logout">Đăng xuất</a>
 
         <!-- ...Thêm mục khác nếu cần -->
     </div>

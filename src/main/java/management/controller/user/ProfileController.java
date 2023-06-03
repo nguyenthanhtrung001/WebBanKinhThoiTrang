@@ -78,6 +78,9 @@ public class ProfileController {
 
 			Customer customer = new Customer();
 			
+			System.out.println("hoTen: "+hoTen);
+			
+			
 			customer.setId(id);
 			customer.setName(hoTen);
 //			customer.setGender(gioiTinh);
@@ -105,5 +108,13 @@ public class ProfileController {
 			session.close();
 		}
 
+	}
+	
+	@GetMapping("logout")
+	public ModelAndView logout(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		session.removeAttribute("user");
+		ModelAndView modelAndView = new ModelAndView("redirect:/login");
+		return modelAndView;
 	}
 }
