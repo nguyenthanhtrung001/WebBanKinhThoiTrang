@@ -37,7 +37,7 @@ public class StaffDaoImpl implements IStaffDao  {
 	
 
 	@Override
-	public void addStaff(Staff staff, Account account) {
+	public Staff addStaff(Staff staff, Account account) {
 		Session session = sessionFactory.openSession();
 	    Transaction tx = null;
 	    
@@ -46,14 +46,16 @@ public class StaffDaoImpl implements IStaffDao  {
 	        session.save(account); 
 	        session.save(staff); 
 	        tx.commit(); 
-	        System.out.println("giai đoạn 2");
+	        return staff;
 	       
 	    } catch (Exception e) {
 	       
 	            tx.rollback(); 
+	            e.printStackTrace();
+	            return null;
 	        
 	        
-	        e.printStackTrace();
+	        
 	    } finally {
 	        
 	            session.close(); 

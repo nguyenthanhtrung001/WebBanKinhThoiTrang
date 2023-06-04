@@ -3,17 +3,25 @@ package management.controller.admin;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -53,6 +61,7 @@ public class OrderController {
 		List<Bill>list=billDao.getListBillTT(0);
 		List<Bill_NameCustomer>list0= new ArrayList<Bill_NameCustomer>();
 		 for (Bill b: list) {
+			
 			 Bill_NameCustomer  bNameCustomer=new Bill_NameCustomer();
 			 bNameCustomer.setBill(b);
 			 bNameCustomer.setName(detailsCartDao.get_name_customer_by_IDHD(b.getId()));

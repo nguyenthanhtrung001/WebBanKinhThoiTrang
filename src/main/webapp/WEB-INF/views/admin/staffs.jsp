@@ -143,7 +143,7 @@
 											
 
 															<form method="post" 
-																action="/management/admin/staff/remove/${staff.getAccount().getEmail()}">
+																action="/WebBanKinh/admin/staff/remove/${staff.getAccount().getEmail()}">
 																<div class="modal-footer">
 
 																	<button type="submit" class="btn-green btn btn-primary">Đồng Ý</button>
@@ -181,7 +181,7 @@
 
 																				<div class="text-center">
 																					<img class="profile-user-img img-fluid img-circle"
-																						src="<c:url value='/templates/admin/img/${staff.getImage()}'/>"
+																						src="<c:url value='/templates/image/staff/${staff.getId()}.jpg'/>"
 																						alt="User profile picture"> <br> <br>
 																					<div class="alert alert-success" role="alert">
 																						Hoạt Động</div>
@@ -190,11 +190,10 @@
 																			</div>
 																			<div class="col col-sm-7">
 																				<ul class="list-group list-group-unbordered ">
-																					<li class="list-group-item"><b>Mã nhân
-																							viên </b> <a class="float-right text-primary">${staff.getId()}</a>
+																					<li class="list-group-item"><b>Mã nhân viên </b> <a class="float-right text-primary">${staff.getId()}</a>
 																					</li>
 																					<li class="list-group-item"><b>Họ và Tên</b> <a
-																						class="float-right text-primary">${staff.getSurname()}
+																						class="float-right text-primary">
 																							${staff.getName()}</a></li>
 																					<li class="list-group-item"><b>Giới tính</b> <a
 																						class="float-right text-primary">${staff.getGender()?"Nam":"Nữ"}</a>
@@ -252,7 +251,7 @@
 																	<div class="bg-primary-dark block block-h-auto">
 																		<div class="row edit-product-row">
 																			<form class="contener1-fix" method="POST"
-																				action="/management/admin/staff/update"
+																				action="/WebBanKinh/admin/staff/update"
 																				modelAttribute="taikhoan">
 																				<div class="col-md-6">
 																					<div class="form-group">
@@ -319,7 +318,7 @@
 																						<div class="custom-file">
 																							<input type="file" name="anh1" id="anh1"
 																								class="custom-file-input"> <label
-																								class="custom-file-label" for="anh1">${staff.getImage() }</label>
+																								class="custom-file-label" for="anh1">${staff.getId()}.jpg</label>
 																						</div>
 																						<div id="thongbao1" class="mt-2"></div>
 																						<!-- Thêm đoạn mã HTML để hiển thị thông báo -->
@@ -361,7 +360,7 @@
 									
 											<!--  000000000000000000000000000 -->
 											<div class="modal fade" id="modal-add" tabindex="-1"
-												role="dialog" aria-hidden="true">
+												role="dialog" aria-hidden="true" >
 												<div class="modal-dialog modal-lg modal-dialog-centered">
 													<div class="modal-content">
 														<div class="modal-header" style="background: #0f982e;color: white;">
@@ -376,8 +375,8 @@
 																	<div class="bg-primary-dark block block-h-auto">
 																		<div class="row edit-product-row">
 																			<form class="contener1-fix" method="POST"
-																				action="/management/admin/staff/add"
-																				modelAttribute="taikhoan">
+																				action="/WebBanKinh/admin/staff/add"
+																				modelAttribute="taikhoan" enctype="multipart/form-data">
 																				<div class="col-md-6">
 																					<div class="form-group">
 																						<label for="email">Email Tài Khoản</label> <input

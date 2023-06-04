@@ -13,7 +13,7 @@
   <div class="container" style="font-size: 12px;">
     <div class="row mt-5">
       <div class="col col-sm-5" style="height: 320px;">
-        <a href=""><img style="height: 320px;" class="card-img-top img-fluid img-circle" src="<c:url value='/templates/image/user/${product.getProduct().getImage()}'/>"
+        <a href=""><img style="height: 320px;" class="card-img-top img-fluid img-circle" src="<c:url value='/templates/image/product/${product.getProduct().getId()}.jpg'/>"
 								alt="${product.getProduct().getName()}"> </a>
       </div>
       <div class="col col-sm-7">

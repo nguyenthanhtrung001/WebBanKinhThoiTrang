@@ -67,9 +67,9 @@ public class RegisterController {
 		}
 		else
 		{
-			Account a= (Account) session1.getAttribute("user");
+			Account a= (Account) session1.getAttribute("tk");
 			model.addAttribute("tk",a);
-			session1.removeAttribute("user");
+			session1.removeAttribute("tk");
 		}
 
 		
