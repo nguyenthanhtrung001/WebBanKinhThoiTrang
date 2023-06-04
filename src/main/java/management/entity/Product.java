@@ -34,7 +34,7 @@ public class Product {
 	private Double size;
 	
 	@Column(name = "MOTA",columnDefinition = "nvarchar(1000)")
-	private String describtion;
+	private String description;
 	
 	@Column(name = "HANG", columnDefinition = "nvarchar(100)")
 	private String branch;
@@ -105,12 +105,12 @@ public class Product {
 		this.size = size;
 	}
 
-	public String getDescribtion() {
-		return describtion;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setDescribtion(String describtion) {
-		this.describtion = describtion;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public String getBranch() {

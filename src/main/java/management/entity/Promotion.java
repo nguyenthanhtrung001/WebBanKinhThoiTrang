@@ -30,6 +30,9 @@ public class Promotion {
 
 	@Column(name = "MUCKM")
 	private Double promotionLitmit;
+	
+	@Column(name = "TRANGTHAI")
+	private boolean status;
 
 	@ManyToOne
 	@JoinColumn(name = "MANV")
@@ -80,6 +83,14 @@ public class Promotion {
 
 	public void setPromotionLitmit(Double promotionLitmit) {
 		this.promotionLitmit = promotionLitmit;
+	}
+
+	public boolean isStatus() {
+		return status;
+	}
+
+	public void setStatus(boolean status) {
+		this.status = status;
 	}
 
 	public Staff getStaff() {
