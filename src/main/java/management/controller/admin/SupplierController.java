@@ -7,13 +7,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import management.dao.ISupplierDao;
-import management.entity.Customer;
+
 import management.entity.Supplier;
 
 @Controller
@@ -48,7 +48,7 @@ public class SupplierController {
 		} catch (Exception e) {
 			modelMap.addAttribute("success", "Lỗi cơ sở dữ liệu!");
 		}
-		return "admin/addSupplier";
+		return "redirect:/admin/listsupplier";
 	}
 
 
