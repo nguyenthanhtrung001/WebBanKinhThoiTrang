@@ -1,6 +1,5 @@
 package management.entity;
 
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -11,7 +10,6 @@ import java.util.Locale;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
@@ -23,26 +21,39 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Entity
 @Table(name = "NHAN_VIEN")
 public class Staff {
-	
 	@Id
-	@Column(name = "MANV")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue
+	@Column(name = "MANV", length = 10)
 	private int id;
 	
-	@Column(name = "HOTEN", columnDefinition = "nvarchar(70)")
+	@Column(name = "HO", length = 50)
+	private String surname;
+	
+	@Column(name = "TEN", length = 50)
 	private String name;
 	
 	@Column(name = "SDT", length = 10)
 	private String phoneNumber;
 	
-	@Column(name = "CMND", length = 12)
+	@Column(name = "CMND", length = 10)
 	private String cMND;
 	
-	@Column(name = "GIOITINH")
+	@Column(name = "GIOITINH", length = 10)
 	private boolean gender;
+	
+	public String getcMND() {
+		return cMND;
+	}
 
-	@Column(name = "DIACHI", columnDefinition = "nvarchar(1000)")
+	public void setcMND(String cMND) {
+		this.cMND = cMND;
+	}
+
+	@Column(name = "DIACHI", length = 1000)
 	private String address;
+	
+	@Column(name = "ANH", length = 500)
+	private String image;
 	
 	@Column(name = "NGAYSINH")
 	@DateTimeFormat(pattern = "dd-mm-yyyy")
@@ -75,16 +86,16 @@ public class Staff {
 		return id;
 	}
 
-	public String getcMND() {
-		return cMND;
-	}
-
-	public void setcMND(String cMND) {
-		this.cMND = cMND;
-	}
-
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public String getSurname() {
+		return surname;
+	}
+
+	public void setSurname(String surname) {
+		this.surname = surname;
 	}
 
 	public String getName() {
@@ -119,6 +130,13 @@ public class Staff {
 		this.address = address;
 	}
 
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
 
 	public Date getDateOfBirth() {
 		return dateOfBirth;
@@ -175,6 +193,8 @@ public class Staff {
 	public void setDetailsUpdatePrices(List<DetailsUpdatePrice> detailsUpdatePrices) {
 		this.detailsUpdatePrices = detailsUpdatePrices;
 	}
+	
+	
 	public String getBirthDaytoString() throws ParseException {
 	    SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
 	    String ngaySinhString = formatter.format(this.getDateOfBirth());
@@ -187,5 +207,6 @@ public class Staff {
 	    return ngaySinhString;
 	    
 	}
+
 	
 }
