@@ -49,7 +49,7 @@
 									<div>
 										<button type="button" class="btn btn  btn-success float-right"
 											style="color: white" data-toggle="modal"
-											data-target="#add-product-modal">Thêm</button>									
+											data-target="#add-product-modal">Thêm Sản Phẩm</button>
 									</div>
 								</div>
 								<div class="card-body table-responsive p-2">
@@ -76,7 +76,8 @@
 													<td>${sp.getId()}</td>
 													<td>${sp.getName()}</td>
 													<td><img width="50" height="50"
-														src="<c:url value='/templates/admin/dist/img/${sp.getImage()}'/>"></td>
+														src="<c:url value='/templates/admin/dist/img/${sp.getId()}.jpg'/>"
+														id="imgPreview"></td>
 													<td>${sp.category.getName()}</td>
 													<td>${sp.getBranch()}</td>
 													<td>${sp.getWarrantyPeriod()}</td>
@@ -119,7 +120,8 @@
 															</div>
 															<div class="modal-body">
 																<form method="POST"
-																	action="/management/admin/product/Post-Sell-SP">
+																	action="/WebBanKinh/admin/product/Post-Sell-SP"
+																	enctype="multipart/form-data">
 																	<div class="form-group">
 																		<label for="masp">Mã</label> <input type="text"
 																			name="masp" value="${sp.getId()}"
@@ -130,15 +132,19 @@
 																			name="ten" value="${sp.getName()}"
 																			class="form-control" readonly>
 																	</div>
-																	<label for="hinhanhsp">Ảnh</label>
+																	<input type="hidden" name="anhGoc"
+																		value="${sp.getId()}.jpg" required> <label
+																		for="hinhanhsp">Ảnh</label>
 																	<div class="form-group">
 																		<img width="70" height="70"
-																			src="<c:url value='/templates/admin/dist/img/${sp.getImage()}'/>">
+																			src="<c:url value='/templates/admin/dist/img/${sp.getId()}.jpg'/>"
+																			id="imgPreview">
 																	</div>
 
 																	<div class="form-group">
 																		<label for="giasp">Giá</label> <input type="text"
-																			name="gia" placeholder="Nhập giá sản phẩm (đơn giá: VND)"
+																			name="gia"
+																			placeholder="Nhập giá sản phẩm (đơn giá: VND)"
 																			class="form-control" required>
 																	</div>
 																	<div class="form-group">
@@ -205,12 +211,12 @@
 																		<div class="container">
 																			<div class="row">
 																				<div class="col col-sm-5" style="margin-top: 40px;">
-
-
+																					<input type="hidden" name="anhGoc"
+																						value="${sp.getId()}.jpg" required>
 																					<div class="text-center">
 																						<img width="250" height="250"
-																							src="<c:url value='/templates/admin/dist/img/${sp.getImage()}'/>"
-																							alt=""> <br> <br>
+																							src="<c:url value='/templates/admin/dist/img/${sp.getId()}.jpg'/>"
+																							id="imgPreview"> <br> <br>
 																					</div>
 
 																				</div>
@@ -218,8 +224,8 @@
 																					<ul class="list-group list-group-unbordered ">
 																						<li class="list-group-item"><b>Mã sản
 																								phẩm </b> <a class="float-right text-primary">${sp.getId()}</a>
-																						<input type="hidden" name= "ma_sp" value="${sp.getId()}">
-																						</li>
+																							<input type="hidden" name="ma_sp"
+																							value="${sp.getId()}"></li>
 																						<li class="list-group-item"><b>Tên</b> <a
 																							class="float-right text-primary">${sp.getName()}</a>
 																						</li>
@@ -232,14 +238,14 @@
 																						<li class="list-group-item"><b>Màu sắc</b> <a
 																							class="float-right text-primary">${sp.getColor()}</a>
 																						</li>
-																						<li class="list-group-item"><b>Chất liệu</b> <a
-																							class="float-right text-primary">${sp.getMaterial()}</a>
+																						<li class="list-group-item"><b>Chất liệu</b>
+																							<a class="float-right text-primary">${sp.getMaterial()}</a>
 																						</li>
-																						<li class="list-group-item"><b>Kích thước</b> <a
-																							class="float-right text-primary">${sp.getSize()}</a>
-																						</li>
-																						<li class="list-group-item"><b>Số lượng tồn</b> <a
-																							class="float-right text-primary">${productAdminDao.countSeriByMasp(sp.getId())}</a>
+																						<li class="list-group-item"><b>Kích thước</b>
+																							<a class="float-right text-primary">${sp.getSize()}
+																								mm</a></li>
+																						<li class="list-group-item"><b>Số lượng
+																								tồn</b> <a class="float-right text-primary">${productAdminDao.countSeriByMasp(sp.getId())}</a>
 																						</li>
 																						<li class="list-group-item"><b>Thời gian
 																								bảo hành</b> <a class="float-right text-primary">${sp.getWarrantyPeriod()}</a>
@@ -250,8 +256,7 @@
 																						<li class="list-group-item"><b>Mô tả</b> <textarea
 																								class="textarea"
 																								style="width: 100%; height: 50px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">${sp.getDescription()}</textarea>
-																						<li class="list-group-item"><b>Người đăng</b>
-																							<a class="float-right text-primary"></a>
+																						</li>
 																					</ul>
 																				</div>
 
@@ -291,7 +296,8 @@
 																		<div class="bg-primary-dark block block-h-auto">
 																			<div class="row edit-product-row">
 																				<form class="contener1-fix" method="POST"
-																					action="/management/admin/product/Edit">
+																					action="/WebBanKinh/admin/product/Edit"
+																					enctype="multipart/form-data">
 																					<div class="col-md-6">
 																						<div class="form-group">
 																							<label for="masp">Mã</label> <input type="text"
@@ -303,13 +309,17 @@
 																								name="ten" value="${sp.getName()}"
 																								class="form-control" required>
 																						</div>
+																						<input type="hidden" name="anhGoc"
+																							value="${sp.getId()}.jpg" required>
 																						<div class="form-group">
 																							<label for="hinhanhsp">Ảnh</label>
 																							<div class="custom-file">
-																								<input type="file" name="hinhanh" id="hinhanh"
+																								<input type="file" name="file"
+																									value="${sp.getId()}.jpg" id="imageInput"
+																									onchange="previewImage()"
 																									class="custom-file-input" accept="image/*">
 																								<label class="custom-file-label text-muted"
-																									for="hinhanhsp">${sp.getImage()}</label>
+																									for="hinhanhsp">${sp.getId()}</label>
 																							</div>
 																						</div>
 																						<div class="form-group">
@@ -334,7 +344,7 @@
 																							</select>
 																						</div>
 																					</div>
-																					<div class="col-md-6">																					
+																					<div class="col-md-6">
 																						<div class="form-group">
 																							<label for="mausacsp">Màu sắc</label> <input
 																								type="text" name="mausac"
@@ -348,10 +358,14 @@
 																								required>
 																						</div>
 																						<div class="form-group">
-																							<label for="kichthuocsp">Kích thước</label> <input
-																								type="text" name="kichthuoc"
-																								value="${sp.getSize()}" class="form-control"
-																								required>
+																							<label for="kichthuocsp">Kích thước</label>
+																							<div class="form-inline">
+																								<input type="text" name="kichthuoc"
+																									value="${sp.getSize()}" class="form-control"
+																									required><select class="form-control">
+																									<option value="mm" selected>mm</option>
+																								</select>
+																							</div>
 																						</div>
 																						<div class="form-group">
 																							<label for="thoigianbhsp">Thời gian bảo
@@ -360,9 +374,8 @@
 																								<input type="text" name="thoigianbh"
 																									value="${fn:split(sp.getWarrantyPeriod(), ' ')[0]}"
 																									class="form-control" required> <select
-																									name="thoigianbhUnit" class="form-control">																									
-																									<option value="tháng"
-																										selected>Tháng</option>																
+																									name="thoigianbhUnit" class="form-control">
+																									<option value="tháng" selected>Tháng</option>
 																								</select>
 																							</div>
 																						</div>
@@ -374,12 +387,7 @@
 																									value="${fn:split(sp.getDeliveryTime(), ' ')[0]}"
 																									class="form-control" required> <select
 																									name="thoigianthUnit" class="form-control">
-																									<option value="ngày"
-																										<c:if test="${fn:split(sp.getDeliveryTime(), ' ')[1] eq 'ngày'}">selected</c:if>>Ngày</option>
-																									<option value="tháng"
-																										<c:if test="${fn:split(sp.getDeliveryTime(), ' ')[1] eq 'tháng'}">selected</c:if>>Tháng</option>
-																									<option value="năm"
-																										<c:if test="${fn:split(sp.getDeliveryTime(), ' ')[1] eq 'năm'}">selected</c:if>>Năm</option>
+																									<option value="tháng" selected>Tháng</option>
 																								</select>
 																							</div>
 																						</div>
@@ -425,7 +433,8 @@
 														</div>
 														<div class="modal-body">
 															<form method="POST"
-																action="/management/admin/product/Add">
+																action="/WebBanKinh/admin/product/Add"
+																enctype="multipart/form-data">
 																<div class="form-group">
 																	<label for="masp">Mã</label> <input type="text"
 																		name="masp" placeholder="Nhập mã sản phẩm"
@@ -436,11 +445,14 @@
 																		name="ten" placeholder="Nhập tên sản phẩm"
 																		class="form-control" required>
 																</div>
+																<input type="hidden" name="anhGoc"
+																	value="${sp.getId()}.jpg" required>
 																<div class="form-group">
 																	<label for="hinhanhsp">Ảnh</label>
 																	<div class="custom-file">
-																		<input type="file" name="hinhanh" id="hinhanh"
-																			class="custom-file-input" accept="image/*"> <label
+																		<input type="file" name="file" id="imageInput"
+																			onchange="previewImage()" class="custom-file-input"
+																			accept="image/*"> <label
 																			class="custom-file-label text-muted" for="hinhanhsp">Chọn
 																			ảnh</label>
 																	</div>
@@ -470,14 +482,24 @@
 																		class="form-control" required>
 																</div>
 																<div class="form-group">
+																	<label for="chatlieusp">Chất liệu</label> <input
+																		type="text" name="chatlieu"
+																		placeholder="Nhập chất liệu sản phẩm"
+																		class="form-control" required>
+																</div>
+																<div class="form-group">
+																	<label for="kichthuocsp">Kích thước</label> <input
+																		type="text" name="kichthuoc"
+																		placeholder="Nhập kích thước sản phẩm (đơn vị: mm)"
+																		class="form-control" required>
+																</div>
+																<div class="form-group">
 																	<label for="thoigianbhsp">Thời gian bảo hành</label>
 																	<div class="form-inline">
 																		<input type="text" name="thoigianbh"
 																			class="form-control" required> <select
 																			name="thoigianbhUnit" class="form-control">
-																			<option value="ngày" selected>Ngày</option>
-																			<option value="tháng">Tháng</option>
-																			<option value="năm">Năm</option>
+																			<option value="tháng" selected>Tháng</option>
 																		</select>
 																	</div>
 																</div>
@@ -487,9 +509,7 @@
 																		<input type="text" name="thoigianth"
 																			class="form-control" required> <select
 																			name="thoigianthUnit" class="form-control">
-																			<option value="ngày" selected>Ngày</option>
-																			<option value="tháng">Tháng</option>
-																			<option value="năm">Năm</option>
+																			<option value="tháng" selected>Tháng</option>
 																		</select>
 																	</div>
 																</div>
@@ -571,7 +591,21 @@
 				bsCustomFileInput.init();
 			});
 		</script>
+		<script>
+			function previewImage() {
+				var fileInput = document.getElementById('imageInput');
+				var imgPreview = document.getElementById('imgPreview');
 
+				// Đọc nội dung của tệp tin đã chọn
+				var file = fileInput.files[0];
+				var reader = new FileReader();
+				reader.onload = function(e) {
+					// Đặt đường dẫn hình ảnh vào src của thẻ img để hiển thị
+					imgPreview.src = e.target.result;
+				}
+				reader.readAsDataURL(file);
+			}
+		</script>
 	</div>
 </body>
 </html>

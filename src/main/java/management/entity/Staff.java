@@ -27,7 +27,10 @@ public class Staff {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@Column(name = "HOTEN", columnDefinition = "nvarchar(70)")
+	@Column(name = "HO", columnDefinition = "nvarchar(70)")
+	private String surname;
+	
+	@Column(name = "TEN", columnDefinition = "nvarchar(70)")
 	private String name;
 	
 	@Column(name = "SDT", length = 10)
@@ -83,6 +86,14 @@ public class Staff {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public String getSurname() {
+		return surname;
+	}
+
+	public void setSurname(String surname) {
+		this.surname = surname;
 	}
 
 	public String getName() {

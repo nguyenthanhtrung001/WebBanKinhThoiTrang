@@ -11,6 +11,7 @@ public class BasePath {
 		//Đường dẫn link lưu ảnh trong máy 
 		pathImgCustomer = "C:\\Users\\xuan\\"
 				+ "git\\DoAnWeb\\src\\main\\webapp\\templates\\user\\assets\\image\\";
+		pathImgProduct = "D:\\GitHub\\WebBanKinhThoiTrang\\src\\main\\webapp\\templates\\admin\\dist\\img\\";
 	}
 	
 	public String getPathImgCustomer() {
