@@ -32,8 +32,10 @@
 						<div class="card-body">
 							<div class="table-container">
 								<div class="table-search-group">
-									<input type="text" name="" class="form-control table-search" id="customer-searchField" placeholder="Tìm kiếm thông tin Khách Hàng" onkeyup="searchTable('customer-searchField', 'table_Customer')">
-								</div>
+									<input type="text" name="" class="table-search"
+										id="myInput" placeholder="Tìm kiếm Khách Hàng"
+										onkeyup="searchTable('customer-searchField', 'table_Customer')" />
+										</div>
 								<h1 class="table-title text-center">Bảng danh sách khách hàng</h1>
 								<div class="table-wrap">
 									<table class="table table-striped" id="table_Customer">
@@ -46,12 +48,12 @@
 												<th>Số điện thoại</th>
 											</tr>
 										</thead>
-										<tbody>
+										<tbody id="myTable" >
 											<c:forEach var="kh" items="${customers}">
 												<tr>
 													<td>${kh.id}</td>
-													<td>${kh.surname} ${kh.name}</td>
-													<td>${kh.gender}</td>
+													<td>${kh.name}</td>
+													<td>${kh.gender ? 'Nam' : 'Nữ'}</td>
 													<td>${kh.account.email}</td>
 													<td>${kh.phoneNumber}</td>
 												</tr>
@@ -69,6 +71,16 @@
 		</div>
 	</section>
 </div>
+<script>
+$(document).ready(function() {
+    $("#myInput").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $("#myTable tr").filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+        });
+    });
+});
+</script>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
