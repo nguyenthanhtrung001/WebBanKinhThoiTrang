@@ -252,7 +252,7 @@
 																		<div class="row edit-product-row">
 																			<form class="contener1-fix" method="POST"
 																				action="/WebBanKinh/admin/staff/update"
-																				modelAttribute="taikhoan">
+																				modelAttribute="taikhoan" enctype="multipart/form-data">
 																				<div class="col-md-6">
 																					<div class="form-group">
 																						<label  for="id">ID: ${staff.getId()}</label> <input

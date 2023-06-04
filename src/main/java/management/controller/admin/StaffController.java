@@ -174,7 +174,7 @@ public class StaffController {
 			@RequestParam("tenNV") String tenNV, @RequestParam("cmnd") String cmnd,
 			@RequestParam("soDT") String sdt, @RequestParam("diaChi") String diaChi,
 			@RequestParam("gioiTinh") Boolean gioiTinh, @RequestParam("ngaySinh") String ngaySinh,
-			@RequestParam("role") String chucVu,@RequestParam("anh1") String anh,
+			@RequestParam("role") String chucVu,@RequestParam("anh1") MultipartFile anh,
 			@RequestParam("trangThai") Integer trangThai,
 			@RequestParam("email") String email,
 			@RequestParam("id") int id,
@@ -207,7 +207,39 @@ public class StaffController {
 			nv.setcMND(cmnd);
 		//	nv.setImage(anh);
 			nv.setId(id);
+			
 			staffDao.updateStaff(nv, tk);
+			
+
+			String relativePath = "/templates/image/staff/";
+			String rootPath = context.getRealPath(relativePath);
+			System.out.println("rootPath" + rootPath);
+			String photoPath = rootPath + nv.getId() + ".jpg";
+			System.out.println(photoPath);
+
+			if (!anh.isEmpty()) {
+			    try {
+			        // Xóa file nếu đã tồn tại
+			        File existingFile = new File(photoPath);
+			        if (existingFile.exists()) {
+			        	System.out.println("xóa file củ");
+			            existingFile.delete();
+			        }
+			        System.out.println(" cập nhạt anh mới");
+			        
+			        anh.transferTo(new File(photoPath));
+
+			        Path sourcePath = Paths.get(photoPath);
+			        Path destinationPath = Paths.get(rootPath + nv.getId() + ".jpg");
+			        Files.copy(sourcePath, destinationPath, StandardCopyOption.REPLACE_EXISTING);
+
+			        // Tiếp tục xử lý sau khi tải lên thành công
+			    } catch (IOException e) {
+			        // Xử lý lỗi nếu có
+			        e.printStackTrace();
+			    }
+			}
+
 
 			redirectAttributes.addFlashAttribute("message", new Message("success", "Thêm mới thành công"));
 			System.out.println("Thanh cong cap nhat");
