@@ -1,6 +1,6 @@
 package management.dao.impl;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -13,8 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import management.dao.IDetailsCartDao;
 import management.dao.IProductDao;
-import management.entity.Bill;
 import management.entity.Product;
+import management.entity.Supplier;
 
 @Repository
 @Transactional
@@ -24,7 +24,6 @@ public class ProductDaoImpl implements IProductDao {
 	private SessionFactory sessionFactory;
 	@Autowired
 	private IDetailsCartDao detailsCartDao;
-	
 
 	@Override
 	public List<Product> getProductsIsAcctive(boolean b, int position, int pageSize) {
@@ -122,16 +121,19 @@ public class ProductDaoImpl implements IProductDao {
 	@Override
 	public Product getProductById(String id) {
 		Session s = sessionFactory.openSession();
-
-		String hql = "select sp from Product sp where sp.id = ?";
-
+		String hql = "select b from Product b where b.id = :id";
+Product supplier=null;
 		Query query = s.createQuery(hql);
+		try {
 
-		query.setParameter(0, id);
-
-		return (Product) query.list().get(0);
+			query.setParameter("id", id);
+			supplier=(Product) query.list().get(0);
+		} finally {
+			s.close();
+		}
+		return supplier;
 	}
-
+	
 	@Override
 	public List<Product> getListProducts(Boolean trangthai) {
 		Session session = sessionFactory.openSession();
@@ -150,7 +152,7 @@ public class ProductDaoImpl implements IProductDao {
 
 	@Override
 	public double get_Price_new(String id) {
-		Date date=detailsCartDao.getLatestApplicableDateByProductId(id);
+		Date date=(Date) detailsCartDao.getLatestApplicableDateByProductId(id);
 		Session session = sessionFactory.openSession();
 		
 		String hql = "select d.price from DetailsUpdatePrice d "
@@ -179,5 +181,5 @@ public class ProductDaoImpl implements IProductDao {
 		return productList;
 	}
 
-	
+
 }
