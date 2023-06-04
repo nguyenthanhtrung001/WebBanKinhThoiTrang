@@ -55,7 +55,7 @@
 					
 				   
 				   
-						<img style="height: 180px;" class="card-img-top img-fluid img-circle product__img img-thumbnail" src="<c:url value='/templates/image/product/SP01.jpg'/>"
+						<img style="height: 180px;" class="card-img-top img-fluid img-circle product__img img-thumbnail" src="<c:url value='/templates/image/product/${pp.getProduct().getId()}.jpg'/>"
 								alt="${pp.getProduct().getName()}"> 
 	              </a>
 	              <div class="card-body">

@@ -1,6 +1,11 @@
 package management.controller.admin;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
@@ -30,13 +35,14 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import management.bean.BasePath;
 import management.bean.Message;
 import management.dao.IAccountDao;
 import management.dao.IStaffDao;
 import management.entity.Account;
 import management.entity.Role;
 import management.entity.Staff;
-
+import org.springframework.core.io.InputStreamSource;
 
 @Controller
 @RequestMapping("/admin/")
@@ -47,6 +53,8 @@ public class StaffController {
 	private IStaffDao staffDao;
 	@Autowired
 	private IAccountDao accountDao;
+	@Autowired
+	ServletContext context;
 	
 	
 	@RequestMapping(value="staff",method = RequestMethod.GET)
@@ -69,11 +77,11 @@ public class StaffController {
 	}
 	
 	@RequestMapping(value = "staff/add", method = RequestMethod.POST)
-	public String register(ModelMap model, @ModelAttribute("taikhoan") Account tk, BindingResult errors,
+	public String insert(ModelMap model, @ModelAttribute("taikhoan") Account tk, BindingResult errors,
 			@RequestParam("tenNV") String tenNV, @RequestParam("cmnd") String cmnd,
 			@RequestParam("soDT") String sdt, @RequestParam("diaChi") String diaChi,
 			@RequestParam("gioiTinh") Boolean gioiTinh, @RequestParam("ngaySinh") String ngaySinh,
-			@RequestParam("role") String chucVu,@RequestParam("anh") String anh,
+			@RequestParam("role") String chucVu,@RequestParam("anh") MultipartFile anh,
 			
 			@RequestParam("email") String email, HttpSession ss, HttpServletRequest request, RedirectAttributes redirectAttributes) throws ParseException, NoSuchAlgorithmException
 	{
@@ -93,7 +101,7 @@ public class StaffController {
 			return "redirect:/admin/staff";
 		}
 		
-			
+		
 		
 		try {
 			Role r = new Role();
@@ -119,7 +127,30 @@ public class StaffController {
 		//	nv.setImage(anh);
 			nv.setAccount(tk);
 
-			staffDao.addStaff(nv, tk);
+			Staff tmp=staffDao.addStaff(nv, tk);
+			
+			String relativePath = "/templates/image/staff/";
+			String rootPath = context.getRealPath(relativePath);
+			System.out.println("rootPath"+rootPath);
+			String photoPath = rootPath + tmp.getId() + ".jpg";
+			System.out.println(photoPath);
+
+			if (!anh.isEmpty()) {
+			    try {
+			        anh.transferTo(new File(photoPath));
+
+			        Path sourcePath = Paths.get(photoPath);
+			        Path destinationPath = Paths.get(rootPath + tmp.getId() + ".jpg");
+			        Files.copy(sourcePath, destinationPath, StandardCopyOption.REPLACE_EXISTING);
+
+			        // Tiếp tục xử lý sau khi tải lên thành công
+			    } catch (IOException e) {
+			        // Xử lý lỗi nếu có
+			        e.printStackTrace();
+			    }
+			}
+
+
 
 			redirectAttributes.addFlashAttribute("message", new Message("success", "Thêm mới thành công"));
 			System.out.println("Thanh cong");
