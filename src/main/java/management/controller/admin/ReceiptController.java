@@ -167,7 +167,7 @@ public class ReceiptController {
 			
 			String receipt_codeString = receiptDao.getNumberOfReceipt().toString();
 			
-			receiptDao.createReceipt(receipt_codeString, supplier,new Date() );
+			receiptDao.createReCeipt(receipt_codeString, supplier,new Date() );
 			  for(int i=0;i<selectedProducts.size();i++) {
 				  for(int j=0;j<Integer.parseInt(listQuantity.get(i));j++)
 				  {
