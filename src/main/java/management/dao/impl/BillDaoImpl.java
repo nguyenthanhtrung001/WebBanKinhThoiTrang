@@ -260,6 +260,19 @@ public class BillDaoImpl implements IBillDao {
 		
 	}
 
+	@Override
+	public long getTotalPriceByMonthAndYear(int month, int year) {
+		 Session session = sessionFactory.openSession();
+		    Query query = session.createQuery("select sum(b.totalPrice) from Bill b where month(b.applicableDate) = :month and year(b.applicableDate) = :year");
+		    query.setParameter("month", month);
+		    query.setParameter("year", year);
+
+		    Long totalPrice = (Long) query.uniqueResult();
+		    session.close();
+		    
+		    return totalPrice != null ? totalPrice : 0;
+	}
+
 	
 	
 	

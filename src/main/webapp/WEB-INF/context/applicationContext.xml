@@ -14,7 +14,7 @@
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource"
 		p:driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver"
 		p:url="jdbc:sqlserver://localhost:1433;Database=BanKinh;encrypt=true;trustServerCertificate=true;"
-		p:username="sa" p:password="12">
+		p:username="sa" p:password="123">
 
 	</bean>
 	<!-- Cấu hình Hibernate -->
@@ -38,9 +38,11 @@
 	<!-- Upload file -->
 	<bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-		<property name="maxUploadSize" value="20848820" /> <!-- Điều chỉnh giá trị maxUploadSize theo yêu cầu của bạn -->
+		<property name="maxUploadSize" value="20848820"
+		 /> <!-- Điều chỉnh giá trị maxUploadSize theo yêu cầu của bạn -->
 		<property name="maxInMemorySize" value="1048576" /> <!-- Điều chỉnh giá trị maxInMemorySize theo yêu cầu của bạn -->
 	</bean>
+	
 
 	<!-- Spring Mail Sender -->
 	<bean id="mailSender"

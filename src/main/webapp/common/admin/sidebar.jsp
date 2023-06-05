@@ -33,13 +33,11 @@
 				data-widget="treeview" role="menu" data-accordion="false">
 
 
-				<li class="nav-item"><a href="#" class="nav-link">  
+				<li class="nav-item"><a href="WebBanKinh/admin/home" class="nav-link">  
 				<i class="fas fa-chart-bar"></i>
-						<p>
-
-
-							Thống Kê<i class="right fas fa-angle-left"></i>
-						</p>
+				<p>
+					Thống Kê<i class="right fas fa-angle-left"></i>
+				</p>
 				</a>
 					<ul class="nav nav-treeview" style="display: none;">
 

@@ -12,6 +12,7 @@ import javax.mail.MessagingException;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import management.bean.Mailer;
+import management.controller.user.Helpper;
 import management.dao.IAccountDao;
 import management.entity.Account;
 
@@ -32,11 +34,11 @@ public class ForgetController {
 	@Autowired
 	SessionFactory factory;
 
-	@Autowired
-	JavaMailSender mailer;
+	
 
 	@Autowired
 	IAccountDao accountDao;
+	@Autowired Mailer mailer;
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String index(ModelMap model, HttpServletRequest request, HttpSession ss) {
@@ -75,11 +77,13 @@ public class ForgetController {
 
 		Account account = accountDao.getSingleAccountNoPass(email);
 		if (account != null) {
-			String myHash = "12345";
-			account.setPassword(myHash);
+			String myHash = Helpper.generateRandomNumber()+"";
+			 BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		     String encodedPassword = encoder.encode(myHash);
+			account.setPassword(encodedPassword);
 			accountDao.updateAccount(account);
-//			Mailer mailer = new Mailer();
-//			mailer.send("n20dccn151@student.ptithcm.edu.vn", "n20dccn160@student.ptithcm.edu.vn", "tmp", "thinhne");
+		
+			mailer.send("n20dccn160@student.ptithcm.edu.vn",email, "Eye Glasses Shop", "Mật khẩu mới của bạn: "+myHash);
 			model.addAttribute("messageA", "Vào email của bạn để lấy mật khẩu mới!");
 			model.addAttribute("login", false);
 

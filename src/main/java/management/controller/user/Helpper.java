@@ -2,6 +2,7 @@ package management.controller.user;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -45,5 +46,13 @@ public class Helpper {
 	        }
 
 	        return diaChi;
+	    }
+	 public static int generateRandomNumber() {
+	        Random random = new Random();
+	        int min = 10000; // Giá trị nhỏ nhất có 5 chữ số
+	        int max = 99999; // Giá trị lớn nhất có 5 chữ số
+
+	        int randomNumber = random.nextInt(max - min + 1) + min;
+	        return randomNumber;
 	    }
 }

@@ -12,6 +12,12 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+<style>
+    .alert {
+        transition: height 0.5s ease-out, opacity 0.5s ease-out;
+    }
+</style>
 </head>
 
 <body>
@@ -25,7 +31,10 @@
                         <div class="col-md-12 order-md-2 mb-4">
                             <h4 class="d-flex justify-content-between align-items-center mb-3">
                                 <span class="text-muted">Danh sách đơn hàng</span>
-                                <span class="badge badge-secondary badge-pill">10</span>
+		                               <c:if test="${not empty successMessage}">
+    <div class="alert alert-success" id="successMessage">${successMessage}</div>
+</c:if>
+                                <span class="badge badge-secondary badge-pill">${sizeCart}</span>
                             </h4>
                             <ul class="list-group mb-3">
                                 <!-- Trước vòng lặp forEach, đặt biến totalAmount và gán giá trị ban đầu là 0 -->
@@ -89,6 +98,7 @@
                         </div>
                     </div>
                 </div>
+                
             </div>
 
             <!-- thông tin khách h -->
@@ -155,7 +165,7 @@
 
                     <div class="mb-3">
                         <label for="address">Địa chỉ <span class="text-muted">(Số nhà, xã/phường, quận/huyện)</span></label>
-                        <input type="text" class="form-control" id="address" value="${diachi}" placeholder="Nhập địa chỉ" required>
+                        <input type="text" class="form-control" id="address" name="address0" value="${diachi}" placeholder="Nhập địa chỉ" required>
                     </div>
 
                     <h4 class="mb-3">Thanh toán</h4>
@@ -228,11 +238,11 @@
                 <form action="/WebBanKinh/customer/update" >
                     <div class="form-group">
                         <label for="fullName" style="font-size: 18px;">Họ và Tên</label>
-                        <input type="text" class="form-control" id="fullName" name="fullName1" value="${cus.getName() }" placeholder="Nhập họ và tên" style="font-size: 16px;">
+                        <input type="text" class="form-control" id="fullName" name="fullName1" value="${cus.getName() }"  placeholder="Nhập họ và tên" style="font-size: 16px;" required>
                     </div>
                     <div class="form-group">
                         <label for="phoneNumber" style="font-size: 18px;">Số điện thoại</label>
-                        <input type="text" class="form-control" name="phoneNumber" value="${sessionScope.user.phoneNumber}" id="phoneNumber" placeholder="Nhập số điện thoại" style="font-size: 16px;">
+                        <input type="text" class="form-control" name="phoneNumber" value="${sessionScope.user.phoneNumber}" id="phoneNumber" placeholder="Nhập số điện thoại" style="font-size: 16px;" required>
                     </div>
                     <div class="form-group">
                         <label for="state" style="font-size: 18px;">Tỉnh/Thành phố</label>
@@ -253,14 +263,12 @@
                     </div>
                     <div class="form-group">
                         <label for="address" style="font-size: 18px;">Địa chỉ</label>
-                        <input type="text" class="form-control" id="address" name="address" value="${diachi}" placeholder="Nhập địa chỉ" style="font-size: 16px;">
+                        <input type="text" class="form-control" id="address" name="address" value="${diachi}" placeholder="Nhập địa chỉ" style="font-size: 16px;" required>
                     </div>
                     
                      <div class="modal-footer">
                      <!-- Add this within the body of your HTML file -->
-<c:if test="${not empty successMessage}">
-    <div class="alert alert-success">${successMessage}</div>
-</c:if>
+
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
                 <button type="submit" class="btn btn-primary" style="font-size: 18px;">Cập nhật</button>
             </div>
@@ -272,6 +280,13 @@
 </div>
 
     <script>
+    $(document).ready(function() {
+        // Tự động ẩn thông báo sau 3 giây
+        setTimeout(function() {
+            $("#successMessage").fadeOut();
+        }, 1500);
+    });
+    
     
     function calculateTotal() {
     	  var total = parseFloat(document.getElementById("totalAmount").textContent.replace(/[^0-9.-]+/g, "")); // Get the current total amount

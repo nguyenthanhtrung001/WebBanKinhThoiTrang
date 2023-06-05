@@ -20,6 +20,7 @@ public interface IBillDao {
 	public Bill create_Bill(Bill bill);
 	Bill getBill(String id);
 	public void updateStatus(int idBill, int statusNew);
+	public long getTotalPriceByMonthAndYear(int month, int year);
 	
 	//--------------------
 	List<Bill> getListBillOfCustomer(int id);
@@ -29,5 +30,6 @@ public interface IBillDao {
 	void addDetailsExchangeVoucherPK(DetailsExchangeVoucherPk dev_pk);
 	void addDetailsExchangeVoucher(DetailsExchangeVoucher dev);
 	int soLuongPhieuDoi();
+	
 	
 }

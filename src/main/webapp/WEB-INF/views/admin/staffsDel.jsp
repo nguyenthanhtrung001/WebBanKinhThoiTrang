@@ -133,8 +133,8 @@
 											</div>
 											
 
-															<form method="post" "
-																action="/management/admin/staff/restore/${staff.getAccount().getEmail()}">
+															<form method="post" 
+																action="/WebBanKinh/admin/staff/restore/${staff.getAccount().getEmail()}">
 																<div class="modal-footer">
 
 																	<button type="submit" class="btn-green btn btn-primary">Đồng Ý</button>

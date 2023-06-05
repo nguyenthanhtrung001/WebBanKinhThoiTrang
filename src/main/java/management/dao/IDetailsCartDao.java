@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import management.entity.Bill;
+import management.entity.Customer;
 import management.entity.DetailsCart;
 
 
@@ -28,5 +29,6 @@ public interface IDetailsCartDao {
 	public int getQuantitybyID(long id) ;
 	public Date getLatestApplicableDateByProductId(String productId);
 	public String get_name_customer_by_IDHD(int id);
+	public Customer get_customer_by_IDHD(int id) ;
 	public double getTotalAmountOfBillItems();
 	}

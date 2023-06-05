@@ -129,21 +129,21 @@
 									<tbody id="myTable">
 										<c:forEach var="b" items="${listBill}">
 											<tr>
-												<td>${b.getBill().getId()}</td>
-												<td>${b.getBill().getApplicableDate()}</td>
-												<td>${b.getBill().getStatus() == 0 ? "Đang Xử Lý" : b.getBill().getStatus() == 1 ? "Đã Duyệt" : "Đã Hủy"}</td>
+												<td>${b.getId()}</td>
+												<td>${b.getApplicableDate()}</td>
+												<td>${b.getStatus() == 0 ? "Đang Xử Lý" : b.getStatus() == 1 ? "Đã Duyệt" : "Đã Hủy"}</td>
 
-												<td></td>
+												<td>${b. getFullName()}</td>
 												<td></td>
 												
 												<td><a class="btn btn-primary float-right" style="margin: 0 2px; background: #eb7512;color: white;" data-toggle="modal"
-													data-target="#modal-edit-${b.getBill().getId()}"> <i class="fas fa-edit"></i>
+													data-target="#modal-edit-${b.getId()}"> <i class="fas fa-edit"></i>
 												</a> 
 												
 											</tr>
 											
 											<!--  000000000000000000000000000 -->
-											<div class="modal fade" id="modal-edit-${b.getBill().getId()}" tabindex="-1"
+											<div class="modal fade" id="modal-edit-${b.getId()}" tabindex="-1"
 												role="dialog" aria-hidden="true">
 												<div class="modal-dialog  modal-dialog-centered">
 													<div class="modal-content">
@@ -166,13 +166,25 @@
 																								<label for="maDonHang">Mã đơn hàng</label> <input
 																									type="text" class="form-control" id="maDonHang"
 																									name="maDonHang" readonly
-																									value="${b.getBill().getId()}">
+																									value="${b.getId()}">
 																							</div>
 																							<div class="form-group">
 																								<label for="tenKhachHang">Tên khách hàng</label>
 																								<input type="text" class="form-control"
 																									id="tenKhachHang" name="tenKhachHang"
-																									value="${b.getName()}" readonly>
+																									value="${b.getFullName()}" readonly>
+																							</div>
+																								<div class="form-group">
+																								<label for="tenKhachHang">Số điện thoại</label>
+																								<input type="text" class="form-control"
+																									id="soDT" name="soDT"
+																									value="${b.getTelephone()}" readonly>
+																							</div>
+																								<div class="form-group">
+																								<label for="tenKhachHang">Địa chỉ</label>
+																								<input type="text" class="form-control"
+																									id="diachi" name="diachi"
+																									value="${b.getAddress()}" readonly>
 																							</div>
 																							<div class="form-group">
 																								<label for="trangThai">Trạng thái</label> 

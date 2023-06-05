@@ -11,6 +11,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -56,16 +57,7 @@ public class LoginController {
 		return "login";
 	}
 	
-	public Staff layNV(String email)
-	{
-		email.trim();
-		Session session = factory.getCurrentSession();
-		String hql = "FROM Staff where account = :email";
-		Query query = session.createQuery(hql);
-		query.setParameter("email", email);
-		Staff p =(Staff)query.list().get(0);
-		return p;
-	}
+	
 	
 	
 	
@@ -81,10 +73,11 @@ public class LoginController {
 		String password = request.getParameter("password");
 		username.trim();
 		password.trim();
-		MessageDigest md = MessageDigest.getInstance("MD5");
-		md.update(password.getBytes());
-		byte[] digest = md.digest();
-		//String myHash = DatatypeConverter.printHexBinary(digest).toLowerCase();
+		
+		 BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+	       // String encodedPassword = encoder.encode(password);
+	        
+	        
 		
 		
 		boolean kt=true;
@@ -107,10 +100,20 @@ public class LoginController {
 			return "login";
 		}
 		
+		//System.out.println("mk;"+encodedPassword);
+		//Account account=accountDao.getSingleAccount(username, encodedPassword);
+		Account account=accountDao.getSingleAccountNoPass(username);
+		boolean checkPass=false;
+		try {
+			 checkPass=encoder.matches(password, account.getPassword());
+		} catch (Exception e) {
+			checkPass=false;
+			e.printStackTrace();
+		}
 		
-		Account account=accountDao.getSingleAccount(username, password);
 		
-		if(account==null)
+		
+		if(account==null || checkPass==false)
 		{
 			model.addAttribute("messageA", "Tài khoản hoặc mật khẩu không đúng!");
 			model.addAttribute("login","Login");

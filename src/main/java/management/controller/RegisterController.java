@@ -12,6 +12,7 @@ import javax.transaction.Transactional;
 
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -125,11 +126,16 @@ public class RegisterController {
 			return "register";
 		}
 		
+		 BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+	     String encodedPassword = encoder.encode(khachHang.getAccount().getPassword());
+	        
+	        System.out.println("Mật khẩu gốc: " + khachHang.getAccount().getPassword());
+	        System.out.println("Mật khẩu đã mã hóa: " + encodedPassword);
 		
 		
 		taiKhoan.setEmail(khachHang.getAccount().getEmail());
-		taiKhoan.setPassword(khachHang.getAccount().getPassword());
-		//taiKhoan.setPassword(myHash);
+		//taiKhoan.setPassword(khachHang.getAccount().getPassword());
+		taiKhoan.setPassword(encodedPassword);
 		Role role=new Role();
 		role.setId("KH");
 		taiKhoan.setRole(role);

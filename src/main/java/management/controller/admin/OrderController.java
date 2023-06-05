@@ -59,16 +59,16 @@ public class OrderController {
 	public ModelAndView bills0(ModelMap model) {
 		
 		List<Bill>list=billDao.getListBillTT(0);
-		List<Bill_NameCustomer>list0= new ArrayList<Bill_NameCustomer>();
-		 for (Bill b: list) {
-			
-			 Bill_NameCustomer  bNameCustomer=new Bill_NameCustomer();
-			 bNameCustomer.setBill(b);
-			 bNameCustomer.setName(detailsCartDao.get_name_customer_by_IDHD(b.getId()));
-			 list0.add(bNameCustomer);
-		 }
+//		List<Bill_NameCustomer>list0= new ArrayList<Bill_NameCustomer>();
+//		 for (Bill b: list) {
+//			
+//			 Bill_NameCustomer  bNameCustomer=new Bill_NameCustomer();
+//			 bNameCustomer.setBill(b);
+//			 bNameCustomer.setCustomer(detailsCartDao.get_customer_by_IDHD(b.getId()));
+//			 list0.add(bNameCustomer);
+//		 }
 		
-		model.addAttribute("listBill", list0);
+		model.addAttribute("listBill", list);
 		ModelAndView modelAndView = new ModelAndView("admin/order");
 		return modelAndView;
 	}
@@ -76,15 +76,15 @@ public class OrderController {
 	public ModelAndView bills1(ModelMap model) {
 		
 		List<Bill>list=billDao.getListBillTT(1);
-		List<Bill_NameCustomer>list1= new ArrayList<Bill_NameCustomer>();
-		 for (Bill b: list) {
-			 Bill_NameCustomer  bNameCustomer=new Bill_NameCustomer();
-			 bNameCustomer.setBill(b);
-			 bNameCustomer.setName(detailsCartDao.get_name_customer_by_IDHD(b.getId()));
-			 list1.add(bNameCustomer);
-		 }
+//		List<Bill_NameCustomer>list1= new ArrayList<Bill_NameCustomer>();
+//		 for (Bill b: list) {
+//			 Bill_NameCustomer  bNameCustomer=new Bill_NameCustomer();
+//			 bNameCustomer.setBill(b);
+//			 bNameCustomer.setCustomer(detailsCartDao.get_customer_by_IDHD(b.getId()));
+//			 list1.add(bNameCustomer);
+//		 }
 		
-		model.addAttribute("listBill", list1);
+		model.addAttribute("listBill", list);
 		
 		ModelAndView modelAndView = new ModelAndView("admin/order");
 		return modelAndView;
@@ -93,15 +93,15 @@ public class OrderController {
 	public ModelAndView bills2(ModelMap model) {
 		
 		List<Bill>list=billDao.getListBillTT(2);
-		List<Bill_NameCustomer>list2= new ArrayList<Bill_NameCustomer>();
-		 for (Bill b: list) {
-			 Bill_NameCustomer  bNameCustomer=new Bill_NameCustomer();
-			 bNameCustomer.setBill(b);
-			 bNameCustomer.setName(detailsCartDao.get_name_customer_by_IDHD(b.getId()));
-			 list2.add(bNameCustomer);
-		 }
+//		List<Bill_NameCustomer>list2= new ArrayList<Bill_NameCustomer>();
+//		 for (Bill b: list) {
+//			 Bill_NameCustomer  bNameCustomer=new Bill_NameCustomer();
+//			 bNameCustomer.setBill(b);
+//			 bNameCustomer.setCustomer(detailsCartDao.get_customer_by_IDHD(b.getId()));
+//			 list2.add(bNameCustomer);
+//		 }
 		
-		model.addAttribute("listBill", list2);
+		model.addAttribute("listBill", list);
 		ModelAndView modelAndView = new ModelAndView("admin/order");
 		return modelAndView;
 	}

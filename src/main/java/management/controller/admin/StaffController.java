@@ -43,6 +43,7 @@ import management.entity.Account;
 import management.entity.Role;
 import management.entity.Staff;
 import org.springframework.core.io.InputStreamSource;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Controller
 @RequestMapping("/admin/")
@@ -87,7 +88,13 @@ public class StaffController {
 	{
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
 		Date ngaySinhDate = formatter.parse(ngaySinh);
-		String password = "01234567";
+		String password = "13579";
+		
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		String encodedPassword = encoder.encode(password);
+
+		
+		
 		
 		
 		
@@ -109,7 +116,7 @@ public class StaffController {
 			tk.setRole(r);
 			tk.setStatus(1);
 			tk.setEmail(email);
-			tk.setPassword(password);
+			tk.setPassword(encodedPassword);
 
 			model.addAttribute("taikhoan", new Account());
 			Staff nv = new Staff();

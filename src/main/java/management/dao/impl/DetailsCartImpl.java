@@ -23,6 +23,7 @@ import management.dao.IDetailsCartDao;
 import management.dao.IRoleDao;
 import management.entity.Account;
 import management.entity.Bill;
+import management.entity.Customer;
 import management.entity.DetailsCart;
 import management.entity.Role;
 import management.entity.Staff;
@@ -274,6 +275,17 @@ public class DetailsCartImpl implements IDetailsCartDao{
 		
 	    session.close();
 	    return name;
+	}
+	@Override
+	public Customer get_customer_by_IDHD(int id) {
+	    Session session = sessionFactory.openSession();
+	    String hql = "SELECT dc.customer FROM DetailsCart dc WHERE dc.bill.id = :id";
+	    Query query = session.createQuery(hql);
+	    query.setParameter("id", id);
+	    Customer cus= (Customer)  query.list().get(0);
+		
+	    session.close();
+	    return cus;
 	}
 
 

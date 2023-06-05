@@ -15,7 +15,7 @@ public class Account {
 	@Column(name = "EMAIL", length = 500)
 	private String email;
 	
-	@Column(name = "MATKHAU", length = 60)
+	@Column(name = "MATKHAU", length = 500)
 	private String password;
 	
 	@Column(name = "TRANHTHAI")

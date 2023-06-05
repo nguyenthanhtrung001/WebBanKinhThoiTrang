@@ -51,8 +51,8 @@
             <div class="row">
 										<div class="col-md-9"></div>
 										<div class="col-md-3">
-										<h5>Phí vận chuyển: ${ship } </h5>
-										<h5>Tổng tiền: ${total+ship} VND</h5>
+										<h5>Phí vận chuyển: ${ship } VND </h5>
+										<h5><strong>Tổng tiền:</strong>      ${total+ship} VND</h5>
 										</div>
 										
 									</div>

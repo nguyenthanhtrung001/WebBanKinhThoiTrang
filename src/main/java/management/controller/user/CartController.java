@@ -28,6 +28,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import management.bean.Message;
 import management.dao.IBillDao;
+import management.dao.ICustomerDao;
 import management.dao.IDetailsCartDao;
 import management.dao.IProductDao;
 
@@ -57,6 +58,9 @@ public class CartController {
 	private IPromotionDao promotionDao;
 	@Autowired
 	private ISeriDao seriDao;
+	@Autowired
+	private ICustomerDao customerDao;
+	
 
 	// List<DetailsCart> listTmp = new ArrayList<>();
 
@@ -185,7 +189,8 @@ public class CartController {
 
 	@RequestMapping("cart/payingN")
 	public ModelAndView paying(ModelMap model, HttpServletRequest request, RedirectAttributes redirectAttributes,
-			@RequestParam(value = "productId", required = false) List<Long> productIds) {
+			@RequestParam(value = "productId", required = false) List<Long> productIds
+				){
 		// Process the selected products here
 		HttpSession session1 = request.getSession();
 		List<DetailsCart> list = new ArrayList<DetailsCart>();
@@ -207,10 +212,14 @@ public class CartController {
 			}
 			// listTmp = list;
 			session1.setAttribute("cart", list);
-			System.out.println("cart:" + list.size());
+			session1.setAttribute("sizeCart", list.size());
+			
 		}
 
 		Customer cus = (Customer) session1.getAttribute("user");
+		
+		
+		
 
 		model.addAttribute("cus", cus);
 		double ship = 0;
@@ -220,8 +229,9 @@ public class CartController {
 
 		} else
 			ship = 35000;
-		String tinh = Helpper.layTenTinhTuDiaChi(cus.getAddress());
+		
 		String diaChi_ = Helpper.loaiBoTenTinh(cus.getAddress());
+		String tinh = Helpper.layTenTinhTuDiaChi(cus.getAddress());
 		model.addAttribute("ship", ship);
 		model.addAttribute("tinh", tinh);
 		model.addAttribute("diachi", diaChi_);
@@ -233,19 +243,31 @@ public class CartController {
 
 	@RequestMapping(value = "cart/paying/success", method = RequestMethod.POST)
 	public ModelAndView success(ModelMap model, HttpServletRequest request,
+			@RequestParam("address0") String address ,
 			@RequestParam(value = "moneyship", required = false, defaultValue = "0") double ship,
 			@RequestParam(value = "total", required = false, defaultValue = "0") double total,
 			@RequestParam(value = "promotionVoucher", required = false, defaultValue = "0") double voucher) {
 
+		HttpSession session1 = request.getSession();
+		Customer cus = (Customer) session1.getAttribute("user");
+		String tinh = Helpper.layTenTinhTuDiaChi(cus.getAddress());
+		cus.setAddress(address+", "+tinh);
+		customerDao.updateCustomer(cus);
+		
 		System.out.println("coucher" + voucher);
 		List<DetailsCart> listTmp = new ArrayList<>();
 		HttpSession session = request.getSession();
 		listTmp = (List<DetailsCart>) session.getAttribute("cart");
-		System.out.println("sub:" + listTmp.size());
+		
 		Bill newBill = new Bill();
 		// newBill.setStaff(null);
 		newBill.setStatus(0);
 		newBill.setApplicableDate(new Date());
+		newBill.setTotalPrice((int)total);
+		newBill.setAddress(cus.getAddress());
+		newBill.setFullName(cus.getName());
+		newBill.setTelephone(cus.getPhoneNumber());
+		
 		billDao.create_Bill(newBill);
 		for (DetailsCart detailsCart : listTmp) {
 			detailsCartDao.update_HD_DetailsCart(detailsCart.getId(), newBill);
@@ -264,6 +286,7 @@ public class CartController {
 
 		model.addAttribute("ship", ship);
 		model.addAttribute("total", total);
+		
 
 		model.addAttribute("cart", listTmp);
 		session.removeAttribute("cart");

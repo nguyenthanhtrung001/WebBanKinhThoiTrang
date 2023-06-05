@@ -22,7 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 import management.bean.Product_Price;
 
 import management.dao.IProductDao;
-
+import management.dao.ISeriDao;
 import management.entity.Product;
 
 
@@ -35,6 +35,8 @@ public class ProductsControler {
 	
 		@Autowired
 		private IProductDao productDao;
+		@Autowired
+		private ISeriDao seriDao;
 		
 		
 		
@@ -93,7 +95,12 @@ public class ProductsControler {
 			Product_Price pp=new Product_Price();
 			pp.setProduct(p);
 			pp.setPrice(productDao.get_Price_new(id));
+			
+			long slSP=seriDao.getQuantitySeriOfProduct(id);
+			
 			model.addAttribute("product", pp);
+			model.addAttribute("soLuong", slSP);
+			
 			
 			return "user/DetailsProduct";
 		}

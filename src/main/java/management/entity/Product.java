@@ -33,7 +33,7 @@ public class Product {
 	@Column(name = "KICHTHUOC")
 	private Double size;
 	
-	@Column(name = "MOTA",columnDefinition = "nvarchar(1000)")
+	@Column(name = "MOTA",columnDefinition = "nvarchar(4000)")
 	private String description;
 	
 	@Column(name = "HANG", columnDefinition = "nvarchar(100)")
