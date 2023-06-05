@@ -83,7 +83,7 @@
 				
 				</div>
                 <!--<input type="checkbox" id="checkbox" name="checkbox">-->
-                <a style="color: red;" href="register">Quên mật khẩu</a>
+                <a style="color: red;" href="forget">Quên mật khẩu</a>
                 <input type="submit" name="submit" value="Đăng nhập" />
                 <label class="psw-text"> Bạn chưa có tài khoản? 
                 <a href="/WebBanKinh/register" style="color: red;">Đăng ký</a>

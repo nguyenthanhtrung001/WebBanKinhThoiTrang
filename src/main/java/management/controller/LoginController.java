@@ -117,7 +117,7 @@ public class LoginController {
 		{
 			model.addAttribute("messageA", "Tài khoản hoặc mật khẩu không đúng!");
 			model.addAttribute("login","Login");
-			return "login";
+			return "redirect:/login";
 		}
 		
 		else
@@ -134,7 +134,7 @@ public class LoginController {
 							return "login";
 							}
 						session1.setAttribute("tk",taikhoan);
-						session1.setAttribute("user", kh);
+						session1.setAttribute("user", nv);
 						session1.setAttribute("mk", matKhau);
 					
 					return "redirect:/admin/order";
@@ -149,7 +149,7 @@ public class LoginController {
 						nv=taikhoan.getStaff();
 						matKhau = password;
 						session1.setAttribute("tk",taikhoan);
-						session1.setAttribute("user", kh);
+						session1.setAttribute("user", nv);
 						session1.setAttribute("mk", matKhau);
 						//model.addAttribute("login", true);
 						return "redirect:/admin/home";
