@@ -36,8 +36,7 @@
   
   
   <link rel="stylesheet" href="<c:url value='/templates/css/alertify.min.css'/>" />
-  
-  
+    
   
 </head>
 <body>
@@ -275,7 +274,7 @@
 																					</div>
 																					<div class="form-group">
 																						<label for="soDT">SĐT</label> <input type="text"
-																							name="soDT" value="${staff.getPhoneNumber()}" class="form-control" required>
+																							name="soDT" value="${staff.getPhoneNumber()}" class="form-control" required pattern="0\d{9,10}|84\d{9,10}">
 																					</div>
 																					<div class="form-group">
 																						<label for="diaChi">Địa Chỉ</label> <input
@@ -288,8 +287,9 @@
 																						<label for="ngaySinh">Ngày Sinh</label>
 																						
 																						<input
-																							type="date" name="ngaySinh" value="${staff.getBirthDaytoStringYMD()}" class="form-control"
+																							type="date" name="ngaySinh" id="ngaySinh" value="${staff.getBirthDaytoStringYMD()}" class="form-control"
 																							required>
+																							
 																							
 																					</div>
 																					<div class="form-group">
@@ -374,9 +374,7 @@
 																<div class="col-12">
 																	<div class="bg-primary-dark block block-h-auto">
 																		<div class="row edit-product-row">
-																			<form class="contener1-fix" method="POST"
-																				action="/WebBanKinh/admin/staff/add"
-																				modelAttribute="taikhoan" enctype="multipart/form-data">
+																			 <form method="POST" action="/WebBanKinh/admin/staff/update" modelAttribute="taikhoan" enctype="multipart/form-data" onsubmit="return validateDateOfBirth()">
 																				<div class="col-md-6">
 																					<div class="form-group">
 																						<label for="email">Email Tài Khoản</label> <input
@@ -394,7 +392,7 @@
 																					</div>
 																					<div class="form-group">
 																						<label for="soDT">SĐT</label> <input type="text"
-																							name="soDT" class="form-control" required>
+																							name="soDT" class="form-control" required pattern="0\d{9,10}|84\d{9,10}">
 																					</div>
 																					<div class="form-group">
 																						<label for="diaChi">Địa Chỉ</label> <input
@@ -404,9 +402,8 @@
 																				</div>
 																				<div class="col-md-6">
 																					<div class="form-group">
-																						<label for="ngaySinh">Ngày Sinh</label> <input
-																							type="date" name="ngaySinh" class="form-control"
-																							required>
+																					  <label for="ngaySinh">Ngày Sinh</label>
+																					  <input type="date" name="ngaySinh" id="ngaySinh" class="form-control" required>
 																					</div>
 																					<div class="form-group">
 																						<label for="gioiTinh">Giới Tính</label> <select
@@ -531,6 +528,17 @@ $(document).ready(function(){
   });
 });
 </script>
+<script>
+  // Lấy ngày hiện tại
+  var currentDate = new Date();
+
+  // Đặt ngày tối đa là ngày trước khi 18 tuổi
+  currentDate.setFullYear(currentDate.getFullYear() - 18);
+  var maxDate = currentDate.toISOString().split("T")[0];
+
+  // Đặt thuộc tính max của input ngày sinh
+  document.getElementById("ngaySinh").max = maxDate;
+</script>
 
 	<script
 		src="<c:url value='/templates/admin/plugins/jquery/jquery.min.js'/>"></script>
@@ -548,5 +556,7 @@ $(document).ready(function(){
 	<!-- AdminLTE for demo purposes -->
 	<script src="<c:url value='/templates/admin/dist/js/demo.js'/>"></script>
 	<!-- Page specific script -->
+	
+	
 </body>
 </html>

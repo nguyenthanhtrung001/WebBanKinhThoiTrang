@@ -97,5 +97,28 @@
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script>
+    // Check if the redirect flag is present
+    var redirect = ${redirect};
+    if (redirect) {
+        // Display the success message
+        var message = "${message}";
+        if (message !== "") {
+            alert(message);
+        }
+
+        // Delay the redirection to the login page
+        setTimeout(function() {
+            // Hide the message
+            var messageElement = document.getElementById("message");
+            messageElement.style.display = "none";
+
+            // Redirect to the login page
+            window.location.href = "http://localhost:8080/WebBanKinh/login";
+        }, 1000); // 1000 milliseconds = 1 second
+    }
+</script>
+
+
 </body>
 </html>

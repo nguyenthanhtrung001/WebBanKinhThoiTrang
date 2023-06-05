@@ -4,6 +4,8 @@ package management.controller;
 import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,6 +23,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import management.bean.Validator_check;
 import management.dao.IAccountDao;
 import management.dao.ICustomerDao;
 import management.entity.Account;
@@ -86,23 +89,37 @@ public class RegisterController {
 			e1.printStackTrace();
 		}
 		khachHang.setDateOfBirth(date);
+		LocalDate dateOfBirth = khachHang.getDateOfBirth().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+	    int minimumAge = 12;
+	    boolean kt = true;
+	    if (!Validator_check.isMinimumAge(dateOfBirth, minimumAge)) {
+	    	System.out.println("tuôi bé");
+	        errors.rejectValue("name", "KhachHang", "Bạn phải lớn hơn " + minimumAge + " tuổi để đăng ký!");
+	        kt = false;
+	    }
 		
-		boolean kt = true;
-		if (khachHang.getName().trim().toString().equals("")) {
-			errors.rejectValue("tenKH", "KhachHang", "Họ và tên không được để trống!");
-			kt = false;
-		}
-		if (khachHang.getAddress().trim().toString().equals("")) {
-			errors.rejectValue("diaChi", "KhachHang", "Địa chỉ không được để trống!");
-			kt = false;
-		}
-		if (khachHang.getPhoneNumber().trim().toString().equals("")) {
-			errors.rejectValue("soDT", "KhachHang", "Số điện thoại không được để trống!");
-			kt = false;
-		}
+		
+		if (khachHang.getName().trim().isEmpty()) {
+	        errors.rejectValue("name", "KhachHang", "Họ và tên không được để trống!");
+	        kt = false;
+	    }
+	    if (khachHang.getAddress().trim().isEmpty()) {
+	        errors.rejectValue("account.password", "KhachHang", "Địa chỉ không được để trống!");
+	        kt = false;
+	    }
+	    if (khachHang.getPhoneNumber().trim().isEmpty()) {
+	        errors.rejectValue("phoneNumber", "KhachHang", "Số điện thoại không được để trống!");
+	        kt = false;
+	    }
+	    if (!Validator_check.isValidPhoneNumber(khachHang.getPhoneNumber())) {
+	        errors.rejectValue("phoneNumber", "KhachHang", "Số điện thoại không hợp lệ!");
+	        kt = false;
+	    }
+
+		
 		
 		if (khachHang.getAccount().getEmail().trim().toString().equals("")) {
-			errors.rejectValue("dstaikhoan.email", "KhachHang", "Email không được để trống!");
+			errors.rejectValue("account.email", "KhachHang", "Email không được để trống!");
 			kt = false;
 		}
 		
@@ -111,12 +128,11 @@ public class RegisterController {
 			kt = false;
 		}
 		if (khachHang.getAccount().getPassword().trim().toString().equals("")) {
-			errors.rejectValue("dstaikhoan.password", "KhachHang", "Mật khẩu không được để trống!");
+			errors.rejectValue("account.password", "KhachHang", "Mật khẩu không được để trống!");
 			kt = false;
-		}
-		
-		if (khachHang.getAccount().getPassword().trim().toString().length() < 3) {
-			errors.rejectValue("dstaikhoan.password", "KhachHang", "Mật khẩu không được quá ngắn");
+		}		
+		else if (khachHang.getAccount().getPassword().trim().toString().length() < 3) {
+			errors.rejectValue("account.password", "KhachHang", "Mật khẩu không được quá ngắn");
 			kt = false;
 		}
 
@@ -139,17 +155,17 @@ public class RegisterController {
 		Role role=new Role();
 		role.setId("KH");
 		taiKhoan.setRole(role);
-		if(customerDao.addCustomer(khachHang, taiKhoan)) {
-			model.addAttribute("tk",taiKhoan);
-			ss.setAttribute("user", khachHang);
-			model.addAttribute("message","Thêm thành công!");
-			model.addAttribute("login", false);
-			return "login";
-		}else 
-		{
-			model.addAttribute("message","Thất Bại");
-			model.addAttribute("login",false);
-			return "register";
+		if (customerDao.addCustomer(khachHang, taiKhoan)) {
+		    model.addAttribute("tk", taiKhoan);
+		    ss.setAttribute("user", khachHang);
+		    model.addAttribute("message", "Đăng Ký Thành Công");
+		    model.addAttribute("login", false);
+		    model.addAttribute("redirect", true); // Add this line to indicate a redirection is needed
+		    return "login";
+		} else {
+		    model.addAttribute("message", "Thất Bại");
+		    model.addAttribute("login", false);
+		    return "register";
 		}
 		
 		

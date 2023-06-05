@@ -1,6 +1,6 @@
 package management.dao.impl;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 

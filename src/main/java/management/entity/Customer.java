@@ -27,7 +27,7 @@ public class Customer {
 	@Column(name = "HOTEN", columnDefinition = "nvarchar(100)")
 	private String name;
 	
-	@Column(name = "SDT", length = 10)
+	@Column(name = "SDT", length = 11)
 	private String phoneNumber;
 	
 	@Column(name = "GIOITINH")

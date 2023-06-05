@@ -6,8 +6,7 @@
 	<a href="/admin/home" class="brand-link"> <img
 		src='<c:url value="/templates/admin/dist/img/AdminLTELogo.png"/>'
 		alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
-		style="opacity: .8"> <span class="brand-text font-weight-light">TN-TT
-			Shop</span>
+		style="opacity: .8"> <span class="brand-text font-weight-light">Eye Glasses Shop</span>
 	</a>
 
 	<!-- Sidebar -->
@@ -48,27 +47,15 @@
 								<p>Doanh thu</p>
 						</a></li>
 
-						<li class="nav-item"><a
-							href='<c:url value="/admin/management/statistical/receipt"/>'
-							class="nav-link"> <i class="far fa-circle nav-icon"></i>
-								<p>Lợi nhuận</p>
-						</a></li>
+						
 
-						<li class="nav-item"><a
-							href='<c:url value="/admin/management/statistical/receipt"/>'
-							class="nav-link"> <i class="far fa-circle nav-icon"></i>
-								<p>Nhập hàng</p>
-						</a></li>
+						
 
-						<li class="nav-item"><a
-							href='<c:url value="/admin/management/statistical/receipt"/>'
-							class="nav-link"> <i class="far fa-circle nav-icon"></i>
-								<p>Sản phẩm bán được</p>
-						</a></li>
+						
 
 					</ul></li>
 
-				<li class="nav-item"><a href="#" class="nav-link"> <i
+				<li class="nav-item"><a href="/admin/staff" class="nav-link"> <i
 						class="fas fa-users-cog"></i>
 						<p>
 							Quản Lý Nhân Viên<i class="right fas fa-angle-left"></i>
@@ -152,14 +139,19 @@
 				</a>
 					<ul class="nav nav-treeview" style="display: none;">
 						<li class="nav-item"><a
-							href='<c:url value="/admin/management/order/list"/>'
+							href='<c:url value="/admin/order"/>'
 							class="nav-link"> <i class="far fa-circle nav-icon"></i>
 								<p>Chưa duyệt</p>
 						</a></li>
 						<li class="nav-item"><a
-							href='<c:url value="/admin/management/order/list/approved"/>'
+							href='<c:url value="/admin/order/xl"/>'
 							class="nav-link"> <i class="far fa-circle nav-icon"></i>
 								<p>Đã duyệt</p>
+						</a></li>
+						<li class="nav-item"><a
+							href='<c:url value="/admin/order/h"/>'
+							class="nav-link"> <i class="far fa-circle nav-icon"></i>
+								<p>Đã hủy</p>
 						</a></li>
 
 					</ul></li>
