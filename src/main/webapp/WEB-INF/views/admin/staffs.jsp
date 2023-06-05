@@ -403,7 +403,7 @@
 																				<div class="col-md-6">
 																					<div class="form-group">
 																					  <label for="ngaySinh">Ngày Sinh</label>
-																					  <input type="date" name="ngaySinh" id="ngaySinh" class="form-control" required>
+																					  <input type="date" name="ngaySinh" id="ngaySinh1" class="form-control" required>
 																					</div>
 																					<div class="form-group">
 																						<label for="gioiTinh">Giới Tính</label> <select
@@ -538,6 +538,8 @@ $(document).ready(function(){
 
   // Đặt thuộc tính max của input ngày sinh
   document.getElementById("ngaySinh").max = maxDate;
+  document.getElementById("ngaySinh1").max = maxDate;
+  
 </script>
 
 	<script
