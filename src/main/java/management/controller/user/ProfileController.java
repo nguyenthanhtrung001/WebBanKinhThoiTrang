@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -19,8 +20,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import management.bean.BasePath;
+import management.dao.IAccountDao;
 import management.dao.ICustomerDao;
 import management.entity.Account;
 import management.entity.Customer;
@@ -35,6 +38,10 @@ public class ProfileController {
 	@Autowired
 	private ICustomerDao customerDao;
 
+	@Autowired
+	private IAccountDao accountDao;
+	
+	
 	@GetMapping("profile")
 	public ModelAndView showProfile(HttpServletRequest request) {
 		ModelAndView modelAndView = new ModelAndView("user/Profile");
@@ -57,7 +64,7 @@ public class ProfileController {
 			@RequestParam("gioiTinh") String gioiTinh, @RequestParam("ngaySinh") String ngaySinh,
 			@RequestParam("diaChi") String diaChi, @RequestParam("sdt") String sdt, @RequestParam("email") String email,
 			@RequestParam("file") MultipartFile file, @RequestParam("anhGoc") String anhGoc,
-			@RequestParam("id") int id) {
+			@RequestParam("id") int id, RedirectAttributes redirectAttributes) {
 
 		ModelAndView modelAndView = new ModelAndView("user/Profile");
 		Session session = sessionFactory.openSession();
@@ -77,25 +84,29 @@ public class ProfileController {
 			}
 
 			Customer customer = new Customer();
-			
-			System.out.println("hoTen: "+hoTen);
-			
-			
+					
 			customer.setId(id);
 			customer.setName(hoTen);
-//			customer.setGender(gioiTinh);
+			
+			if(gioiTinh.equals("Nam")) {
+				customer.setGender(true);
+			}
+			else {
+				customer.setGender(false);
+			}
+			
 			customer.setDateOfBirth(ngaySinhDate);
 			customer.setAddress(diaChi);
 			customer.setPhoneNumber(sdt);
 			customer.setAccount((Account) session.get(Account.class, email));
 			
 			customerDao.updateCustomer(customer);
-
-			System.out.println(customer);
+			
 			System.out.println("Cập nhật khách hàng thành công !!!");
 
 			modelAndView.addObject("customer", customer);
-			
+			modelAndView.addObject("thongBao", "success");
+
 			return modelAndView;
 			
 		} catch (Exception e) {
@@ -109,6 +120,34 @@ public class ProfileController {
 		}
 
 	}
+	
+	@GetMapping("change_password")
+	public ModelAndView chanePassword() {
+		return new ModelAndView("/user/changePassword");
+	}
+	
+	@PostMapping("change_password")
+	public ModelAndView changeP(@RequestParam("currentPassword") String currentPass,
+								@RequestParam("newPassword") String newPass,
+								HttpServletRequest request) {
+
+		HttpSession session = request.getSession();
+		Customer customer = (Customer)session.getAttribute("user");
+		
+		if(customer.getAccount().getPassword().equals(currentPass)) {
+			Account account = customer.getAccount();
+			account.setPassword(newPass);
+			
+			accountDao.updateAccount(account);
+
+			return new ModelAndView("redirect:/login");
+			
+		}else {
+			return new ModelAndView("user/changePassword");
+		}
+		
+	}
+	
 	
 	@GetMapping("logout")
 	public ModelAndView logout(HttpServletRequest request) {
