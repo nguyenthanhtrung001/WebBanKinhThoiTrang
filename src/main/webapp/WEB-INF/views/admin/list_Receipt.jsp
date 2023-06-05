@@ -35,13 +35,16 @@
 								</div>
 								<h1 class="table-title text-center">Bảng danh sách Phiếu Nhập</h1>
 								<div class="table-wrap">
-									<table id="myTable" class="table table-striped">
-										<tr class="table-row">
+									<table  class="table table-striped">
+									<thead>
+										<tr id="myTable"  class="table-row">
 											<th class="table-heading">Mã Phiếu Nhập</th>
 											<th class="table-heading">Ngày nhập</th>
 											<th class="table-heading">Nhà cung cấp</th>
 
 										</tr>
+										</thead>
+										<tbody id="myTable" >
 										<c:forEach var="pn" items="${receipts}">
 											<tr class="table-row">
 												<td class="table-data">${pn.id}</td>
@@ -114,6 +117,7 @@
 
 
 										</c:forEach>
+										</tbody>
 									</table>
 								</div>
 							</div>

@@ -38,9 +38,9 @@
 				<label for="state">Nhà cung cấp</label> <select name="supplier"
 					id="mySelect" class="custom-select d-block w-100" id="state"
 					required>
-					<option value="">-- Chọn nhà cung cấp --</option>
-					<c:forEach var="ncc" items="${suppliers}">
-						<option value="${ncc.id}">${ncc.name}</option>
+					<option value="">-- Chọn Nhà Cung Cấp --</option>
+					<c:forEach var="ncc" items="${suppliers}" varStatus="status">
+						<option value="${ncc.id}" ${status.first ? 'selected' : ''}>${ncc.name}</option>
 					</c:forEach>
 				</select>
 			</div>
@@ -71,22 +71,22 @@
 						<th>Tên sản phẩm</th>
 						<th>Số lượng</th>
 						<th>Giá nhập</th>
-						
+
 					</tr>
 				</thead>
 
 				<c:forEach items="${detail_receipt}" var="dr" varStatus="loop">
 					<tr>
-						<td>${dr.product.name}<input type="text" class=""
-							name="id" hidden="true" value="${dr.product.id}">
+						<td>${dr.product.name}<input type="text" class="" name="id"
+							hidden="true" value="${dr.product.id}">
 						</td>
 						<td><input type="number" class="soLuongInput" name="soLuong"
-							value="1"></td>
+							value="1" min="1"></td>
 						<td><input type="number" class="giaInput" name="gia"
-							value="10.0"></td>
+							value="10.0" min="0"></td>
 
 					</tr>
-					
+
 
 				</c:forEach>
 				<!-- <tr>
@@ -170,8 +170,6 @@
 			
 			}}) */
 		}
-
-		
 	</script>
 
 </body>
