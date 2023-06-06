@@ -3,7 +3,7 @@
 	pageEncoding="UTF-8"%>
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
 	<!-- Brand Logo -->
-	<a href="/admin/home" class="brand-link"> <img
+	<a href="/WebBanKinh/admin/home" class="brand-link"> <img
 		src='<c:url value="/templates/admin/dist/img/AdminLTELogo.png"/>'
 		alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
 		style="opacity: .8"> <span class="brand-text font-weight-light">TN-TT
@@ -33,7 +33,7 @@
 				data-widget="treeview" role="menu" data-accordion="false">
 
 
-				<li class="nav-item"><a href="WebBanKinh/admin/home" class="nav-link">  
+				<li class="nav-item"><a href="/WebBanKinh/admin/home" class="nav-link">  
 				<i class="fas fa-chart-bar"></i>
 				<p>
 					Thống Kê<i class="right fas fa-angle-left"></i>
@@ -89,7 +89,7 @@
 
 
 					</ul></li>
-				<li class="nav-item"><a href="#" class="nav-link"> <i
+<li class="nav-item"><a href="#" class="nav-link"> <i
 						class="fas fa-users"></i>
 						<p>
 							Quản Lý Khách Hàng<i class="right fas fa-angle-left"></i>
@@ -97,8 +97,8 @@
 				</a>
 					<ul class="nav nav-treeview" style="display: none;">
 						<li class="nav-item"><a
-							href='<c:url value="/admin/management/customer/list"/>'
-							class="nav-link"> <i class="fas fa-address-book"></i>
+							href='<c:url value="/admin/customer"/>' class="nav-link"> <i
+								class="fas fa-address-book"></i>
 								<p>Danh sách khách hàng</p>
 						</a></li>
 
@@ -112,19 +112,19 @@
 				</a>
 					<ul class="nav nav-treeview" style="display: none;">
 						<li class="nav-item"><a
-							href='<c:url value="/admin/management/receipt/list"/>'
-							class="nav-link"> <i class="far fa-circle nav-icon"></i>
+							href='<c:url value="/admin/listReceipt"/>' class="nav-link">
+								<i class="far fa-circle nav-icon"></i>
 								<p>Danh sách nhập hàng</p>
 						</a></li>
 						<li class="nav-item"><a
-							href='<c:url value="/admin/management/receipt/quantity"/>'
-							class="nav-link"> <i class="far fa-circle nav-icon"></i>
+							href='<c:url value="/admin/add-receipt"/>' class="nav-link">
+								<i class="far fa-circle nav-icon"></i>
 								<p>Lập phiếu nhập hàng</p>
 						</a></li>
 
 					</ul></li>
 
-				<li class="nav-item"><a href="#" class="nav-link"> <i
+				<li class="nav-item"><a href="/admin/product" class="nav-link"> <i
 						class="fas fa-box-open"></i>
 						<p>
 							Quản Lý Sản Phẩm<i class="right fas fa-angle-left"></i>
@@ -132,17 +132,18 @@
 				</a>
 					<ul class="nav nav-treeview" style="display: none;">
 						<li class="nav-item"><a
-							href='<c:url value="/admin/management/product/list"/>'
+							href='<c:url value="/admin/product"/>'
 							class="nav-link"> <i class="far fa-circle nav-icon"></i>
 								<p>Danh sách sản phẩm</p>
 						</a></li>
 						<li class="nav-item"><a
-							href='<c:url value="/admin/management/product/add"/>'
+							href='<c:url value="/admin/updatePrice"/>'
 							class="nav-link"> <i class="far fa-circle nav-icon"></i>
-								<p>Cập nhật sản phẩm</p>
+								<p>Danh sách sản phẩm đăng bán</p>
 						</a></li>
 
 					</ul></li>
+
 
 				<li class="nav-item"><a href="#" class="nav-link"> <i
 						class="fas fa-dolly"></i>
@@ -174,20 +175,20 @@
 				</a>
 					<ul class="nav nav-treeview" style="display: none;">
 						<li class="nav-item"><a
-							href='<c:url value="/admin/management/supplier/list"/>'
-							class="nav-link"> <i class="far fa-circle nav-icon"></i>
+							href='<c:url value="/admin/listsupplier"/>' class="nav-link">
+								<i class="far fa-circle nav-icon"></i>
 								<p>Danh sách nhà cung cấp</p>
 						</a></li>
 
 						<li class="nav-item"><a
-							href='<c:url value="/admin/management/supplier/add"/>'
-							class="nav-link"> <i class="far fa-circle nav-icon"></i>
+							href='<c:url value="/admin/add-supplier"/>' class="nav-link">
+								<i class="far fa-circle nav-icon"></i>
 								<p>Cập nhật nhà cung cấp</p>
 						</a></li>
 					</ul></li>
 
 				
-				<li class="nav-item"><a href="#" class="nav-link"> <i
+				<li class="nav-item"><a href="/admin/promotion" class="nav-link"> <i
 						class="fa fa-unlink"></i>
 						<p>
 							Quản Lý Khuyến Mãi<i class="right fas fa-angle-left"></i>
@@ -195,15 +196,15 @@
 				</a>
 					<ul class="nav nav-treeview" style="display: none;">
 						<li class="nav-item"><a
-							href='<c:url value="/admin/management/supplier/list"/>'
+							href='<c:url value="/admin/promotion"/>'
 							class="nav-link"> <i class="far fa-circle nav-icon"></i>
 								<p>Danh sách khuyến mãi</p>
 						</a></li>
 
 						<li class="nav-item"><a
-							href='<c:url value="/admin/management/supplier/add"/>'
+							href='<c:url value="/admin/promotionForProduct"/>'
 							class="nav-link"> <i class="far fa-circle nav-icon"></i>
-								<p>Cập nhật khuyến mãi</p>
+								<p>Danh sách sản phẩm khuyến mãi</p>
 						</a></li>
 					</ul></li>
 					
@@ -242,5 +243,3 @@
 <aside class="control-sidebar control-sidebar-dark">
 	<!-- Control sidebar content goes here -->
 </aside>
-
-
