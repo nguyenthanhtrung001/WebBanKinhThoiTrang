@@ -14,16 +14,16 @@
 			<div class="card-header">
 				<div class="row align-items-center">
 					<div class="col-6">
-						<h3 class="card-title" style="font-size: 4rem;">Lịch sử mua
+						<h3 class="card-title" style="font-size: 3rem;">Lịch sử mua
 							hàng</h3>
 					</div>
 					<div class="col-6">
 						<form class="form-inline float-right">
-							<div class="input-group input-group-sm">
-								<input type="text" name="search" id="search"
+							<div style= "width:250px; height:30px;"class="input-group input-group-sm">
+								<input style = "height:30px;" type="text" name="search" id="search"
 									value="${paging.search}" class="form-control"
 									placeholder="Tìm kiếm...">
-								<div class="input-group-append">
+								<div style = "height:30px;"class="input-group-append">
 									<button type="submit" class="btn btn-primary">
 										<i class="fa fa-search" aria-hidden="true"></i>
 									</button>
@@ -50,8 +50,19 @@
 								<tr>
 									<td style="font-size: 18px;">${b.getId()}</td>
 									<td style="font-size: 18px;">${TienIch.dateToString(b.getApplicableDate())}</td>
-									<td style="font-size: 18px;">${TienIch.toVND(b.getTongTien())}</td>
-									<td style="font-size: 18px;">${b.isStatus()==1 ? "Hoàn thành" : "Chưa hoàn thành"}</td>
+									<td style="font-size: 18px;"> <s>${TienIch.toVND(b.getTotalPrice())}</s>
+										${TienIch.toVND(b.getTotalPrice())}-${TienIch.toVND(b.getPromotionlPrice())}
+									</td>
+									<td style="font-size: 18px;"><c:if
+											test="${b.getStatus()==0}">
+											Chờ duyệt
+										</c:if> <c:if test="${b.getStatus()==1}">
+											Đã duyệt
+										</c:if> <c:if test="${b.getStatus()==2}">
+											Bị hủy
+										</c:if> <c:if test="${b.getStatus()==3}">
+											Giao thành công
+										</c:if></td>
 									<td style="font-size: 18px;"><a
 										class="btn btn-primary btn-sm btn-info-details"
 										data-toggle="modal" data-target="#modal-${b.getId()}"
@@ -81,15 +92,36 @@
 																				<li><b>Mã hóa đơn:</b> <span
 																					class="float-right text-primary">${b.getId()}</span>
 																				</li>
-																				<li><b>Đơn vị ship:</b> <span
-																					class="float-right text-primary">${b.getShip().getName()}</span>
+																				<li><b>Họ tên người nhận:</b> <span
+																					class="float-right text-primary">${b.getFullName()}</span>
+																				</li>
+																				<li><b>Địa chỉ nhận hàng:</b> <span
+																					class="float-right text-primary">${b.getAddress()}</span>
+																				</li>
+																				<li><b>SĐT người nhận:</b> <span
+																					class="float-right text-primary">${b.getTelephone()}</span>
+																				</li>
+																				<li><b>Ghi chú:</b> <span
+																					class="float-right text-primary">${b.getNote()}</span>
 																				</li>
 																				<li><b>Ngày mua:</b> <span
 																					class="float-right text-primary">${TienIch.dateToString(b.getApplicableDate())}</span>
 																				</li>
 																				<li><b>Trạng thái hóa đơn:</b> <span
-																					class="float-right text-primary">${b.isStatus() == 1 ? "Hoàn thành" : "Chưa hoàn thành"}</span>
-																				</li>
+																					class="float-right text-primary">
+																					 <c:if test="${b.getStatus()==0}">
+																						Chờ duyệt
+																					</c:if> 
+																					<c:if test="${b.getStatus()==1}">
+																						Đã duyệt
+																					</c:if>
+																					 <c:if test="${b.getStatus()==2}">
+																						Bị hủy
+																					</c:if> 
+																					<c:if test="${b.getStatus()==3}">
+																						Giao thành công
+																					</c:if>
+																				</span></li>
 																			</ul>
 																		</div>
 																	</div>
@@ -111,20 +143,22 @@
 																				</thead>
 																				<tbody>
 																					<c:forEach var="sp" varStatus="s"
-																						items="${b.getDetailsCarts()}">
+																						items="${billDao.getDetailsCartsOfBill(b.getId())}">
 																						<tr>
 																							<td style="font-size: 18px;">${s.index + 1}</td>
 																							<td style="font-size: 18px;">${sp.getDetailsUpdatePrice().getProduct().getName()}</td>
-																							<td style="font-size: 18px;">${billDao.getBill(1).getApplicableDate()}</td>
+																							<td style="font-size: 18px;">
+																								<img  width="70" height="70" src = "../templates/image/product/${sp.getId()}.jpg">
+																							</td>
 																							<td style="font-size: 18px;">${TienIch.toVND(sp.getDetailsUpdatePrice().getPrice())}</td>
 																							<td style="font-size: 18px;">${sp.getQuantity()}</td>
 																							<td style="font-size: 18px;">${TienIch.toVND(sp.getQuantity()*sp.getDetailsUpdatePrice().getPrice())}</td>
-																							<td style="font-size: 18px;">
-																									<a href ="created_return_voucher/${b.getId()}">
-																										<i style="font-size: 18px;"class="fa fa-reply" aria-hidden="true"></i>
-																									</a>
-																							</td>
-																							
+																							<td style="font-size: 18px;"><a
+																								href="created_return_voucher/${b.getId()}">
+																									<i style="font-size: 18px;" class="fa fa-reply"
+																									aria-hidden="true"></i>
+																							</a></td>
+
 																						</tr>
 																					</c:forEach>
 																				</tbody>
@@ -136,10 +170,12 @@
 																	</div>
 																	<div class="row">
 																		<div class="col-sm-3">
-																			<c:if test="${TienIch.isExpired_day(b.getApplicableDate(),7)}">
-																				<a href="thinh"><button >Hoàn đơn</button></a>
+																			<c:if
+																				test="${TienIch.isExpired_day(b.getApplicableDate(),7)}">
+																				<a href="thinh"><button>Hoàn đơn</button></a>
 																			</c:if>
-																			<c:if test="${!TienIch.isExpired_day(b.getApplicableDate(),7)}">
+																			<c:if
+																				test="${!TienIch.isExpired_day(b.getApplicableDate(),7)}">
 																				<button type="button" disabled>Hoàn đơn</button>
 																			</c:if>
 																		</div>
@@ -149,7 +185,7 @@
 																					class="float-right text-primary">${TienIch.toVND(b.getShip().getPrice())}</span>
 																				</li>
 																				<li style="color: red;"><h2>
-																						Tổng tiền:<span class="float-right text-primary">${TienIch.toVND(b.getTongTien())}</span>
+																						Tổng tiền:<span class="float-right text-primary">${TienIch.toVND(b.getTotalPrice())}</span>
 																					</h2></li>
 																			</ul>
 																		</div>

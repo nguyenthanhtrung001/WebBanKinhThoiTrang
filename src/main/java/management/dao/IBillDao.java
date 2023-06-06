@@ -30,6 +30,7 @@ public interface IBillDao {
 	void addDetailsExchangeVoucherPK(DetailsExchangeVoucherPk dev_pk);
 	void addDetailsExchangeVoucher(DetailsExchangeVoucher dev);
 	int soLuongPhieuDoi();
+	List<DetailsCart> getDetailsCartsOfBill(int maHD);
 	
 	
 }

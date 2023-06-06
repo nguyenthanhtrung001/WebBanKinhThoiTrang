@@ -89,7 +89,7 @@ public class BillDaoImpl implements IBillDao {
 		String hql = "FROM Bill B WHERE EXISTS (SELECT 1 FROM B.detailsCarts DC WHERE DC.customer.id = :id)";
 
 		Query query = session.createQuery(hql);
-		query.setParameter("id", id + "");
+		query.setParameter("id", id );
 		List<Bill> list = (List<Bill>) query.list();
 		session.close();
 		System.out.println(list);
@@ -273,7 +273,19 @@ public class BillDaoImpl implements IBillDao {
 		    return totalPrice != null ? totalPrice : 0;
 	}
 
-	
+	@Override
+	public List<DetailsCart> getDetailsCartsOfBill(int maHD){
+		
+		Session session = sessionFactory.openSession();
+		String hql = "From DetailsCart DC where DC.bill.id =:maHD";
+		Query query = session.createQuery(hql);
+		query.setParameter("maHD", maHD);
+		
+		List<DetailsCart> list = (List<DetailsCart>) query.list();
+		session.close();
+		return list;
+		
+	}
 	
 	
 }
