@@ -76,7 +76,7 @@
 													<td>${sp.getId()}</td>
 													<td>${sp.getName()}</td>
 													<td><img width="50" height="50"
-														src="<c:url value='/templates/admin/dist/img/${sp.getId()}.jpg'/>"
+														src="<c:url value='/templates/image/product/${sp.getId()}.jpg'/>"
 														id="imgPreview"></td>
 													<td>${sp.category.getName()}</td>
 													<td>${sp.getBranch()}</td>
@@ -137,7 +137,7 @@
 																		for="hinhanhsp">Ảnh</label>
 																	<div class="form-group">
 																		<img width="70" height="70"
-																			src="<c:url value='/templates/admin/dist/img/${sp.getId()}.jpg'/>"
+																			src="<c:url value='/templates/image/product/${sp.getId()}.jpg'/>"
 																			id="imgPreview">
 																	</div>
 
@@ -215,7 +215,7 @@
 																						value="${sp.getId()}.jpg" required>
 																					<div class="text-center">
 																						<img width="250" height="250"
-																							src="<c:url value='/templates/admin/dist/img/${sp.getId()}.jpg'/>"
+																							src="<c:url value='/templates/image/product/${sp.getId()}.jpg'/>"
 																							id="imgPreview"> <br> <br>
 																					</div>
 

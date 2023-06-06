@@ -74,5 +74,11 @@
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="<c:url value='/templates/admin/dist/js/pages/dashboard2.js'/>"></script>
 <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script
+		src='<c:url value="/templates/admin/plugins/datatables/jquery.dataTables.min.js"/>'></script>
+	<script
+		src='<c:url value="/templates/admin/plugins/datatables-bs4/js/dataTables.bootstrap4.js"/>'></script>
+	<script
+		src='<c:url value="/templates/admin/plugins/bs-custom-file-input/bs-custom-file-input.min.js"/>'></script>
 </body>
 </html>

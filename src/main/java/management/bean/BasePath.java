@@ -13,8 +13,7 @@ public class BasePath {
 				+ "git\\WebBanKinhThoiTrang\\src\\main\\webapp\\templates\\image\\customer\\";
 		pathImgStaff = "C:\\Users\\xuan\\"
 				+ "git\\WebBanKinhThoiTrang\\src\\main\\webapp\\templates\\image\\staff\\";
-		pathImgProduct = "C:\\Users\\xuan\\"
-				+ "git\\WebBanKinhThoiTrang\\src\\main\\webapp\\templates\\image\\product\\";
+		pathImgProduct = "G:\\SCHOOLS\\PTIT\\HK6\\Thực Tập Cơ Sở\\WebDOAN\\WebBanKinhThoiTrang\\src\\main\\webapp\\templates\\image\\product\\";
 	}
 	
 	public String getPathImgCustomer() {

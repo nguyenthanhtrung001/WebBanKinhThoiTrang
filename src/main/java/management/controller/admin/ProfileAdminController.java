@@ -59,9 +59,9 @@ public class ProfileAdminController {
 			
 			Staff staff = profileAdminDao.getStaffByEmail(nv.getAccount().getEmail());
 	        // Kiểm tra họ tên (họ tên không được chứa ký tự đặc biệt và số)
-	        if (!staff.getSurname().matches("^[a-zA-Z\\s]+$")) {
-	        	result.rejectValue("surname", "staff", "Họ không hợp lệ.");
-	        }        
+//	        if (!staff.getSurname().matches("^[a-zA-Z\\s]+$")) {
+//	        	result.rejectValue("surname", "staff", "Họ không hợp lệ.");
+//	        }        
 	        if (!staff.getName().matches("^[a-zA-Z\\s]+$")) {
 	        	result.rejectValue("name", "staff", "Tên không hợp lệ.");
 	        }
@@ -110,7 +110,7 @@ public class ProfileAdminController {
 			
 
 			staff.setAccount(tk);
-			staff.setSurname(honv);
+			//staff.setSurname(honv);
 			staff.setName(tennv);
 			staff.setAddress(diachinv);
 //			staff.setGender(gioitinhnv);

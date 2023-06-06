@@ -41,6 +41,11 @@
           <button type="button" class="btn btn-link">Nhựa</button>
         </div>
       </li>
+        <li class="list-group-item"><strong>Chống Tia UV:</strong> ${product.getProduct().isUv()? 'Có' : 'Không'}</li>
+        <li class="list-group-item"><strong>Chống Ánh Sáng Xanh:</strong> ${product.getProduct().isGreen()? 'Có' : 'Không'}</li>
+     
+     <li class="list-group-item"><strong>Lọc Ánh Nắng Chói Mắt:</strong> ${product.getProduct().isAlter_color()? 'Có' : 'Không'}</li>
+     
       <li class="list-group-item"><strong>Số lượng: </strong>
         <div class="input-group ml-3">
            <div class="btn-group" role="group" aria-label="Số lượng">
