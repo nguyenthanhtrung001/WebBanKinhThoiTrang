@@ -76,7 +76,7 @@
 													<td>${sp.getId()}</td>
 													<td>${sp.getName()}</td>
 													<td><img width="50" height="50"
-														src="<c:url value='/templates/admin/dist/img/${sp.getId()}.jpg'/>"
+														src="<c:url value='/templates/image/product/${sp.getId()}.jpg'/>"
 														id="imgPreview"></td>
 													<td>${sp.category.getName()}</td>
 													<td>${sp.getBranch()}</td>
@@ -137,7 +137,7 @@
 																		for="hinhanhsp">Ảnh</label>
 																	<div class="form-group">
 																		<img width="70" height="70"
-																			src="<c:url value='/templates/admin/dist/img/${sp.getId()}.jpg'/>"
+																			src="<c:url value='/templates/image/product/${sp.getId()}.jpg'/>"
 																			id="imgPreview">
 																	</div>
 
@@ -215,7 +215,7 @@
 																						value="${sp.getId()}.jpg" required>
 																					<div class="text-center">
 																						<img width="250" height="250"
-																							src="<c:url value='/templates/admin/dist/img/${sp.getId()}.jpg'/>"
+																							src="<c:url value='/templates/image/product/${sp.getId()}.jpg'/>"
 																							id="imgPreview"> <br> <br>
 																					</div>
 
@@ -244,6 +244,17 @@
 																						<li class="list-group-item"><b>Kích thước</b>
 																							<a class="float-right text-primary">${sp.getSize()}
 																								mm</a></li>
+																						<li class="list-group-item"><b>Chống tia
+																								uv</b> <a class="float-right text-primary">${sp.isUv()?'Có':'Không'}
+																						</a></li>
+																						<li class="list-group-item"><b>Chống ánh
+																								sáng xanh </b> <a class="float-right text-primary">${sp.isGreen()?'Có':'Không'}
+																						</a></li>
+
+																						<li class="list-group-item"><b>Thay đổi
+																								màu theo môi trường </b> <a
+																							class="float-right text-primary">${sp.isAlter_color()?'Có':'Không'}
+																						</a></li>
 																						<li class="list-group-item"><b>Số lượng
 																								tồn</b> <a class="float-right text-primary">${productAdminDao.countSeriByMasp(sp.getId())}</a>
 																						</li>
@@ -367,6 +378,31 @@
 																								</select>
 																							</div>
 																						</div>
+
+
+																						<div class="form-group">
+																							<label for="uv">Chống tia UV: </label> <input
+																								type="checkbox" name="uv" value=true
+																								${sp.isUv()?'checked':''}
+																								>
+																						</div>
+
+																						<div class="form-group">
+																							<label for="green">Chống ánh sánh xanh: </label>
+																							<input type="checkbox" name="green" value=trưe
+																							${sp.isGreen()?'checked':''}>
+																						</div>
+
+																						<div class="form-group">
+																							<label for="altercolor">Thay đổi màu sắc
+																								theo môi trường: </label> <input type="checkbox"
+																								name="altercolor" value=true
+																								${sp.isAlter_color()?'checked':''}>
+																						</div>
+
+
+
+
 																						<div class="form-group">
 																							<label for="thoigianbhsp">Thời gian bảo
 																								hành</label>
@@ -493,6 +529,25 @@
 																		placeholder="Nhập kích thước sản phẩm (đơn vị: mm)"
 																		class="form-control" required>
 																</div>
+
+
+
+																<div class="form-group">
+																	<label for="uv">Chống tia UV: </label> <input
+																		type="checkbox" name="uv" value=true>
+																</div>
+
+																<div class="form-group">
+																	<label for="green">Chống ánh sánh xanh: </label> <input
+																		type="checkbox" name="green" value=true>
+																</div>
+
+																<div class="form-group">
+																	<label for="altercolor">Thay đổi màu sắc theo
+																		môi trường: </label> <input type="checkbox" name="altercolor"
+																		value=true>
+																</div>
+
 																<div class="form-group">
 																	<label for="thoigianbhsp">Thời gian bảo hành</label>
 																	<div class="form-inline">
