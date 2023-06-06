@@ -51,7 +51,6 @@ public class HistoryController {
 		List<Bill> list_Bills = billDao.getListBillOfCustomer(customer.getId());
 		modelAndView.addObject("list_Bills", list_Bills);
 		modelAndView.addObject("billDao", billDao);
-		billDao.getDetailsCartsOfBill(3).get(0).getQuantity();
 		return modelAndView;
 	}
 	
