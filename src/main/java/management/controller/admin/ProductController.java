@@ -53,7 +53,7 @@ public class ProductController {
 		String tensp = request.getParameter("ten");
 		String mausacsp = request.getParameter("mausac");
 		String chatlieusp = request.getParameter("chatlieu");
-		Double kichthuocsp = Double.parseDouble(request.getParameter("kichthuoc"));
+		String kichthuocsp = request.getParameter("kichthuoc");
 		String hangsp = request.getParameter("hang");
 		String motasp = request.getParameter("mota");
 		Boolean uvsp = Boolean.parseBoolean(request.getParameter("uv"));
@@ -95,9 +95,6 @@ public class ProductController {
 			product.setStatus(true);
 			product.setMaterial(chatlieusp);
 			product.setSize(kichthuocsp);
-			product.setUv(uvsp);
-			product.setGreen(greensp);
-			product.setAlter_color(altercolorsp);
 			product.setWarrantyPeriod(thoigianbhsp);
 			product.setDeliveryTime(thoigianthsp);
 			product.setCategory(loai);
@@ -139,12 +136,9 @@ public class ProductController {
 		String tensp = request.getParameter("ten");
 		String mausacsp = request.getParameter("mausac");
 		String chatlieusp = request.getParameter("chatlieu");
-		Double kichthuocsp = Double.parseDouble(request.getParameter("kichthuoc"));
+		String kichthuocsp = request.getParameter("kichthuoc");
 		String hangsp = request.getParameter("hang");
 		String motasp = request.getParameter("mota");
-		Boolean uvsp = Boolean.parseBoolean(request.getParameter("uv"));
-		Boolean greensp = Boolean.parseBoolean(request.getParameter("green"));
-		Boolean altercolorsp = Boolean.parseBoolean(request.getParameter("altercolor"));
 //		Boolean trangthaisp = Boolean.parseBoolean(request.getParameter("trangthai"));
 		Integer thoigianbhsp = Integer.parseInt(request.getParameter("thoigianbh"));
 		Integer thoigianthsp = Integer.parseInt(request.getParameter("thoigianth"));
@@ -173,9 +167,6 @@ public class ProductController {
 			product.setWarrantyPeriod(thoigianbhsp);
 			product.setDeliveryTime(thoigianthsp);
 			product.setCategory(loai);
-			product.setUv(uvsp);
-			product.setGreen(greensp);
-			product.setAlter_color(altercolorsp);
 			Integer temp = productAdminDao.updateProduct(product);
 			if (temp != 0) {
 				model.addAttribute("successMessage", "Cập nhật thành công!");

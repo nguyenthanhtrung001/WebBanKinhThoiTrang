@@ -25,8 +25,10 @@ import org.springframework.web.servlet.ModelAndView;
 import management.dao.IProductAdminDao;
 import management.dao.IProfileAdminDao;
 import management.dao.IPromotionAdminDao;
+import management.dao.IUpdatePriceDao;
 import management.entity.DetailsPromotion;
 import management.entity.DetailsPromotionPk;
+import management.entity.DetailsUpdatePrice;
 import management.entity.Product;
 import management.entity.Promotion;
 import management.entity.Staff;
@@ -45,6 +47,9 @@ public class PromotionController {
 	@Autowired
 	private IProfileAdminDao profileAdminDao;
 
+	@Autowired
+	private IUpdatePriceDao updatePriceDao;
+	
 	@RequestMapping(value = "promotion/Add")
 	public String addKM(HttpServletRequest request, @ModelAttribute("km") Promotion km, BindingResult result,
 			ModelMap model) throws ParseException {
@@ -72,6 +77,17 @@ public class PromotionController {
 			Promotion checkPromotion = promotionAdminDao.getKM(makm);
 			if (checkPromotion != null) {
 				result.rejectValue("id", "promotion", "Mã khuyến mãi đã tồn tại");
+				List<Promotion> promotionlist = promotionAdminDao.getAllKM();
+				List<Object[]> detailsUpdatePriceList = updatePriceDao.listDetailsUpdatePrice();
+				List<DetailsUpdatePrice> listDetailsUpdatePrice = new ArrayList<>();
+				for (Object[] objects : detailsUpdatePriceList) {
+				    DetailsUpdatePrice detailsUpdatePrice = (DetailsUpdatePrice) objects[0];
+				    listDetailsUpdatePrice.add(detailsUpdatePrice);
+				}
+				model.addAttribute("listDetailsUpdatePrice", listDetailsUpdatePrice);
+				model.addAttribute("promotionlist", promotionlist);
+				
+				return "admin/promotion";
 			}
 
 			Date currentDate = new Date();
@@ -95,6 +111,13 @@ public class PromotionController {
 			if (result.hasErrors()) {
 				List<FieldError> errors = result.getFieldErrors();
 				List<Promotion> promotionlist = promotionAdminDao.getAllKM();
+				List<Object[]> detailsUpdatePriceList = updatePriceDao.listDetailsUpdatePrice();
+				List<DetailsUpdatePrice> listDetailsUpdatePrice = new ArrayList<>();
+				for (Object[] objects : detailsUpdatePriceList) {
+				    DetailsUpdatePrice detailsUpdatePrice = (DetailsUpdatePrice) objects[0];
+				    listDetailsUpdatePrice.add(detailsUpdatePrice);
+				}
+				model.addAttribute("listDetailsUpdatePrice", listDetailsUpdatePrice);
 				model.addAttribute("promotionlist", promotionlist);
 				model.addAttribute("errorMessage", errors);
 				return "admin/promotion";
@@ -117,9 +140,23 @@ public class PromotionController {
 			}
 
 			List<Promotion> promotionlist = promotionAdminDao.getAllKM();
+			List<Object[]> detailsUpdatePriceList = updatePriceDao.listDetailsUpdatePrice();
+			List<DetailsUpdatePrice> listDetailsUpdatePrice = new ArrayList<>();
+			for (Object[] objects : detailsUpdatePriceList) {
+			    DetailsUpdatePrice detailsUpdatePrice = (DetailsUpdatePrice) objects[0];
+			    listDetailsUpdatePrice.add(detailsUpdatePrice);
+			}
+			model.addAttribute("listDetailsUpdatePrice", listDetailsUpdatePrice);
 			model.addAttribute("promotionlist", promotionlist);
 		} catch (Exception e) {
 			List<Promotion> promotionlist = promotionAdminDao.getAllKM();
+			List<Object[]> detailsUpdatePriceList = updatePriceDao.listDetailsUpdatePrice();
+			List<DetailsUpdatePrice> listDetailsUpdatePrice = new ArrayList<>();
+			for (Object[] objects : detailsUpdatePriceList) {
+			    DetailsUpdatePrice detailsUpdatePrice = (DetailsUpdatePrice) objects[0];
+			    listDetailsUpdatePrice.add(detailsUpdatePrice);
+			}
+			model.addAttribute("listDetailsUpdatePrice", listDetailsUpdatePrice);
 			model.addAttribute("promotionlist", promotionlist);
 			model.addAttribute("errorMessage", "Lỗi: Thêm thất bại!");
 			return "admin/promotion";
@@ -172,6 +209,13 @@ public class PromotionController {
 			if (result.hasErrors()) {
 				List<FieldError> errors = result.getFieldErrors();
 				List<Promotion> promotionlist = promotionAdminDao.getAllKM();
+				List<Object[]> detailsUpdatePriceList = updatePriceDao.listDetailsUpdatePrice();
+				List<DetailsUpdatePrice> listDetailsUpdatePrice = new ArrayList<>();
+				for (Object[] objects : detailsUpdatePriceList) {
+				    DetailsUpdatePrice detailsUpdatePrice = (DetailsUpdatePrice) objects[0];
+				    listDetailsUpdatePrice.add(detailsUpdatePrice);
+				}
+				model.addAttribute("listDetailsUpdatePrice", listDetailsUpdatePrice);
 				model.addAttribute("promotionlist", promotionlist);
 				model.addAttribute("errorMessage", errors);
 				return "admin/promotion";
@@ -193,9 +237,23 @@ public class PromotionController {
 			}
 
 			List<Promotion> promotionlist = promotionAdminDao.getAllKM();
+			List<Object[]> detailsUpdatePriceList = updatePriceDao.listDetailsUpdatePrice();
+			List<DetailsUpdatePrice> listDetailsUpdatePrice = new ArrayList<>();
+			for (Object[] objects : detailsUpdatePriceList) {
+			    DetailsUpdatePrice detailsUpdatePrice = (DetailsUpdatePrice) objects[0];
+			    listDetailsUpdatePrice.add(detailsUpdatePrice);
+			}
+			model.addAttribute("listDetailsUpdatePrice", listDetailsUpdatePrice);
 			model.addAttribute("promotionlist", promotionlist);
 		} catch (Exception e) {
 			List<Promotion> promotionlist = promotionAdminDao.getAllKM();
+			List<Object[]> detailsUpdatePriceList = updatePriceDao.listDetailsUpdatePrice();
+			List<DetailsUpdatePrice> listDetailsUpdatePrice = new ArrayList<>();
+			for (Object[] objects : detailsUpdatePriceList) {
+			    DetailsUpdatePrice detailsUpdatePrice = (DetailsUpdatePrice) objects[0];
+			    listDetailsUpdatePrice.add(detailsUpdatePrice);
+			}
+			model.addAttribute("listDetailsUpdatePrice", listDetailsUpdatePrice);
 			model.addAttribute("promotionlist", promotionlist);
 			model.addAttribute("errorMessage", "Lỗi: Cập nhật thất bại!");
 			return "admin/promotion";
@@ -223,6 +281,13 @@ public class PromotionController {
 			model.addAttribute("errorMessage", "Xóa thất bại!");
 		}
 		List<Promotion> promotionlist = promotionAdminDao.getAllKM();
+		List<Object[]> detailsUpdatePriceList = updatePriceDao.listDetailsUpdatePrice();
+		List<DetailsUpdatePrice> listDetailsUpdatePrice = new ArrayList<>();
+		for (Object[] objects : detailsUpdatePriceList) {
+		    DetailsUpdatePrice detailsUpdatePrice = (DetailsUpdatePrice) objects[0];
+		    listDetailsUpdatePrice.add(detailsUpdatePrice);
+		}
+		model.addAttribute("listDetailsUpdatePrice", listDetailsUpdatePrice);
 		model.addAttribute("promotionlist", promotionlist);
 		return "admin/promotion";
 	}
@@ -431,6 +496,12 @@ public class PromotionController {
 //		}
 		List<Promotion> promotionlist = promotionAdminDao.getAllKM();
 		List<Product> productlist = productAdminDao.getAllSP();
+		List<Object[]> detailsUpdatePriceList = updatePriceDao.listDetailsUpdatePrice();
+		List<DetailsUpdatePrice> listDetailsUpdatePrice = new ArrayList<>();
+		for (Object[] objects : detailsUpdatePriceList) {
+		    DetailsUpdatePrice detailsUpdatePrice = (DetailsUpdatePrice) objects[0];
+		    listDetailsUpdatePrice.add(detailsUpdatePrice);
+		}		
 		List<Object[]> detailsPromotionlist = promotionAdminDao.listDetailsPromotion();
 		List<DetailsPromotion> listDetailsPromotion = new ArrayList<>();
 		for (Object[] objects : detailsPromotionlist) {
@@ -442,6 +513,7 @@ public class PromotionController {
 		modelAndView.addObject("promotionlist", promotionlist);
 		modelAndView.addObject("productlist", productlist);
 		modelAndView.addObject("listDetailsPromotion", listDetailsPromotion);
+		modelAndView.addObject("listDetailsUpdatePrice", listDetailsUpdatePrice);
 		return modelAndView;
 	}
 }

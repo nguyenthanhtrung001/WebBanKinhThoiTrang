@@ -120,7 +120,7 @@
 															</div>
 															<div class="modal-body">
 																<form method="POST"
-																	action="/WebBanKinh/admin/product/Post-Sell-SP"
+																	action="/management/admin/product/Post-Sell-SP"
 																	enctype="multipart/form-data">
 																	<div class="form-group">
 																		<label for="masp">Mã</label> <input type="text"
@@ -143,7 +143,7 @@
 
 																	<div class="form-group">
 																		<label for="giasp">Giá</label> <input type="text"
-																			name="gia"
+																			name="gia" value="${ngayad1}"
 																			placeholder="Nhập giá sản phẩm (đơn giá: VND)"
 																			class="form-control" required>
 																	</div>
@@ -244,17 +244,6 @@
 																						<li class="list-group-item"><b>Kích thước</b>
 																							<a class="float-right text-primary">${sp.getSize()}
 																								mm</a></li>
-																						<li class="list-group-item"><b>Chống tia
-																								uv</b> <a class="float-right text-primary">${sp.isUv()?'Có':'Không'}
-																						</a></li>
-																						<li class="list-group-item"><b>Chống ánh
-																								sáng xanh </b> <a class="float-right text-primary">${sp.isGreen()?'Có':'Không'}
-																						</a></li>
-
-																						<li class="list-group-item"><b>Thay đổi
-																								màu theo môi trường </b> <a
-																							class="float-right text-primary">${sp.isAlter_color()?'Có':'Không'}
-																						</a></li>
 																						<li class="list-group-item"><b>Số lượng
 																								tồn</b> <a class="float-right text-primary">${productAdminDao.countSeriByMasp(sp.getId())}</a>
 																						</li>
@@ -307,7 +296,7 @@
 																		<div class="bg-primary-dark block block-h-auto">
 																			<div class="row edit-product-row">
 																				<form class="contener1-fix" method="POST"
-																					action="/WebBanKinh/admin/product/Edit"
+																					action="/management/admin/product/Edit"
 																					enctype="multipart/form-data">
 																					<div class="col-md-6">
 																						<div class="form-group">
@@ -378,31 +367,6 @@
 																								</select>
 																							</div>
 																						</div>
-
-
-																						<div class="form-group">
-																							<label for="uv">Chống tia UV: </label> <input
-																								type="checkbox" name="uv" value=true
-																								${sp.isUv()?'checked':''}
-																								>
-																						</div>
-
-																						<div class="form-group">
-																							<label for="green">Chống ánh sánh xanh: </label>
-																							<input type="checkbox" name="green" value=trưe
-																							${sp.isGreen()?'checked':''}>
-																						</div>
-
-																						<div class="form-group">
-																							<label for="altercolor">Thay đổi màu sắc
-																								theo môi trường: </label> <input type="checkbox"
-																								name="altercolor" value=true
-																								${sp.isAlter_color()?'checked':''}>
-																						</div>
-
-
-
-
 																						<div class="form-group">
 																							<label for="thoigianbhsp">Thời gian bảo
 																								hành</label>
@@ -469,7 +433,7 @@
 														</div>
 														<div class="modal-body">
 															<form method="POST"
-																action="/WebBanKinh/admin/product/Add"
+																action="/management/admin/product/Add"
 																enctype="multipart/form-data">
 																<div class="form-group">
 																	<label for="masp">Mã</label> <input type="text"
@@ -529,25 +493,6 @@
 																		placeholder="Nhập kích thước sản phẩm (đơn vị: mm)"
 																		class="form-control" required>
 																</div>
-
-
-
-																<div class="form-group">
-																	<label for="uv">Chống tia UV: </label> <input
-																		type="checkbox" name="uv" value=true>
-																</div>
-
-																<div class="form-group">
-																	<label for="green">Chống ánh sánh xanh: </label> <input
-																		type="checkbox" name="green" value=true>
-																</div>
-
-																<div class="form-group">
-																	<label for="altercolor">Thay đổi màu sắc theo
-																		môi trường: </label> <input type="checkbox" name="altercolor"
-																		value=true>
-																</div>
-
 																<div class="form-group">
 																	<label for="thoigianbhsp">Thời gian bảo hành</label>
 																	<div class="form-inline">
