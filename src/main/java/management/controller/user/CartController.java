@@ -72,8 +72,10 @@ public class CartController {
 		session.removeAttribute("cart");
 
 		if (userObj == null) {
+			
 			return new ModelAndView("redirect:/login");
 		}
+		
 		Customer user = (Customer) userObj;
 
 		List<DetailsCart> list = detailsCartDao.getDetailsCart(user.getId());

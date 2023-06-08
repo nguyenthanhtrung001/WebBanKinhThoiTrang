@@ -64,7 +64,7 @@
 												<th scope="col">Hãng</th>
 												<th scope="col">Thời gian bảo hành</th>
 												<th scope="col">Thời gian trả hàng</th>
-												<th scope="col">Mô tả</th>
+	
 												<th></th>
 												<th scope="col"></th>
 											</tr>
@@ -82,8 +82,7 @@
 													<td>${sp.getBranch()}</td>
 													<td>${sp.getWarrantyPeriod()}</td>
 													<td>${sp.getDeliveryTime()}</td>
-													<td>${sp.getDescription()}</td>
-
+													
 													<td><a class="btn btn-danger float-right"
 														style="margin: 0 2px;" data-toggle="modal"
 														data-target="#modal-delete-${sp.getId()}"> <i
@@ -244,6 +243,17 @@
 																						<li class="list-group-item"><b>Kích thước</b>
 																							<a class="float-right text-primary">${sp.getSize()}
 																								mm</a></li>
+																						<li class="list-group-item"><b>Chống tia
+																								uv</b> <a class="float-right text-primary">${sp.isUv()?'Có':'Không'}
+																						</a></li>
+																						<li class="list-group-item"><b>Chống ánh
+																								sáng xanh </b> <a class="float-right text-primary">${sp.isGreen()?'Có':'Không'}
+																						</a></li>
+
+																						<li class="list-group-item"><b>Thay đổi
+																								màu theo môi trường </b> <a
+																							class="float-right text-primary">${sp.isAlter_color()?'Có':'Không'}
+																						</a></li>
 																						<li class="list-group-item"><b>Số lượng
 																								tồn</b> <a class="float-right text-primary">${productAdminDao.countSeriByMasp(sp.getId())}</a>
 																						</li>
@@ -367,6 +377,31 @@
 																								</select>
 																							</div>
 																						</div>
+
+
+																						<div class="form-group">
+																							<label for="uv">Chống tia UV: </label> <input
+																								type="checkbox" name="uv" value=true
+																								${sp.isUv()?'checked':''}
+																								>
+																						</div>
+
+																						<div class="form-group">
+																							<label for="green">Chống ánh sánh xanh: </label>
+																							<input type="checkbox" name="green" value=trưe
+																							${sp.isGreen()?'checked':''}>
+																						</div>
+
+																						<div class="form-group">
+																							<label for="altercolor">Thay đổi màu sắc
+																								theo môi trường: </label> <input type="checkbox"
+																								name="altercolor" value=true
+																								${sp.isAlter_color()?'checked':''}>
+																						</div>
+
+
+
+
 																						<div class="form-group">
 																							<label for="thoigianbhsp">Thời gian bảo
 																								hành</label>
@@ -493,6 +528,25 @@
 																		placeholder="Nhập kích thước sản phẩm (đơn vị: mm)"
 																		class="form-control" required>
 																</div>
+
+
+
+																<div class="form-group">
+																	<label for="uv">Chống tia UV: </label> <input
+																		type="checkbox" name="uv" value=true>
+																</div>
+
+																<div class="form-group">
+																	<label for="green">Chống ánh sánh xanh: </label> <input
+																		type="checkbox" name="green" value=true>
+																</div>
+
+																<div class="form-group">
+																	<label for="altercolor">Thay đổi màu sắc theo
+																		môi trường: </label> <input type="checkbox" name="altercolor"
+																		value=true>
+																</div>
+
 																<div class="form-group">
 																	<label for="thoigianbhsp">Thời gian bảo hành</label>
 																	<div class="form-inline">

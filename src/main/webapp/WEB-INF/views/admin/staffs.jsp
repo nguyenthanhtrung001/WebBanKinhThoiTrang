@@ -374,7 +374,7 @@
 																<div class="col-12">
 																	<div class="bg-primary-dark block block-h-auto">
 																		<div class="row edit-product-row">
-																			 <form method="POST" action="/WebBanKinh/admin/staff/update" modelAttribute="taikhoan" enctype="multipart/form-data" onsubmit="return validateDateOfBirth()">
+																			 <form method="POST" action="/WebBanKinh/admin/staff/add" modelAttribute="taikhoan" enctype="multipart/form-data" onsubmit="return validateDateOfBirth()">
 																				<div class="col-md-6">
 																					<div class="form-group">
 																						<label for="email">Email Tài Khoản</label> <input

@@ -68,8 +68,8 @@
 				<label class="form-label" for="">Tên<span style="color: red;">*</span></label>
 				<div class="input-container">
 					<i class="fa-solid fa-user icon"></i> 
-					<form:input type="text" class="input-content" placeholder="Họ và Tên" path="name" />
-					<p
+					<form:input type="text" pattern="[^\d]+" class="input-content" placeholder="Họ và Tên" path="name" />
+<p
 						style="color: #ff3366; font-size: 12px; margin-top: 5px; margin-bottom: 0px;">
 						<form:errors path="name" cssClass="errors" />
 					</p>
@@ -192,17 +192,17 @@
 							<option value="2002">2002</option>
 							<option value="2001">2001</option>
 							<option value="2000">2000</option>
-							<option value="2022">1999</option>
-							<option value="2021">1998</option>
-							<option value="2021">1997</option>
-							<option value="2019">1996</option>
-							<option value="2018">1995</option>
-							<option value="2017">1994</option>
-							<option value="2016">1993</option>
-							<option value="2015">1992</option>
-							<option value="2014">1991</option>
-							<option value="2013">1990</option>
-							<option value="2012">1989</option>
+							<option value="1991">1999</option>
+							<option value="1991">1998</option>
+							<option value="1991">1997</option>
+							<option value="1991">1996</option>
+							<option value="1991">1995</option>
+							<option value="1991">1994</option>
+							<option value="1991">1993</option>
+							<option value="1991">1992</option>
+							<option value="1991">1991</option>
+							<option value="1990">1990</option>
+							<option value="1989">1989</option>
 							
 						</select>
 				</div>

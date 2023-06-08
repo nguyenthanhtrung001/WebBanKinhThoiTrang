@@ -78,7 +78,12 @@ public class ProductsControler {
 				Product_Price pp=new Product_Price();
 				
 				pp.setProduct(p);
-				pp.setPrice(productDao.get_Price_new(p.getId()));
+				try {
+					pp.setPrice(productDao.get_Price_new(p.getId()));
+				} catch (Exception e) {
+					continue;
+				}
+				
 				System.out.println("id:"+pp.getProduct().getId()+"-"+productDao.get_Price_new(p.getId()));
 				listP_P.add(pp);
 				

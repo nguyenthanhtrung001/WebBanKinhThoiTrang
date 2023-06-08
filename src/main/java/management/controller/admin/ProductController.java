@@ -41,7 +41,8 @@ public class ProductController {
 	private IUpdatePriceDao updatePriceDao;
 
 	@RequestMapping(value = "product/Add")
-	public String addSP(HttpServletRequest request, ModelMap model, @RequestParam("file") MultipartFile file, @RequestParam("anhGoc") String anhGoc) {
+	public String addSP(HttpServletRequest request, ModelMap model, @RequestParam("file") MultipartFile file,
+			@RequestParam("anhGoc") String anhGoc) {
 //		HttpSession session = request.getSession();
 //		Object userObj = session.getAttribute("user");
 //		
@@ -55,6 +56,9 @@ public class ProductController {
 		Double kichthuocsp = Double.parseDouble(request.getParameter("kichthuoc"));
 		String hangsp = request.getParameter("hang");
 		String motasp = request.getParameter("mota");
+		Boolean uvsp = Boolean.parseBoolean(request.getParameter("uv"));
+		Boolean greensp = Boolean.parseBoolean(request.getParameter("green"));
+		Boolean altercolorsp = Boolean.parseBoolean(request.getParameter("altercolor"));
 //		Boolean trangthaisp = Boolean.parseBoolean(request.getParameter("trangthai"));
 		Integer thoigianbhsp = Integer.parseInt(request.getParameter("thoigianbh"));
 		Integer thoigianthsp = Integer.parseInt(request.getParameter("thoigianth"));
@@ -65,16 +69,20 @@ public class ProductController {
 			Product checkProduct = productAdminDao.getSP(masp);
 			if (checkProduct != null) {
 				model.addAttribute("errorMessage", "Sản phẩm đã tồn tại!");
+				List<Product> productlist = productAdminDao.getAllSP();
+				List<Category> categorylist = productAdminDao.getAllLoai();
+				model.addAttribute("productlist", productlist);
+				model.addAttribute("categorylist", categorylist);
 				return "admin/product";
 			}
-			
+
 			if (!file.isEmpty()) {
 				BasePath bPath = new BasePath();
 				String path = bPath.getPathImgProduct() + masp + ".jpg";
 				System.out.println("Upload ảnh: " + file.getOriginalFilename() + " thành công");
 				file.transferTo(new File(path));
 				anhGoc = masp + ".jpg";
-				Thread.sleep(50);
+				Thread.sleep(5000);
 				System.out.println(path);
 			}
 
@@ -87,6 +95,9 @@ public class ProductController {
 			product.setStatus(true);
 			product.setMaterial(chatlieusp);
 			product.setSize(kichthuocsp);
+			product.setUv(uvsp);
+			product.setGreen(greensp);
+			product.setAlter_color(altercolorsp);
 			product.setWarrantyPeriod(thoigianbhsp);
 			product.setDeliveryTime(thoigianthsp);
 			product.setCategory(loai);
@@ -116,7 +127,8 @@ public class ProductController {
 	}
 
 	@RequestMapping(value = "product/Edit")
-	public String editSP(HttpServletRequest request, ModelMap model, @RequestParam("file") MultipartFile file, @RequestParam("anhGoc") String anhGoc) {
+	public String editSP(HttpServletRequest request, ModelMap model, @RequestParam("file") MultipartFile file,
+			@RequestParam("anhGoc") String anhGoc) {
 //		HttpSession session = request.getSession();
 //		Object userObj = session.getAttribute("user");
 //		
@@ -130,6 +142,9 @@ public class ProductController {
 		Double kichthuocsp = Double.parseDouble(request.getParameter("kichthuoc"));
 		String hangsp = request.getParameter("hang");
 		String motasp = request.getParameter("mota");
+		Boolean uvsp = Boolean.parseBoolean(request.getParameter("uv"));
+		Boolean greensp = Boolean.parseBoolean(request.getParameter("green"));
+		Boolean altercolorsp = Boolean.parseBoolean(request.getParameter("altercolor"));
 //		Boolean trangthaisp = Boolean.parseBoolean(request.getParameter("trangthai"));
 		Integer thoigianbhsp = Integer.parseInt(request.getParameter("thoigianbh"));
 		Integer thoigianthsp = Integer.parseInt(request.getParameter("thoigianth"));
@@ -143,10 +158,10 @@ public class ProductController {
 				System.out.println("Upload ảnh: " + file.getOriginalFilename() + " thành công");
 				file.transferTo(new File(path));
 				anhGoc = masp + ".jpg";
-				Thread.sleep(50);
+				Thread.sleep(5000);
 				System.out.println(path);
-			}		
-			
+			}
+
 			Product product = productAdminDao.getSP(masp);
 			product.setName(tensp);
 			product.setColor(mausacsp);
@@ -158,7 +173,9 @@ public class ProductController {
 			product.setWarrantyPeriod(thoigianbhsp);
 			product.setDeliveryTime(thoigianthsp);
 			product.setCategory(loai);
-
+			product.setUv(uvsp);
+			product.setGreen(greensp);
+			product.setAlter_color(altercolorsp);
 			Integer temp = productAdminDao.updateProduct(product);
 			if (temp != 0) {
 				model.addAttribute("successMessage", "Cập nhật thành công!");
@@ -272,7 +289,7 @@ public class ProductController {
 		List<Product> productlist = productAdminDao.getAllSP();
 		model.addAttribute("productAdminDao", productAdminDao);
 		List<Category> categorylist = productAdminDao.getAllLoai();
-		
+
 		ModelAndView modelAndView = new ModelAndView("admin/product");
 		modelAndView.addObject("productlist", productlist);
 		modelAndView.addObject("categorylist", categorylist);

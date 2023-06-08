@@ -197,25 +197,7 @@
 						</a></li>
 					</ul></li>
 					
-					<li class="nav-item"><a href="#" class="nav-link"> <i
-						class="fas fa-bars"></i>
-						<p>
-							Quản Lý Danh Mục<i class="right fas fa-angle-left"></i>
-						</p>
-				</a>
-					<ul class="nav nav-treeview" style="display: none;">
-						<li class="nav-item"><a
-							href='<c:url value="/admin/management/category/list"/>'
-							class="nav-link"> <i class="fas fa-list-ul"></i>
-								<p>Danh sách danh muc</p>
-						</a></li>
-						<li class="nav-item"><a
-							href='<c:url value="/admin/management/category/add"/>'
-							class="nav-link"> <i class="fas fa-list-ul"></i>
-								<p>Tạo danh muc</p>
-						</a></li>
-
-					</ul></li>
+					
 
 				
 
