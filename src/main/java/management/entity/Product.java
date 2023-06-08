@@ -42,14 +42,8 @@ public class Product {
 	@Column(name = "TRANGTHAI")
 	private boolean status;
 	
-	@Column(name = "IS_UV")
-	private boolean uv;
 	
-	@Column(name = "IS_GREEN")
-	private boolean green;
 	
-	@Column(name = "ALTER_COLOR")
-	private boolean alter_color;
 	@Column(name = "THOIGIANBH_THANG")
 	private int warrantyPeriod;
 	
@@ -74,30 +68,7 @@ public class Product {
 
 	
 
-	public boolean isUv() {
-		return uv;
-	}
-
-	public void setUv(boolean uv) {
-		this.uv = uv;
-	}
-
-	public boolean isGreen() {
-		return green;
-	}
-
-	public void setGreen(boolean green) {
-		this.green = green;
-	}
-
-	public boolean isAlter_color() {
-		return alter_color;
-	}
-
-	public void setAlter_color(boolean alter_color) {
-		this.alter_color = alter_color;
-	}
-
+	
 	public Product() {
 		super();
 	}
