@@ -62,6 +62,8 @@ public class HistoryController {
 		Date currentDate = new Date();
 		modelAndView.addObject("ngayHienTai", currentDate);
 		modelAndView.addObject("bill", bill);
+		modelAndView.addObject("billDao", billDao);
+		billDao.getDetailsCartsOfBill(id);
 		return modelAndView;
 	}
 	

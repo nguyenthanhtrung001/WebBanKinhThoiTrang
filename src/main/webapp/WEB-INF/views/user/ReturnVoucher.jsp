@@ -53,7 +53,7 @@
 							</thead>
 							<tbody>
 								<c:forEach var="sp" varStatus="s"
-									items="${bill.getDetailsCarts()}">
+									items="${billDao.getDetailsCartsOfBill(b.getId())}">
 									<tr>
 										<td style="font-size: 18px;">${s.index + 1}</td>
 										<td style="font-size: 18px;">${s.index + 1}</td>

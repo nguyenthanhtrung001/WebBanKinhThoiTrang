@@ -50,8 +50,7 @@
 								<tr>
 									<td style="font-size: 18px;">${b.getId()}</td>
 									<td style="font-size: 18px;">${TienIch.dateToString(b.getApplicableDate())}</td>
-									<td style="font-size: 18px;"> <s>${TienIch.toVND(b.getTotalPrice())}</s>
-										${TienIch.toVND(b.getTotalPrice())}-${TienIch.toVND(b.getPromotionlPrice())}
+									<td style="font-size: 18px;">${TienIch.toVND(b.getTotalPrice())}
 									</td>
 									<td style="font-size: 18px;"><c:if
 											test="${b.getStatus()==0}">
@@ -172,7 +171,7 @@
 																		<div class="col-sm-3">
 																			<c:if
 																				test="${TienIch.isExpired_day(b.getApplicableDate(),7)}">
-																				<a href="thinh"><button>Hoàn đơn</button></a>
+																				<a href="thinh"><button></button></a>
 																			</c:if>
 																			<c:if
 																				test="${!TienIch.isExpired_day(b.getApplicableDate(),7)}">

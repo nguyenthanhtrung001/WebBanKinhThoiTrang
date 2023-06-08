@@ -20,7 +20,7 @@
 				<div class="col-sm-6 " style="font-size: 18px; margin-top: 20px;">
 					<div class="form-group">
 						<label for="ten">Họ và tên</label> <input
-							style="font-size: 18px; font-family: Arial;" type="text"
+							style="font-size: 18px; font-family: Arial;" type="text" 
 							name="hoTen" value="${customer.getName()}" class="form-control"
 							readonly>
 					</div>
@@ -111,7 +111,7 @@
 
 									<div class="form-group">
 										<label for="hoTen">Họ và tên</label> <input type="text"
-											name="hoTen" style="font-size: 18px;"
+											name="hoTen" style="font-size: 18px;" pattern="[A-Za-z]+" title="Chỉ được nhập chữ"
 											value="${customer.getName()}" class="form-control" required>
 									</div>
 
@@ -141,7 +141,7 @@
 
 									<div class="form-group">
 										<label for="sdt">Số điện thoại</label> <input type="number"
-											style="font-size: 18px;" name="sdt"
+											style="font-size: 18px;" name="sdt" pattern="^(0|\+84)\d{9,10}$" title="Số điện thoại không hợp lệ"
 											value="${customer.getPhoneNumber()}" class="form-control"
 											required>
 									</div>
