@@ -1,10 +1,7 @@
 package management.entity;
 
-import java.text.NumberFormat;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -23,45 +20,42 @@ public class Product {
 	@Id
 	@Column(name = "MASP", length = 10)
 	private String id;
-
+	
 	@Column(name = "TENSP", columnDefinition = "nvarchar(100)")
-	private String name;
-
-	@Column(name = "MAUSAC", columnDefinition = "nvarchar(100)")
-	private String color;
-
-	@Column(name = "CHATLIEU", columnDefinition = "nvarchar(100)")
+	private String name; 
+	
+	@Column(name = "CHATLIEU",columnDefinition = "nvarchar(100)")
 	private String material;
-
+	
 	@Column(name = "KICHTHUOC")
-	private String size;
-
-	@Column(name = "MOTA", columnDefinition = "nvarchar(4000)")
+	private Double size;
+	
+	@Column(name = "MOTA",columnDefinition = "nvarchar(4000)")
 	private String description;
-
+	
 	@Column(name = "HANG", columnDefinition = "nvarchar(100)")
 	private String branch;
-
+	
 	@Column(name = "TRANGTHAI")
 	private boolean status;
-
+	
 	@Column(name = "THOIGIANBH_THANG")
 	private int warrantyPeriod;
-
+	
 	@Column(name = "THOIGIANTRAHANG_NGAY")
 	private int deliveryTime;
-
+	
 	@OneToMany(mappedBy = "product")
-	private Set<Seri> seri;
-
+	private Set<Seri> seri; 
+	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "MADM")
 	private Category category;
-
+	
 	@OneToMany(mappedBy = "product")
-	private Set<DetailsPromotion> detailsPromotions;
-
-	@OneToMany(mappedBy = "product", fetch = FetchType.EAGER)
+	private Set<DetailsPromotion> detailsPromotions; 
+	
+	@OneToMany(mappedBy = "product",fetch = FetchType.EAGER)
 	private List<DetailsUpdatePrice> detailsUpdatePrices = new ArrayList<DetailsUpdatePrice>();
 
 	public Product() {
@@ -84,14 +78,6 @@ public class Product {
 		this.name = name;
 	}
 
-	public String getColor() {
-		return color;
-	}
-
-	public void setColor(String color) {
-		this.color = color;
-	}
-
 	public String getMaterial() {
 		return material;
 	}
@@ -100,11 +86,11 @@ public class Product {
 		this.material = material;
 	}
 
-	public String getSize() {
+	public Double getSize() {
 		return size;
 	}
 
-	public void setSize(String size) {
+	public void setSize(Double size) {
 		this.size = size;
 	}
 
@@ -180,37 +166,6 @@ public class Product {
 		this.detailsUpdatePrices = detailsUpdatePrices;
 	}
 
-	public String getPrice() {
-		return this.converVND(this.detailsUpdatePrices.get(this.detailsUpdatePrices.size() - 1).getPrice());
-	}
-
-	public String converVND(double money) {
-		Locale locale = new Locale("vi", "VN");
-		NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
-		String formattedAmount = currencyFormatter.format(money);
-		return formattedAmount;
-	}
-
-	public String handlePromotion(double promotionPrice) {
-		return this.converVND(promotionPrice);
-	}
-
-	public double convertToDouble(String formattedAmount) {
-		Locale locale = new Locale("vi", "VN");
-		NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
-		double convertedAmount = 0.0;
-
-		Number number;
-		try {
-			number = currencyFormatter.parse(formattedAmount);
-			convertedAmount = number.doubleValue();
-		} catch (ParseException e) {
-			
-			e.printStackTrace();
-		}
-		
-
-		return convertedAmount;
-	}
-
+	
+	
 }

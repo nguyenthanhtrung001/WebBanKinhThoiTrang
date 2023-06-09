@@ -142,7 +142,7 @@
 
 																	<div class="form-group">
 																		<label for="giasp">Giá</label> <input type="text"
-																			name="gia"
+																			name="gia" value="${ngayad1}"
 																			placeholder="Nhập giá sản phẩm (đơn giá: VND)"
 																			class="form-control" required>
 																	</div>
@@ -233,9 +233,6 @@
 																						</li>
 																						<li class="list-group-item"><b>Hãng</b> <a
 																							class="float-right text-primary">${sp.getBranch()}</a>
-																						</li>
-																						<li class="list-group-item"><b>Màu sắc</b> <a
-																							class="float-right text-primary">${sp.getColor()}</a>
 																						</li>
 																						<li class="list-group-item"><b>Chất liệu</b>
 																							<a class="float-right text-primary">${sp.getMaterial()}</a>
@@ -355,12 +352,6 @@
 																						</div>
 																					</div>
 																					<div class="col-md-6">
-																						<div class="form-group">
-																							<label for="mausacsp">Màu sắc</label> <input
-																								type="text" name="mausac"
-																								value="${sp.getColor()}" class="form-control"
-																								required>
-																						</div>
 																						<div class="form-group">
 																							<label for="chatlieusp">Chất liệu</label> <input
 																								type="text" name="chatlieu"
@@ -509,12 +500,6 @@
 																			</c:if>
 																		</c:forEach>
 																	</select>
-																</div>
-																<div class="form-group">
-																	<label for="mausacsp">Màu sắc</label> <input
-																		type="text" name="mausac"
-																		placeholder="Nhập màu sắc sản phẩm"
-																		class="form-control" required>
 																</div>
 																<div class="form-group">
 																	<label for="chatlieusp">Chất liệu</label> <input
