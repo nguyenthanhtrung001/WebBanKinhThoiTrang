@@ -4,7 +4,6 @@ package management.dao.impl;
 import java.util.Iterator;
 import java.util.List;
 
-
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -142,6 +141,44 @@ public class CustomerDaoImpl implements ICustomerDao{
 		} finally {
 			session.close();
 		}
+	}
+
+
+	@Override
+	public Customer getCustomerById(int id) {
+		Session s = sessionFactory.openSession();
+
+		String hql = "select c from Customer c where c.id = ?";
+
+		Query query = s.createQuery(hql);
+
+		query.setParameter(0, id);
+
+		return (Customer) query.list().get(0);
+	}
+
+	@Override
+	public Customer update(Customer customer) {
+		Session s = sessionFactory.openSession();
+
+		try {
+
+			s.beginTransaction();
+
+			s.update(customer);
+
+			s.getTransaction().commit();
+
+			return customer;
+		} catch (Exception e) {
+
+			s.getTransaction().rollback();
+
+		} finally {
+			s.close();
+		}
+
+		return null;
 	}
 	
 }

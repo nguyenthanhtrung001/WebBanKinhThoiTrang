@@ -8,15 +8,15 @@
 <title>Trang chủ</title>
 </head>
 <body>
-	<div class="col l-2">
+	<div class="col-l l-2">
 		<%@ include file="/common/user/nav.jsp"%>
 	</div>
-	<div class="col l-10">
+	<div class="col-l l-10">
 		<div class="row">
-			<div class="col l-12">
-				<div class="tool">
+			<div class="col-l l-12">
+				
 					<div class="row">
-						<div class="col l-2">
+						<div class="col-l l-2">
 							<div class="dropdown">
 								<button class="dropbtn">Sắp xếp giá</button>
 								<div class="dropdown-content">
@@ -25,30 +25,40 @@
 							</div>
 						</div>
 					</div>
-				</div>
+				
 			</div>
-			<div class="col l-12 mt-20">
+			<div class="col-l l-12 mt-20">
 				<div class="listProdcuct">
 					<div class="row">
-						<c:forEach var="product" items="${listOfProduct}">
-							<div class="col l-3">
+						<c:forEach var="product" items="${listOfProduct}" varStatus="index">
+							<div class="col-l l-3">
 								<div class="product">
 									<img class="product__img"
-										src="https://cdn.tgdd.vn/Products/Images/42/22701/dien-thoai-di-dong-Nokia-1280-dienmay.com-l.jpg"
+										src="/templates/image/product/${product.id}.jpg"
 										alt="">
 									<h1 class="roduct__bracnh">${product.branch}</h1>
 									<h2 class="roduct__name">${product.name}</h2>
 									<div class="product__price">
-										<strong> <c:forEach varStatus="status" var="t"
-												items="${product.detailsUpdatePrices}">
-												
-												<c:if test="${status.isLast()}">
-													${t.price}
-												</c:if>
-												
-											</c:forEach>
-
-										</strong>
+										
+										<c:if test="${listreduce[index.index].equals('')}">
+											<strong> 
+											${product.getPrice()}
+											</strong>
+											
+										</c:if>
+										
+										<c:if test="${listreduce[index.index].equals('') == false}">
+											
+											<strong> 
+												${listreduce[index.index]}
+											</strong>
+											<span style="text-decoration: line-through">
+												${product.getPrice()}
+											</span>
+										</c:if>
+										
+										
+										
 									</div>
 									 <div class="product__tooltip">
                                             <button class="product__tooltip--btn" onclick="">
@@ -61,7 +71,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="col l-12">
+			<div class="col-l l-12">
 				
 				<c:choose>
    					<c:when test="${checkCategoryId != null}">
@@ -78,8 +88,8 @@
    						<form action="<c:url value='/user/home?search=${checkSearch}'/>" id="formSubmit" method="get">
 								<div class="card-footer clearfix">
 								<ul id="pagination-demo" class="pagination-lg"></ul>
-								<input type="hidden" value="1" id="page" name="page" /> <input
-									type="hidden" value="1" id="limit" name="limit" />
+								<input type="hidden" value="4" id="page" name="page" /> <input
+									type="hidden" value="4" id="limit" name="limit" />
 							</div>
 						</form>
    					</c:when> 
@@ -89,7 +99,7 @@
 							<div class="card-footer clearfix">
 								<ul id="pagination-demo" class="pagination-lg"></ul>
 								<input type="hidden" value="1" id="page" name="page" /> <input
-									type="hidden" value="1" id="limit" name="limit" />
+									type="hidden" value="4" id="limit" name="limit" />
 							</div>
 						</form>
    					</c:otherwise>    
@@ -112,7 +122,7 @@
 			startPage : currentPage,
 			onPageClick : function(event, page) {
 				if (currentPage != page) {
-					$('#limit').val(1);
+					$('#limit').val(4);
 					$('#page').val(page);
 					$('#formSubmit').submit();
 				}

@@ -1,302 +1,287 @@
 package management.controller.user;
 
-import java.security.NoSuchAlgorithmException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import management.bean.Message;
+import management.dao.DetailsPromotionDao;
 import management.dao.IBillDao;
 import management.dao.ICustomerDao;
 import management.dao.IDetailsCartDao;
 import management.dao.IProductDao;
-
-import management.dao.IPromotionDao;
 import management.dao.ISeriDao;
-import management.entity.Account;
+import management.dao.IShipDao;
 import management.entity.Bill;
 import management.entity.Customer;
 import management.entity.DetailsCart;
-import management.entity.DetailsUpdatePrice;
-import management.entity.DetailsUpdatePricePK;
+import management.entity.DetailsPromotion;
 import management.entity.Product;
-import management.entity.Promotion;
-import management.entity.Role;
-import management.entity.Seri;
-
+import management.entity.Ship;
 
 @Controller
 @RequestMapping("/user/")
 public class CartController {
 
 	@Autowired
-	private IDetailsCartDao detailsCartDao;
-	@Autowired
-	private IBillDao billDao;
-	@Autowired
-	private IPromotionDao promotionDao;
-	@Autowired
-	private ISeriDao seriDao;
+	private IProductDao productDao;
+
 	@Autowired
 	private ICustomerDao customerDao;
-	
 
-	// List<DetailsCart> listTmp = new ArrayList<>();
+	@Autowired
+	private IDetailsCartDao detailsCartDao;
 
-	@RequestMapping(value = "cart", method = RequestMethod.GET)
-	public ModelAndView getcart(ModelMap model, HttpServletRequest request) {
+	@Autowired
+	private ISeriDao seriDao;
 
+	@Autowired
+	private DetailsPromotionDao detailsPromotionDao;
+
+	@Autowired
+	private IShipDao shipDao;
+
+	@Autowired
+	private IBillDao billDao;
+
+	@GetMapping("cart")
+	public ModelAndView showPageDetailsProduct(HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView("user/cart");
 		HttpSession session = request.getSession();
-		Object userObj = session.getAttribute("user");
-		session.removeAttribute("cart");
-
-		if (userObj == null) {
-			
-			return new ModelAndView("redirect:/login");
+		Customer customer = (Customer) session.getAttribute("user");
+		List<DetailsCart> cart = detailsCartDao.getDetailsCartsOfCustomerYetBuy(customer.getId());
+		List<String> listreduce = new ArrayList<String>();
+		for (DetailsCart detailsCart : cart) {
+			Product product = productDao.getProductById(detailsCart.getDetailsUpdatePrice().getProduct().getId());
+			detailsCart.setDetailsUpdatePrice(
+					product.getDetailsUpdatePrices().get(product.getDetailsUpdatePrices().size() - 1));
+			detailsCartDao.updateDetailsCart(detailsCart);
+			DetailsPromotion detailsPromotion = detailsPromotionDao
+					.getDetailsPromotionDaoOfProductAndStatus(product.getId(), true);
+			double reducePrice = 0;
+			if (detailsPromotion != null) {
+				double promotionLimit = detailsPromotion.getPromotion().getPromotionLitmit();
+				double price = product.getDetailsUpdatePrices().get(product.getDetailsUpdatePrices().size() - 1)
+						.getPrice();
+				reducePrice = price * promotionLimit;
+				listreduce.add(product.handlePromotion(reducePrice));
+			} else {
+				listreduce.add("");
+			}
 		}
-		
-		Customer user = (Customer) userObj;
-
-		List<DetailsCart> list = detailsCartDao.getDetailsCart(user.getId());
-
-		model.addAttribute("cart", list);
-		ModelAndView modelAndView = new ModelAndView("user/cart");
-		return modelAndView;
-
+		List<DetailsCart> newCart = detailsCartDao.getDetailsCartsOfCustomerYetBuy(1);
+		if (newCart.size() != 0) {
+			mav.addObject("listreduce", listreduce);
+			mav.addObject("cart", newCart);
+			mav.addObject("NoDetailsCart", false);
+		} else {
+			mav.addObject("NoDetailsCart", true);
+		}
+		return mav;
 	}
 
-	@RequestMapping(value = "cart/add/id={id}", method = RequestMethod.POST)
-	public String add_product_cart(ModelMap model, @ModelAttribute("cart") DetailsCart cart, BindingResult errors,
-
-			@PathVariable("id") String maSP, @RequestParam("quantity") String soLuong, HttpSession ss,
-			HttpServletRequest request, RedirectAttributes redirectAttributes)
-			throws ParseException, NoSuchAlgorithmException {
-
+	@GetMapping("confirm")
+	public ModelAndView confirmBuyProducts(HttpServletRequest request,
+			@RequestParam(value = "checkboxValues", required = false) String[] checkboxValues) {
+		ModelAndView mav = new ModelAndView("user/OrderSlip");
 		HttpSession session = request.getSession();
-		Object userObj = session.getAttribute("user");
-
-		if (userObj == null) {
-			return "redirect:/login";
+		Customer customer = (Customer) session.getAttribute("user");
+		double sumMoney = 0;
+		List<DetailsCart> list = new ArrayList<DetailsCart>();
+		List<String> listreduce = new ArrayList<String>();
+		for (String idCart : checkboxValues) {
+			DetailsCart detailsCart = detailsCartDao.getDetailsCartById(Long.parseLong(idCart));
+			detailsCartDao.updateDetailsCart(detailsCart);
+			Product product = detailsCart.getDetailsUpdatePrice().getProduct();
+			DetailsPromotion detailsPromotion = detailsPromotionDao
+					.getDetailsPromotionDaoOfProductAndStatus(product.getId(), true);
+			double reducePrice = 0;
+			double price = product.getDetailsUpdatePrices().get(product.getDetailsUpdatePrices().size() - 1).getPrice();
+			if (detailsPromotion != null) {
+				double promotionLimit = detailsPromotion.getPromotion().getPromotionLitmit();
+				reducePrice = price * promotionLimit;
+				listreduce.add(product.handlePromotion(reducePrice));
+			} else {
+				listreduce.add("");
+				reducePrice = price;
+			}
+			list.add(detailsCart);
+			sumMoney += reducePrice * detailsCart.getQuantity();
 		}
-		Customer user = (Customer) userObj;
-		Date ngayADDate = detailsCartDao.getLatestApplicableDateByProductId(maSP);
-		// SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd",
-		// Locale.ENGLISH);
-		// Date ngayADDate = formatter.parse(ngayAD);
-
-		DetailsCart carttmp = detailsCartDao.checkSP_cart(maSP);
-
-		if (carttmp != null) {
-			long idtmp = (long) detailsCartDao.getID(maSP);
-			int q = detailsCartDao.getQuantitybyID(idtmp) + Integer.parseInt(soLuong);
-			detailsCartDao.updateQuantityById(idtmp, q);
-
-			return "redirect:/user/cart";
-		}
-
-		try {
-			Customer customer = new Customer();
-
-			customer.setId(user.getId());
-
-			cart.setCustomer(customer);
-			DetailsUpdatePrice price = new DetailsUpdatePrice();
-			DetailsUpdatePricePK pricePK = new DetailsUpdatePricePK();
-			pricePK.setProductId(maSP);
-			pricePK.setApplicableDate(ngayADDate);
-			price.setId(pricePK);
-			// String soLuong="1";
-			cart.setQuantity(Integer.parseInt(soLuong));
-			cart.setDetailsUpdatePrice(price);
-
-			if (detailsCartDao.addProductfor_(cart))
-				System.out.println("Thanh cong");
-			else
-				System.out.println("That Bai");
-
-			redirectAttributes.addFlashAttribute("message", new Message("success", "Thêm mới thành công"));
-
-			return "redirect:/user/cart";
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.println("Thất bại thêm tài khoản");
-			redirectAttributes.addFlashAttribute("message", new Message("error", "Thêm mới thất bại"));
-			System.out.println("Thất bại thêm nhân viên3");
-			return "redirect:/user/cart";
-
-		}
-
+		session.setAttribute("listProductId", checkboxValues);
+		mav.addObject("listreduce", listreduce);
+		mav.addObject("user", customer);
+		mav.addObject("sumMoney", sumMoney);
+		mav.addObject("date", java.time.LocalDate.now());
+		mav.addObject("list", list);
+		return mav;
 	}
 
-	@ModelAttribute("listPromotion")
-	public List<Promotion> getListPromotions() {
-		List<Promotion> promotions = promotionDao.getListPromotion();
-
-		for (Promotion p : promotions) {
-			System.out.println(p.getId());
-
+	@PostMapping("order/confirm")
+	public ModelAndView confirmOrder(HttpServletRequest request, @RequestParam("ht") String t,
+			@RequestParam("sdt") String std, @RequestParam("dc") String dc, @RequestParam("nd") String note) {
+		ModelAndView mav = new ModelAndView("user/ThankYou");
+		HttpSession session = request.getSession();
+		Customer customer = (Customer) session.getAttribute("user");
+		String address = customer.getAddress();
+		Ship ship = new Ship();
+		if (address.contains("TP Hồ Chí Minh")) {
+			ship = shipDao.getShipId("HCM");
+		} else if (address.contains("TP Ho Chi Minh")) {
+			ship = shipDao.getShipId("HCM");
+		} else if (address.contains("TP ho chi minh")) {
+			ship = shipDao.getShipId("HCM");
+		} else {
+			ship = shipDao.getShipId("NHCM");
 		}
-		return promotionDao.getListPromotion();
-
+		Bill bill = new Bill();
+		bill.setAddress(address);
+		bill.setFullName(t);
+		bill.setTelephone(std);
+		bill.setNote(note);
+		bill.setShip(ship);
+		bill.setStatus(0);
+		bill.setApplicableDate(new Date());
+		bill.setNote(note);
+		List<DetailsCart> cart = new ArrayList<DetailsCart>();
+		String[] checkboxValues = (String[]) session.getAttribute("listProductId");
+		double sumPrice = 0;
+		double sumPromotionPrice = 0;
+		for (String string : checkboxValues) {
+			DetailsCart detailsCart = detailsCartDao.get_One_P_Cart_Pay(Long.parseLong(string));
+			cart.add(detailsCart);
+			Product product = detailsCart.getDetailsUpdatePrice().getProduct();
+			DetailsPromotion detailsPromotion = detailsPromotionDao
+					.getDetailsPromotionDaoOfProductAndStatus(product.getId(), true);
+			double price = product.getDetailsUpdatePrices().get(product.getDetailsUpdatePrices().size() - 1).getPrice();
+			sumPrice += price * detailsCart.getQuantity();
+			;
+			if (detailsPromotion != null) {
+				double promotionLimit = detailsPromotion.getPromotion().getPromotionLitmit();
+				double reducePrice = price * promotionLimit;
+				sumPromotionPrice = reducePrice * detailsCart.getQuantity();
+			}
+		}
+		sumPrice += ship.getPrice();
+		bill.setTotalPrice(sumPrice);
+		bill.setPromotionlPrice(sumPromotionPrice);
+		int primaryKey = billDao.createBill(bill);
+		bill = billDao.getBillById(primaryKey);
+		for (DetailsCart detailsCart : cart) {
+			detailsCart.setBill(bill);
+			detailsCartDao.updateDetailsCart(detailsCart);
+		}
+		return mav;
 	}
 
-	@RequestMapping(value = "cart/del_products", method = RequestMethod.POST)
-	public String del_products(@RequestParam(value = "productId", required = false) List<Long> productIds) {
-		// Process the selected products here
-		if (productIds != null) {
-			for (long productId : productIds) {
-				System.out.println("id:" + productId);
-				if (detailsCartDao.deleteProductfor_(productId))
-					System.out.println("xoa tt");
-				else
-					System.out.println("x tb");
+	@GetMapping("cart/{idProduct}")
+	public ModelAndView addDetailsProduct(HttpServletRequest request,
+			@PathVariable(name = "idProduct", required = false) String idProduct) {
+		ModelAndView mav = new ModelAndView("user/cart");
+		HttpSession session = request.getSession();
+		Customer customer = (Customer) session.getAttribute("user");
+		Product product = productDao.getProductById(idProduct);
+		DetailsCart detailsCart = new DetailsCart();
+		detailsCart.setQuantity(1);
+		detailsCart.setDetailsUpdatePrice(
+				product.getDetailsUpdatePrices().get(product.getDetailsUpdatePrices().size() - 1));
+		detailsCart.setCustomer(customer);
+		detailsCartDao.save(detailsCart);
+		customer.getDetailsCarts().add(detailsCart);
+		customerDao.update(customer);
+		List<DetailsCart> cart = detailsCartDao.getDetailsCartsOfCustomerYetBuy(customer.getId());
+		mav.addObject("cart", cart);
+		mav.addObject("NoDetailsCart", false);
+		return mav;
+	}
+
+	@GetMapping("/cart/remove/{idRemove}")
+	public ModelAndView removeDetailsProduct(HttpServletRequest request,
+			@PathVariable(name = "idRemove", required = false) Long idRemove) {
+		ModelAndView mav = new ModelAndView("user/cart");
+		HttpSession session = request.getSession();
+		Customer customer = (Customer) session.getAttribute("user");
+		DetailsCart detailsCart = detailsCartDao.getDetailsCartById(idRemove);
+		detailsCartDao.deteleDetailsCart(detailsCart);
+		List<DetailsCart> cart = detailsCartDao.getDetailsCartsOfCustomerYetBuy(customer.getId());
+		if (cart != null) {
+			mav.addObject("cart", cart);
+			mav.addObject("NoDetailsCart", false);
+		} else {
+			mav.addObject("NoDetailsCart", true);
+		}
+		return mav;
+	}
+
+	@GetMapping("/cart/remove/all")
+	public ModelAndView removeAllDetailsProduct(HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView("user/cart");
+		HttpSession session = request.getSession();
+		Customer customer = (Customer) session.getAttribute("user");
+		List<DetailsCart> cart = detailsCartDao.getDetailsCartsOfCustomerYetBuy(customer.getId());
+		for (DetailsCart detailsCart : cart) {
+			detailsCartDao.deteleDetailsCart(detailsCart);
+		}
+		mav.addObject("NoDetailsCart", true);
+		return mav;
+	}
+
+	@GetMapping(path = { "/cart/{idCart}/except", "/cart/{idCart}/add" })
+	public ModelAndView changeQuantityOfProductInDetailsProduct(HttpServletRequest request,
+			@PathVariable(name = "idCart", required = false) Long idCart) {
+		ModelAndView mav = new ModelAndView("user/cart");
+		HttpSession session = request.getSession();
+		Customer customer = (Customer) session.getAttribute("user");
+		String url = request.getRequestURL().toString();
+		DetailsCart detailsCart = detailsCartDao.getDetailsCartById(idCart);
+		List<String> listreduce = new ArrayList<String>();
+		if (url.contains("add")) {
+			long quantityOfSeri = seriDao
+					.getQuantitySeriOfProduct(detailsCart.getDetailsUpdatePrice().getProduct().getId());
+			detailsCart.getDetailsUpdatePrice().getPrice();
+			if (detailsCart.getQuantity() < quantityOfSeri) {
+				detailsCart.setQuantity(detailsCart.getQuantity() + 1);
 			}
 		} else {
-			System.out.println("No items selected");
+			if (detailsCart.getQuantity() > 0) {
+				detailsCart.setQuantity(detailsCart.getQuantity() - 1);
+			}
 		}
-
-		// Redirect to the checkout page
-		return "redirect:/user/cart";
-	}
-
-	@RequestMapping("cart/del_product/id={id}")
-	public String delete_product_id(ModelMap model, @PathVariable("id") String id,
-			RedirectAttributes redirectAttributes) {
-		System.out.println("id:" + id);
-		detailsCartDao.deleteProductfor_(Long.parseLong(id));
-		return "redirect:/user/cart";
-	}
-
-	@RequestMapping("cart/payingN")
-	public ModelAndView paying(ModelMap model, HttpServletRequest request, RedirectAttributes redirectAttributes,
-			@RequestParam(value = "productId", required = false) List<Long> productIds
-				){
-		// Process the selected products here
-		HttpSession session1 = request.getSession();
-		List<DetailsCart> list = new ArrayList<DetailsCart>();
-
-		// model.addAttribute("cart", list);
-		//
-
-		if (session1.getAttribute("cart") == null) {
-			// listTmp.clear();
-			if (productIds != null) {
-				for (long productId : productIds) {
-					// detailsCartDao.updateQuantityById(productId, Integer.parseInt(quantity));
-					list.add(detailsCartDao.get_One_P_Cart_Pay(productId));
-				}
+		detailsCartDao.updateDetailsCart(detailsCart);
+		List<DetailsCart> cart = detailsCartDao.getDetailsCartsOfCustomerYetBuy(customer.getId());
+		for (DetailsCart detailsCart1 : cart) {
+			Product product = productDao.getProductById(detailsCart1.getDetailsUpdatePrice().getProduct().getId());
+			detailsCart1.setDetailsUpdatePrice(
+					product.getDetailsUpdatePrices().get(product.getDetailsUpdatePrices().size() - 1));
+			detailsCartDao.updateDetailsCart(detailsCart1);
+			DetailsPromotion detailsPromotion = detailsPromotionDao
+					.getDetailsPromotionDaoOfProductAndStatus(product.getId(), true);
+			double reducePrice = 0;
+			if (detailsPromotion != null) {
+				double promotionLimit = detailsPromotion.getPromotion().getPromotionLitmit();
+				double price = product.getDetailsUpdatePrices().get(product.getDetailsUpdatePrices().size() - 1)
+						.getPrice();
+				reducePrice = price * promotionLimit;
+				listreduce.add(product.handlePromotion(reducePrice));
 			} else {
-				System.out.println("No items selected");
-				return new ModelAndView("redirect:/user/cart");
-
+				listreduce.add("");
 			}
-			// listTmp = list;
-			session1.setAttribute("cart", list);
-			session1.setAttribute("sizeCart", list.size());
-			
 		}
-
-		Customer cus = (Customer) session1.getAttribute("user");
-		
-		
-		
-
-		model.addAttribute("cus", cus);
-		double ship = 0;
-
-		if (cus.getAddress().contains("Minh")) {
-			ship = 15000;
-
-		} else
-			ship = 35000;
-		
-		String diaChi_ = Helpper.loaiBoTenTinh(cus.getAddress());
-		String tinh = Helpper.layTenTinhTuDiaChi(cus.getAddress());
-		model.addAttribute("ship", ship);
-		model.addAttribute("tinh", tinh);
-		model.addAttribute("diachi", diaChi_);
-
-		ModelAndView modelAndView = new ModelAndView("user/paying");
-
-		return modelAndView;
-	}
-
-	@RequestMapping(value = "cart/paying/success", method = RequestMethod.POST)
-	public ModelAndView success(ModelMap model, HttpServletRequest request,
-			@RequestParam("address0") String address ,
-			@RequestParam(value = "moneyship", required = false, defaultValue = "0") double ship,
-			@RequestParam(value = "total", required = false, defaultValue = "0") double total,
-			@RequestParam(value = "promotionVoucher", required = false, defaultValue = "0") double voucher) {
-
-		HttpSession session1 = request.getSession();
-		Customer cus = (Customer) session1.getAttribute("user");
-		String tinh = Helpper.layTenTinhTuDiaChi(cus.getAddress());
-		cus.setAddress(address+", "+tinh);
-		customerDao.updateCustomer(cus);
-		
-		System.out.println("coucher" + voucher);
-		List<DetailsCart> listTmp = new ArrayList<>();
-		HttpSession session = request.getSession();
-		listTmp = (List<DetailsCart>) session.getAttribute("cart");
-		
-		Bill newBill = new Bill();
-		// newBill.setStaff(null);
-		newBill.setStatus(0);
-		newBill.setApplicableDate(new Date());
-		newBill.setTotalPrice((int)total);
-		newBill.setAddress(cus.getAddress());
-		newBill.setFullName(cus.getName());
-		newBill.setTelephone(cus.getPhoneNumber());
-		
-		billDao.create_Bill(newBill);
-		for (DetailsCart detailsCart : listTmp) {
-			detailsCartDao.update_HD_DetailsCart(detailsCart.getId(), newBill);
-			int i = detailsCart.getQuantity();
-			for (Seri s : seriDao.get_List_SeriOfProduct(detailsCart.getDetailsUpdatePrice().getProduct().getId())) {
-				if (i == 0)
-					break;
-				// s.setStatus(true);
-				s.setSaleDate(new Date());
-				seriDao.update_Seri_TT_DAY(s);
-				i--;
-
-			}
-
-		}
-
-		model.addAttribute("ship", ship);
-		model.addAttribute("total", total);
-		
-
-		model.addAttribute("cart", listTmp);
-		session.removeAttribute("cart");
-		// listTmp.clear();
-
-		ModelAndView modelAndView = new ModelAndView("user/success");
-
-		return modelAndView;
+		mav.addObject("cart", cart);
+		mav.addObject("listreduce", listreduce);
+		mav.addObject("NoDetailsCart", false);
+		return mav;
 	}
 
 }

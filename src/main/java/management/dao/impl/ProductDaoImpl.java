@@ -36,7 +36,7 @@ public class ProductDaoImpl implements IProductDao {
 
 		query.setParameter(0, b);
 
-		query.setFirstResult(position);
+		query.setFirstResult(position * pageSize);
 
 		query.setMaxResults(pageSize);
 
@@ -53,8 +53,8 @@ public class ProductDaoImpl implements IProductDao {
 		Query query = s.createQuery(hql);
 
 		query.setParameter(0, categoryId);
-
-		query.setFirstResult(position);
+		
+		query.setFirstResult(position * pageSize);
 
 		query.setMaxResults(pageSize);
 
@@ -98,7 +98,7 @@ public class ProductDaoImpl implements IProductDao {
 
 		query.setParameter(0, "%"+name+"%");
 
-		query.setFirstResult(position);
+		query.setFirstResult(position * pageSize);
 
 		query.setMaxResults(pageSize);
 

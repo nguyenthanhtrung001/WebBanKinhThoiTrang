@@ -1,131 +1,143 @@
 <%@ include file="/common/taglib.jsp"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<c:url var="newURL" value="/user/cart?checkboxValues="/>
+<c:url var="confirmBuyURL" value="/user/confirm?checkboxValues="/>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
-<title>Giỏ Hàng</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-	   
-	
-	
+<meta charset="ISO-8859-1">
+<title>Giỏ hàng</title>
 </head>
 <body>
-
-	<div class="container"style="font-size: 16px;">
-	<div class="row">
-	<div class="col col-md-2"></div>
-	
-	<div class="col col-md-8">
-    <h1 class="my-4">Giỏ hàng</h1>
-    <form method="post" action="cart/payingN">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col"><input type="checkbox" id="select-all-checkbox"  > Chọn tất cả</th>
-                    <th scope="col">Sản phẩm</th>
-                    <th scope="col">Số lượng</th>
-                    <th scope="col">Giá tiền</th>
-                    <th scope="col">Thành tiền</th>
-                    <th scope="col"></th>
-                </tr>
-            </thead>
-            <tbody>
-                <c:forEach var="crt" items="${cart}">
-                    <tr>
-                        <td>
-                            <input type="checkbox" class="item-checkbox" name="productId" value="${crt.id}">
-
-                        </td>
-                        <td>${crt.detailsUpdatePrice.product.name}</td>
-                        <td>
-                            <div class="input-group">
-                                <input type="number" class="form-control quantity-input" name="quantity" value="${crt.quantity}">
+	 			
+	 <div class="col-l l-12">
+                    <table class="listSanPham" id="table">
+                        <tbody>
+                            <tr>
+                                <th>Chọn mua</th>
+                                <th>Sản phẩm</th>
+                                <th>Giá</th>
+                                <th>Số lượng</th>
+                                <th>Thành tiền</th>
                                 
-                            </div>
-                        </td> 
-                        <td>${crt.detailsUpdatePrice.price}</td>
-                        <td class="total-price">${crt.detailsUpdatePrice.price * crt.quantity} VNĐ</td>
-                       <td>
-						  <a href="cart/del_product/id=${crt.id}">
-						    <button type="button" class="btn btn-danger remove-item">Xóa </button>
-						  </a>
-						</td>
+                                <th>Xóa</th>
+                            </tr>
+                            <tr>
+                            	
+                            	
+                            	<c:choose>
+    								<c:when test="${NoDetailsCart}">
+       									<td colspan="7"> 
+                                    		<h1 style="color:green; background-color:white; font-weight:bold; text-align:center; padding: 15px 0;">
+                                       		 Giỏ hàng trống !!
+                                    		</h1> 
+                               		 	</td>
+       	
+   									 </c:when>    
+    								<c:otherwise>
+    								
+    								<c:forEach items="${cart}" var="dc" varStatus="loop">
+    								 <tr>
+    									<td>	
+    											<input type="checkbox" id="selectBuy" name="selectBuy" value="${dc.id}" onclick="updateCheckbox(this)">
+    										
+    									</td>
+                                    <td class="noPadding imgHide">
+                                        <a target="_blank" href="chitietsanpham.html?Huawei-Nova-2i" title="Xem chi tiết">
+                                            ${dc.getDetailsUpdatePrice().getProduct().getName()}
+                                            <img src="https://cdn.tgdd.vn/Products/Images/42/157031/samsung-galaxy-a6-2018-2-600x600.jpg">
+                                        </a>
+                                    </td>
+                                    <td class="alignRight">
+                                    <c:if test="${listreduce[loop.index].equals('')}">
+											<strong> 
+											${dc.getDetailsUpdatePrice().getProduct().getPrice()}
+											</strong>
+											
+										</c:if>
+										
+										<c:if test="${listreduce[loop.index].equals('') == false}">
+											
+											<strong> 
+												${listreduce[loop.index]}
+											</strong>
+											
+										</c:if>
+                                    
+                                    </td>
+                                    <td class="soluong">
+                                        <button ><i class="fa fa-minus" onclick="redirectPage(`<c:url value='/user/cart/${dc.id}/except'/>`)"></i></button>
+                                        <input size="1" onchange="capNhatSoLuongFromInput(this, 'Hua3')" value="${dc.quantity }">
+                                        <button ><i class="fa fa-plus"  onclick="redirectPage(`<c:url value='/user/cart/${dc.id}/add'/>`)"></i></button>
+                                    </td>
+                                    <td class="alignRight">
+                                   
+                                    
+                                   		 <c:if test="${listreduce[loop.index].equals('')}">
+											 ${dc.getDetailsUpdatePrice().getProduct().converVND(dc.getDetailsUpdatePrice().getProduct().convertToDouble(dc.getDetailsUpdatePrice().getProduct().getPrice()) * dc.getQuantity())} 
+											
+										</c:if>
+										
+										<c:if test="${listreduce[loop.index].equals('') == false}">
+											
+											 ${dc.getDetailsUpdatePrice().getProduct().converVND(dc.getDetailsUpdatePrice().getProduct().convertToDouble(listreduce[loop.index]) * dc.getQuantity())}
+											
+										</c:if>
+                                    
+                                    </td>
+                                    
+                                    <td class="noPadding"> <i class="fa fa-trash" onclick="redirectPage(`<c:url value='/user/cart/remove/${dc.id}'/>`)"></i> </td>
+    								 </tr>
+    								</c:forEach>
+    								
+    						
+       									<tr style="font-weight:bold; text-align:center">
+                                			
+                                			<td colspan="5" class="thanhtoan" onclick="confirmBuyProducts()"> Xác nhận </td>
+                                			<td class="xoaHet" onclick="redirectPage(`<c:url value='/user/cart/remove/all'/>`)"> Xóa hết </td>
+                            			</tr>	
+       										
+    								</c:otherwise>
+								</c:choose>
+                                
+                            </tr>
 
-                    </tr>
-                </c:forEach>
-            </tbody>
-        </table>
-        <div class="text-right">
-            <a href="/WebBanKinh/user/product/home" type="button" class="btn btn-primary">Tiếp tục mua hàng</a>
-            <button type="submit" class="btn btn-success">Thanh toán</button>
-           
-        </div>
-    </form>
-</div>
-</div>
-</div>
+                            
+                        </tbody></table>
+                    
+                </div>
+                
+                <script type="text/javascript">
+                
+                function confirmBuyProducts(){
+                	var selectedCheckboxes = $('input[name="selectBuy"]:checked').map(function() {
+                	    return $(this).val();
+                	}).get();
+                	
+                	window.location.href = '${confirmBuyURL}' + selectedCheckboxes
+                }
+               
+                 
+                
+                function updateCheckbox(checkbox) {
+                	
+                	var selectedCheckboxes = $('input[name="selectBuy"]:checked').map(function() {
+                	    return $(this).val();
+                	}).get();
+                	
+                	$.ajax({
+                        type: "GET",
+                        url: '${newURL}' + selectedCheckboxes,
+                        success: function(response) {
+                       
+                        }
+                    });
 
-
-	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-    <script>
-		$(document).ready(function() {
-		// Xử lý sự kiện khi nút "Xóa" được click
-		$('.remove-item').click(function() {
-		$(this).closest('tr').remove();
-		});
-        // Xử lý sự kiện khi nút "Cập nhật số lượng" được click
-        $('.update-quantity').click(function() {
-            var quantity = $(this).closest('td').find('input').val();
-            var price = $(this).closest('tr').find('td:eq(3)').text().trim().replace(',', '').replace(' VNĐ', '');
-            var total = parseInt(quantity) * parseInt(price);
-            $(this).closest('tr').find('td:eq(4)').text(total.toLocaleString('vi-VN') + ' VNĐ');
-        });
+                        
+                }
+                
+                </script>
         
-     // Xử lý sự kiện khi checkbox "select all checkbox" được chọn
-        $('#select-all-checkbox').change(function() {
-            var checked = $(this).prop('checked');
-            $('input[type="checkbox"]').prop('checked', checked);
-        });
-     
-     
-     // Xử lý sự kiện khi checkbox "select all checkbox" được chọn
-        $('#select-all-checkbox').change(function() {
-            var checked = $(this).prop('checked');
-            $('input[type="checkbox"]').prop('checked', checked);
-            if (checked) {
-                $('#remove-selected-items').show();
-            } else {
-                $('#remove-selected-items').hide();
-            }
-        });
-
-        // Xử lý sự kiện khi checkbox các mục được chọn
-        $('.item-checkbox').change(function() {
-            if ($('.item-checkbox:checked').length > 0) {
-                $('#remove-selected-items').show();
-            } else {
-                $('#remove-selected-items').hide();
-            }
-        });
-
-       
-     // Xử lý sự kiện khi giá trị của ô input thay đổi
-        $('.quantity-input').on('input', function() {
-        var quantity = $(this).val();
-        var price = $(this).closest('tr').find('td:eq(3)').text().trim().replace(',', '').replace(' VNĐ', '');
-        var total = parseInt(quantity) * parseInt(price);
-        $(this).closest('tr').find('.total-price').text(total.toLocaleString('vi-VN') + ' VNĐ');
-        });
-        
-        
-
-     
-    });
-</script>
-
 </body>
 </html>

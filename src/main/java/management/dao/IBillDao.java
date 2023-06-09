@@ -31,5 +31,7 @@ public interface IBillDao {
 	void addDetailsExchangeVoucher(DetailsExchangeVoucher dev);
 	int soLuongPhieuDoi();
 	
+	int createBill(Bill bill);
 	
+	Bill getBillById(int id);
 }

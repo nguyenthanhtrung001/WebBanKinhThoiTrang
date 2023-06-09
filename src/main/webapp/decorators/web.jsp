@@ -18,6 +18,7 @@
 <link rel="stylesheet" href='<c:url value="/templates/user/assets/css/grid.css" />'>
 <link rel="stylesheet" href='<c:url value="/templates/user/assets/css/base.css" />'>
 <link rel="stylesheet" href='<c:url value="/templates/user/assets/css/index.css" />'>
+<link rel="stylesheet" href='<c:url value="/templates/user/assets/css/cart.css" />'>
 <link rel="stylesheet" href='<c:url value="/templates/user/assets/css/detailsProduct.css"/>'>
 
 <link rel="stylesheet" href='<c:url value="/templates/user/assets/css/profile.css" />'>
@@ -39,15 +40,9 @@
 <script src="<c:url value='/templates/admin/paging/jquery.twbsPagination.js'/>"></script>
 </head>
 <body>
+	<div><%@ include file="/common/user/header.jsp"%></div>
 	<div class="main">
 		<div class="grid wide">
-
-			<div class="container">
-				<div class="row">
-					<div class="col col-md-12"><%@ include file="/common/user/header.jsp"%></div>
-				</div>
-			</div>
-			
 
 			<div class="content">
 				<div class="row">

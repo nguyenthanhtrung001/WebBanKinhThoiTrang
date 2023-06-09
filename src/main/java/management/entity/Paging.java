@@ -54,6 +54,7 @@ public class Paging {
 	public void setSearch(String search) {
 		this.search = search;
 	}
+	
 	@Override
 	public String toString() {
 		return "Paging [page=" + page + ", maxPageItem=" + maxPageItem + ", totalPage=" + totalPage + ", totalItem="

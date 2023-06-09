@@ -44,10 +44,10 @@ public class Bill {
 	private Date applicableDate;
 	
 	@Column(name = "TONGTIEN")
-	private int totalPrice;
+	private double totalPrice;
 	
 	@Column(name = "TIENKM")
-	private int promotionlPrice;
+	private double promotionlPrice;
 	
 	@ManyToOne
 	@JoinColumn(name = "MASHIP")
@@ -155,19 +155,19 @@ public class Bill {
 		this.detailsCarts = detailsCarts;
 	}
 
-	public int getTotalPrice() {
+	public double getTotalPrice() {
 		return totalPrice;
 	}
 
-	public void setTotalPrice(int totalPrice) {
+	public void setTotalPrice(double totalPrice) {
 		this.totalPrice = totalPrice;
 	}
 
-	public int getPromotionlPrice() {
+	public double getPromotionlPrice() {
 		return promotionlPrice;
 	}
 
-	public void setPromotionlPrice(int promotionlPrice) {
+	public void setPromotionlPrice(double promotionlPrice) {
 		this.promotionlPrice = promotionlPrice;
 	}
 	

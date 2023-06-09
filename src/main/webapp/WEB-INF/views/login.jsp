@@ -65,7 +65,7 @@
 			  <!--    <i class="fa-solid fa-xmark iconclose"></i> -->
 				<h2>Đăng nhập</h2>
 				<div style="color: red;font-style: italic;font-size: larger;margin-bottom: 5px;">${messageA}</div>
-                <form action="/WebBanKinh/login/log" method="post" name="dang-ky">
+                <form action="/login/log" method="post" name="dang-ky">
                 <p
 					style="color: #ff3366; font-size: 12px; display: inline;">
 					${errorTK}</p>
@@ -86,7 +86,7 @@
                 <a style="color: red;" href="forget">Quên mật khẩu</a>
                 <input type="submit" name="submit" value="Đăng nhập" />
                 <label class="psw-text"> Bạn chưa có tài khoản? 
-                <a href="/WebBanKinh/register" style="color: red;">Đăng ký</a>
+                <a href="/register" style="color: red;">Đăng ký</a>
                 </label>
                 
     

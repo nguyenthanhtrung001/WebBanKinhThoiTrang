@@ -273,6 +273,43 @@ public class BillDaoImpl implements IBillDao {
 		    return totalPrice != null ? totalPrice : 0;
 	}
 
+	@Override
+	public int createBill(Bill bill) {
+		Session s = sessionFactory.openSession();
+
+		try {
+
+			s.beginTransaction();
+			
+			int primaryKey = (int)s.save(bill);
+			
+			s.getTransaction().commit();
+			
+			return primaryKey;
+		} catch (Exception e) {
+			System.out.println(e);
+			s.getTransaction().rollback();
+
+		} finally {
+			s.close();
+		}
+		
+		return -1;
+	}
+
+	@Override
+	public Bill getBillById(int id) {
+		Session s = sessionFactory.openSession();
+
+		String hql = "select b from Bill b where b.id = ?";
+
+		Query query = s.createQuery(hql);
+
+		query.setParameter(0, id);
+
+		return (Bill) query.list().get(0);
+	}
+
 	
 	
 	

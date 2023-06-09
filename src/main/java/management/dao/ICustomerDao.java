@@ -17,4 +17,7 @@ public interface ICustomerDao {
 	Customer getCustomerByEmail(String email);
 	void updateCustomer(Customer customer);
 
+	Customer getCustomerById(int id);
+	
+	Customer update(Customer customer);
 }

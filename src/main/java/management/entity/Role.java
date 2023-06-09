@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -20,7 +21,7 @@ public class Role implements Serializable{
 	@Column(name = "TENCV",columnDefinition = "nvarchar(20)")
 	private String name;
 	
-	@OneToMany(mappedBy = "role")
+	@OneToMany(mappedBy = "role",fetch = FetchType.LAZY)
 	private List<Account> accounts = new ArrayList<Account>();
 
 	public Role() {

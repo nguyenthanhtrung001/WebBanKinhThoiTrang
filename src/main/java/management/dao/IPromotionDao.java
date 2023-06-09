@@ -9,4 +9,6 @@ public interface IPromotionDao {
 	
 	public List<Promotion> getListPromotion();
 	
+	
+	
 }
