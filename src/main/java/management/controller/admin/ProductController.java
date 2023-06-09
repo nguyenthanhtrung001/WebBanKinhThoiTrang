@@ -95,9 +95,6 @@ public class ProductController {
 			product.setStatus(true);
 			product.setMaterial(chatlieusp);
 			product.setSize(kichthuocsp);
-			product.setUv(uvsp);
-			product.setGreen(greensp);
-			product.setAlter_color(altercolorsp);
 			product.setWarrantyPeriod(thoigianbhsp);
 			product.setDeliveryTime(thoigianthsp);
 			product.setCategory(loai);
@@ -173,9 +170,6 @@ public class ProductController {
 			product.setWarrantyPeriod(thoigianbhsp);
 			product.setDeliveryTime(thoigianthsp);
 			product.setCategory(loai);
-			product.setUv(uvsp);
-			product.setGreen(greensp);
-			product.setAlter_color(altercolorsp);
 			Integer temp = productAdminDao.updateProduct(product);
 			if (temp != 0) {
 				model.addAttribute("successMessage", "Cập nhật thành công!");

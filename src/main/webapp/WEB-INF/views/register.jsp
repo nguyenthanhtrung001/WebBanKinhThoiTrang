@@ -64,7 +64,7 @@
 			<!--<i class="fa-solid fa-xmark iconclose1"></i>-->
 			<h2 class="login-header">Đăng kí</h2>
 			<div style="color: #ff3366; font-size: 12px; margin-top: 5px; margin-bottom: 0px;">${message }</div>			
-			<form:form class="login-form" method="POST" action="/WebBanKinh/register/insert" modelAttribute="KhachHang">
+			<form:form class="login-form" method="POST" action="/register/insert" modelAttribute="KhachHang">
 				<label class="form-label" for="">Tên<span style="color: red;">*</span></label>
 				<div class="input-container">
 					<i class="fa-solid fa-user icon"></i> 
