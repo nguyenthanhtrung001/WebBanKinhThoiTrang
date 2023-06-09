@@ -95,7 +95,7 @@
 																		<div class="bg-primary-dark block block-h-auto">
 																			<div class="row edit-product-row">
 																				<form class="contener1-fix" method="POST"
-																					action="/management/admin/promotionForProduct/UpdateStatusTruePromotionForProduct">
+																					action="/WebBanKinh/admin/promotionForProduct/UpdateStatusTruePromotionForProduct">
 																					<div class="col-md-6">
 																						<div class="form-group">
 																							<label for="masp">Mã sản phẩm</label> <input
@@ -146,7 +146,7 @@
 																		<div class="bg-primary-dark block block-h-auto">
 																			<div class="row edit-product-row">
 																				<form class="contener1-fix" method="POST"
-																					action="/management/admin/promotionForProduct/UpdateStatusFalsePromotionForProduct">
+																					action="/WebBanKinh/admin/promotionForProduct/UpdateStatusFalsePromotionForProduct">
 																					<div class="col-md-6">
 																						<div class="form-group">
 																							<label for="masp">Mã sản phẩm</label> <input

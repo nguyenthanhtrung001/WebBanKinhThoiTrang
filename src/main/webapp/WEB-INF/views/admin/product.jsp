@@ -120,7 +120,7 @@
 															</div>
 															<div class="modal-body">
 																<form method="POST"
-																	action="/management/admin/product/Post-Sell-SP"
+																	action="/WebBanKinh/admin/product/Post-Sell-SP"
 																	enctype="multipart/form-data">
 																	<div class="form-group">
 																		<label for="masp">Mã</label> <input type="text"
@@ -235,9 +235,6 @@
 																						<li class="list-group-item"><b>Hãng</b> <a
 																							class="float-right text-primary">${sp.getBranch()}</a>
 																						</li>
-																						<li class="list-group-item"><b>Màu sắc</b> <a
-																							class="float-right text-primary">${sp.getColor()}</a>
-																						</li>
 																						<li class="list-group-item"><b>Chất liệu</b>
 																							<a class="float-right text-primary">${sp.getMaterial()}</a>
 																						</li>
@@ -296,7 +293,7 @@
 																		<div class="bg-primary-dark block block-h-auto">
 																			<div class="row edit-product-row">
 																				<form class="contener1-fix" method="POST"
-																					action="/management/admin/product/Edit"
+																					action="/WebBanKinh/admin/product/Edit"
 																					enctype="multipart/form-data">
 																					<div class="col-md-6">
 																						<div class="form-group">
@@ -345,12 +342,6 @@
 																						</div>
 																					</div>
 																					<div class="col-md-6">
-																						<div class="form-group">
-																							<label for="mausacsp">Màu sắc</label> <input
-																								type="text" name="mausac"
-																								value="${sp.getColor()}" class="form-control"
-																								required>
-																						</div>
 																						<div class="form-group">
 																							<label for="chatlieusp">Chất liệu</label> <input
 																								type="text" name="chatlieu"
@@ -433,7 +424,7 @@
 														</div>
 														<div class="modal-body">
 															<form method="POST"
-																action="/management/admin/product/Add"
+																action="/WebBanKinh/admin/product/Add"
 																enctype="multipart/form-data">
 																<div class="form-group">
 																	<label for="masp">Mã</label> <input type="text"
@@ -474,12 +465,6 @@
 																			</c:if>
 																		</c:forEach>
 																	</select>
-																</div>
-																<div class="form-group">
-																	<label for="mausacsp">Màu sắc</label> <input
-																		type="text" name="mausac"
-																		placeholder="Nhập màu sắc sản phẩm"
-																		class="form-control" required>
 																</div>
 																<div class="form-group">
 																	<label for="chatlieusp">Chất liệu</label> <input

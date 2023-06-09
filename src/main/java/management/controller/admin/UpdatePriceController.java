@@ -110,7 +110,7 @@ public class UpdatePriceController {
 		String tensp = request.getParameter("ten");
 		String mausacsp = request.getParameter("mausac");
 		String chatlieusp = request.getParameter("chatlieu");
-		String kichthuocsp = request.getParameter("kichthuoc");
+		Double kichthuocsp = Double.parseDouble(request.getParameter("kichthuoc"));
 		String hangsp = request.getParameter("hang");
 		String motasp = request.getParameter("mota");
 //			Boolean trangthaisp = Boolean.parseBoolean(request.getParameter("trangthai"));

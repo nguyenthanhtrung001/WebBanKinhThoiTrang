@@ -24,9 +24,6 @@ public class Product {
 	@Column(name = "TENSP", columnDefinition = "nvarchar(100)")
 	private String name; 
 	
-	@Column(name = "MAUSAC",columnDefinition = "nvarchar(100)")
-	private String color;
-	
 	@Column(name = "CHATLIEU",columnDefinition = "nvarchar(100)")
 	private String material;
 	
@@ -41,15 +38,6 @@ public class Product {
 	
 	@Column(name = "TRANGTHAI")
 	private boolean status;
-	
-	@Column(name = "IS_UV")
-	private boolean uv;
-	
-	@Column(name = "IS_GREEN")
-	private boolean green;
-	
-	@Column(name = "ALTER_COLOR")
-	private boolean alter_color;
 	
 	@Column(name = "THOIGIANBH_THANG")
 	private int warrantyPeriod;
@@ -70,35 +58,6 @@ public class Product {
 	@OneToMany(mappedBy = "product",fetch = FetchType.EAGER)
 	private List<DetailsUpdatePrice> detailsUpdatePrices = new ArrayList<DetailsUpdatePrice>();
 
-	
-	
-
-	
-
-	public boolean isUv() {
-		return uv;
-	}
-
-	public void setUv(boolean uv) {
-		this.uv = uv;
-	}
-
-	public boolean isGreen() {
-		return green;
-	}
-
-	public void setGreen(boolean green) {
-		this.green = green;
-	}
-
-	public boolean isAlter_color() {
-		return alter_color;
-	}
-
-	public void setAlter_color(boolean alter_color) {
-		this.alter_color = alter_color;
-	}
-
 	public Product() {
 		super();
 	}
@@ -117,14 +76,6 @@ public class Product {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public String getColor() {
-		return color;
-	}
-
-	public void setColor(String color) {
-		this.color = color;
 	}
 
 	public String getMaterial() {

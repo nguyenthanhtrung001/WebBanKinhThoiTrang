@@ -137,9 +137,6 @@
 																						<li class="list-group-item"><b>Hãng</b> <a
 																							class="float-right text-primary">${up.product.getBranch()}</a>
 																						</li>
-																						<li class="list-group-item"><b>Màu sắc</b> <a
-																							class="float-right text-primary">${up.product.getColor()}</a>
-																						</li>
 																						<li class="list-group-item"><b>Chất liệu</b>
 																							<a class="float-right text-primary">${up.product.getMaterial()}</a>
 																						</li>
@@ -204,7 +201,7 @@
 																		<div class="bg-primary-dark block block-h-auto">
 																			<div class="row edit-product-row">
 																				<form class="contener1-fix" method="POST"
-																					action="/management/admin/updatePrice/updatePriceAgain"
+																					action="/WebBanKinh/admin/updatePrice/updatePriceAgain"
 																					enctype="multipart/form-data">
 																					<div class="col-md-6">
 																						<div class="form-group">
@@ -254,12 +251,6 @@
 																					</div>
 
 																					<div class="col-md-6">
-																						<div class="form-group">
-																							<label for="mausacsp">Màu sắc</label> <input
-																								type="text" name="mausac"
-																								value="${up.product.getColor()}"
-																								class="form-control" required>
-																						</div>
 																						<div class="form-group">
 																							<label for="chatlieusp">Chất liệu</label> <input
 																								type="text" name="chatlieu"
@@ -346,7 +337,7 @@
 															</div>
 															<div class="modal-body">
 																<form method="POST"
-																	action="/management/admin/updatePrice/Update">
+																	action="/WebBanKinh/admin/updatePrice/Update">
 																	<div class="form-group">
 																		<label for="masp">Mã</label> <input type="text"
 																			name="masp" value="${up.product.getId()}"

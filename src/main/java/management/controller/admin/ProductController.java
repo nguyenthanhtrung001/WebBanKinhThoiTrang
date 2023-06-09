@@ -53,12 +53,9 @@ public class ProductController {
 		String tensp = request.getParameter("ten");
 		String mausacsp = request.getParameter("mausac");
 		String chatlieusp = request.getParameter("chatlieu");
-		String kichthuocsp = request.getParameter("kichthuoc");
+		Double kichthuocsp = Double.parseDouble(request.getParameter("kichthuoc"));
 		String hangsp = request.getParameter("hang");
 		String motasp = request.getParameter("mota");
-		Boolean uvsp = Boolean.parseBoolean(request.getParameter("uv"));
-		Boolean greensp = Boolean.parseBoolean(request.getParameter("green"));
-		Boolean altercolorsp = Boolean.parseBoolean(request.getParameter("altercolor"));
 //		Boolean trangthaisp = Boolean.parseBoolean(request.getParameter("trangthai"));
 		Integer thoigianbhsp = Integer.parseInt(request.getParameter("thoigianbh"));
 		Integer thoigianthsp = Integer.parseInt(request.getParameter("thoigianth"));
@@ -136,7 +133,7 @@ public class ProductController {
 		String tensp = request.getParameter("ten");
 		String mausacsp = request.getParameter("mausac");
 		String chatlieusp = request.getParameter("chatlieu");
-		String kichthuocsp = request.getParameter("kichthuoc");
+		Double kichthuocsp = Double.parseDouble(request.getParameter("kichthuoc"));
 		String hangsp = request.getParameter("hang");
 		String motasp = request.getParameter("mota");
 //		Boolean trangthaisp = Boolean.parseBoolean(request.getParameter("trangthai"));
@@ -271,12 +268,12 @@ public class ProductController {
 
 	@GetMapping("product")
 	public ModelAndView product(HttpServletRequest request, ModelMap model) {
-//		HttpSession session = request.getSession();
-//		Object userObj = session.getAttribute("user");
-//		
-//		if (userObj == null) {
-//	        return new ModelAndView("login");
-//	    }
+		HttpSession session = request.getSession();
+		Object userObj = session.getAttribute("user");
+		
+		if (userObj == null) {
+	        return new ModelAndView("login");
+	    }
 		List<Product> productlist = productAdminDao.getAllSP();
 		model.addAttribute("productAdminDao", productAdminDao);
 		List<Category> categorylist = productAdminDao.getAllLoai();
