@@ -9,8 +9,9 @@
 <title>Thông tin cá nhân</title>
 </head>
 <body>
-	
-	<div style="font-size: 18px;" class="container background_img_profile">
+
+	<div style="font-size: 18px; margin-top: 0px;"
+		class="container background_img_profile">
 		<div class="col-sm-12 khung_chua_profile input_profile">
 			<div class="row">
 				<div class="col-sm-6 center">
@@ -19,41 +20,87 @@
 				</div>
 				<div class="col-sm-6 " style="font-size: 18px; margin-top: 20px;">
 					<div class="form-group">
-						<label for="ten">Họ và tên</label> <input
-							style="font-size: 18px; font-family: Arial;" type="text" 
-							name="hoTen" value="${customer.getName()}" class="form-control"
-							readonly>
+						<label for="ten">Họ và tên</label>
+						<div class="input-group">
+							<div class="input-group-prepend">
+								<span class="input-group-text"> <i class="fas fa-user"></i>
+								</span>
+							</div>
+							<input type="text" name="hoTen" value="${customer.getName()}"
+								style="font-size: 18px;" class="form-control" readonly>
+						</div>
 					</div>
 
 					<div class="form-group">
-						<label for="gioiTinh">Giới Tính</label> <input
-							style="font-size: 18px;"
-							value="${customer.getGender()?'Nam':'Nữ'}" class="form-control"
-							readonly>
+						<label for="gioiTinh">Giới Tính</label>
+						<div class="input-group">
+							<div class="input-group-prepend">
+								<span class="input-group-text"> <i
+									class="fas fa-venus-mars"></i>
+								</span>
+							</div>
+							<input style="font-size: 18px;"
+								value="${customer.getGender() ? 'Nam' : 'Nữ'}"
+								class="form-control" readonly>
+						</div>
 					</div>
+
 					<div class="form-group">
-						<label for="ngaySinh">Ngày Sinh</label> <input type="date"
-							style="font-size: 18px;"
-							value="<fmt:formatDate value="${customer.getDateOfBirth()}" pattern="yyyy-MM-dd" />"
-							name="ngaySinh" class="form-control" readonly>
+						<label for="ngaySinh">Ngày Sinh</label>
+						<div class="input-group">
+							<div class="input-group-prepend">
+								<span class="input-group-text"> <i
+									class="fas fa-calendar-alt"></i>
+								</span>
+							</div>
+							<input type="date" style="font-size: 18px;"
+								value="<fmt:formatDate value="${customer.getDateOfBirth()}" pattern="yyyy-MM-dd" />"
+								name="ngaySinh" class="form-control" readonly>
+						</div>
 					</div>
+
 					<div class="form-group">
-						<label for="diaChi">Địa chỉ</label> <input type="text"
-							style="font-size: 18px;" value="${customer.getAddress()}"
-							name="diaChi" class="form-control" readonly>
+						<label for="diaChi">Địa chỉ</label>
+						<div class="input-group">
+							<div class="input-group-prepend">
+								<span class="input-group-text"> <i
+									class="fas fa-map-marker-alt"></i>
+								</span>
+							</div>
+							<input type="text" style="font-size: 18px;"
+								value="${customer.getAddress()}" name="diaChi"
+								class="form-control" readonly>
+						</div>
 					</div>
+
 					<div class="form-group">
-						<label for="sdt">Số điện thoại</label> <input type="tel"
-							style="font-size: 18px;" name="sdt"
-							value="${customer.getPhoneNumber()}" class="form-control"
-							readonly>
+						<label for="sdt">Số điện thoại</label>
+						<div class="input-group">
+							<div class="input-group-prepend">
+								<span class="input-group-text"> <i class="fas fa-phone"></i>
+								</span>
+							</div>
+							<input type="tel" style="font-size: 18px;" name="sdt"
+								value="${customer.getPhoneNumber()}" class="form-control"
+								readonly>
+						</div>
 					</div>
+
 					<div class="form-group">
-						<label for="email">Email Tài Khoản</label> <input type="email"
-							style="font-size: 18px;" name="email"
-							value="${customer.getAccount().getEmail()}" class="form-control"
-							readonly>
+						<label for="email">Email Tài Khoản</label>
+						<div class="input-group">
+							<div class="input-group-prepend">
+								<span class="input-group-text"> <i
+									class="fas fa-envelope"></i>
+								</span>
+							</div>
+							<input type="email" style="font-size: 18px;" name="email"
+								value="${customer.getAccount().getEmail()}" class="form-control"
+								readonly>
+						</div>
 					</div>
+
+
 
 					<div style="margin-bottom: 10px;">
 						<button type="button" class="btn_edit_profile" data-toggle="modal"
@@ -110,48 +157,94 @@
 										value="${customer.getId()}.jpg" required>
 
 									<div class="form-group">
-										<label for="hoTen">Họ và tên</label> <input type="text"
-											name="hoTen" style="font-size: 18px;" pattern="[A-Za-z]+" title="Chỉ được nhập chữ"
-											value="${customer.getName()}" class="form-control" required>
+										<label for="hoTen">Họ và tên</label>
+										<div class="input-group">
+											<div class="input-group-prepend">
+												<span class="input-group-text"> <i
+													class="fas fa-user"></i>
+												</span>
+											</div>
+											<input type="text" name="hoTen" style="font-size: 18px;"
+												value="${customer.getName()}" class="form-control" required>
+										</div>
 									</div>
 
 									<div class="form-group">
-										<label for="gioiTinh">Giới Tính</label> <select
-											name="gioiTinh" style="font-size: 18px;" class="form-control">
-											<option value="Nam"
-												${customer.getGender() == 'Nam' ? 'selected' : ''}>Nam</option>
-											<option value="Nu"
-												${customer.getGender() == 'Nu' ? 'selected' : ''}>Nữ</option>
-										</select>
-									</div>
-
-
-									<div class="form-group">
-										<label for="ngaySinh">Ngày Sinh</label> <input type="date"
-											style="font-size: 18px;"
-											value="<fmt:formatDate value="${customer.getDateOfBirth()}" pattern="yyyy-MM-dd" />"
-											name="ngaySinh" class="form-control" required>
-									</div>
-
-									<div class="form-group">
-										<label for="diaChi">Địa chỉ</label> <input type="text"
-											style="font-size: 18px;" value="${customer.getAddress()}"
-											name="diaChi" class="form-control" required>
+										<label for="gioiTinh">Giới Tính</label>
+										<div class="input-group">
+											<div class="input-group-prepend">
+												<span class="input-group-text"> <i
+													class="fas fa-venus-mars"></i>
+												</span>
+											</div>
+											<select name="gioiTinh" style="font-size: 18px;"
+												class="form-control">
+												<option value="Nam"
+													${customer.getGender() == 'Nam' ? 'selected' : ''}>Nam</option>
+												<option value="Nu"
+													${customer.getGender() == 'Nu' ? 'selected' : ''}>Nữ</option>
+											</select>
+										</div>
 									</div>
 
 									<div class="form-group">
-										<label for="sdt">Số điện thoại</label> <input type="number"
-											style="font-size: 18px;" name="sdt" pattern="^(0|\+84)\d{9,10}$" title="Số điện thoại không hợp lệ"
-											value="${customer.getPhoneNumber()}" class="form-control"
-											required>
+										<label for="ngaySinh">Ngày Sinh</label>
+										<div class="input-group">
+											<div class="input-group-prepend">
+												<span class="input-group-text"> <i
+													class="fas fa-calendar-alt"></i>
+												</span>
+											</div>
+											<input type="date" style="font-size: 18px;"
+												value="<fmt:formatDate value="${customer.getDateOfBirth()}" pattern="yyyy-MM-dd" />"
+												name="ngaySinh" class="form-control" required>
+										</div>
 									</div>
 
 									<div class="form-group">
-										<label for="email">Email Tài Khoản</label> <input type="email"
-											style="font-size: 18px;" name="email"
-											value="${customer.getAccount().getEmail()}"
-											class="form-control" readonly>
+										<label for="diaChi">Địa chỉ</label>
+										<div class="input-group">
+											<div class="input-group-prepend">
+												<span class="input-group-text"> <i
+													class="fas fa-map-marker-alt"></i>
+												</span>
+											</div>
+											<input type="text" style="font-size: 18px;"
+												value="${customer.getAddress()}" name="diaChi"
+												class="form-control" required>
+										</div>
 									</div>
+
+									<div class="form-group">
+										<label for="sdt">Số điện thoại</label>
+										<div class="input-group">
+											<div class="input-group-prepend">
+												<span class="input-group-text"> <i
+													class="fas fa-phone"></i>
+												</span>
+											</div>
+											<input type="number" style="font-size: 18px;" name="sdt"
+												pattern="^(0|\+84)\d{9,10}$"
+												title="Số điện thoại không hợp lệ"
+												value="${customer.getPhoneNumber()}" class="form-control"
+												required>
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label for="email">Email Tài Khoản</label>
+										<div class="input-group">
+											<div class="input-group-prepend">
+												<span class="input-group-text"> <i
+													class="fas fa-envelope"></i>
+												</span>
+											</div>
+											<input type="email" style="font-size: 18px;" name="email"
+												value="${customer.getAccount().getEmail()}"
+												class="form-control" readonly>
+										</div>
+									</div>
+
 
 									<div>
 										<button style="font-size: 18px;" type="submit"
@@ -168,8 +261,8 @@
 	</div>
 
 	<!------------------------------->
-	
-	<%@ include file= "../thongBao.jsp" %> 
+
+	<%@ include file="../thongBao.jsp"%>
 
 	<script>
 		function previewImage() {

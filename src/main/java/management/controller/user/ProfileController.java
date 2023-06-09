@@ -62,9 +62,9 @@ public class ProfileController {
 	@PostMapping("profile")
 	public ModelAndView editProfile(@RequestParam("hoTen") String hoTen,
 			@RequestParam("gioiTinh") String gioiTinh, @RequestParam("ngaySinh") String ngaySinh,
-			@RequestParam("diaChi") String diaChi, @RequestParam("sdt") String sdt, @RequestParam("email") String email,
-			@RequestParam("file") MultipartFile file, @RequestParam("anhGoc") String anhGoc,
-			@RequestParam("id") int id, RedirectAttributes redirectAttributes) {
+			@RequestParam("diaChi") String diaChi, @RequestParam("sdt") String sdt,
+			@RequestParam("email") String email,@RequestParam("id") int id,
+			@RequestParam("file") MultipartFile file) {
 
 		ModelAndView modelAndView = new ModelAndView("user/Profile");
 		Session session = sessionFactory.openSession();
@@ -78,11 +78,10 @@ public class ProfileController {
 				String path = bPath.getPathImgCustomer() + id + ".jpg";
 				System.out.println("Upload ảnh: " + file.getOriginalFilename() + " thành công");
 				file.transferTo(new File(path));
-				anhGoc = id + ".jpg";
 				Thread.sleep(7000);
 				System.out.println(path);
 			}
-
+			
 			Customer customer = new Customer();
 					
 			customer.setId(id);
@@ -94,21 +93,15 @@ public class ProfileController {
 			else {
 				customer.setGender(false);
 			}
-			
 			customer.setDateOfBirth(ngaySinhDate);
 			customer.setAddress(diaChi);
 			customer.setPhoneNumber(sdt);
 			customer.setAccount((Account) session.get(Account.class, email));
-			
 			customerDao.updateCustomer(customer);
-			
 			System.out.println("Cập nhật khách hàng thành công !!!");
-
 			modelAndView.addObject("customer", customer);
 			modelAndView.addObject("thongBao", "success");
-
 			return modelAndView;
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("Thất bại thêm tài khoản");

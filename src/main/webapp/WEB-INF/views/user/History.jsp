@@ -50,7 +50,7 @@
 								<tr>
 									<td style="font-size: 18px;">${b.getId()}</td>
 									<td style="font-size: 18px;">${TienIch.dateToString(b.getApplicableDate())}</td>
-									<td style="font-size: 18px;">${TienIch.toVND(b.getTotalPrice())}
+									<td style="font-size: 18px;"><del>${b.getTotalPrice()}</del> ${TienIch.toVND(TienIch.Substraction(b.getTotalPrice(),b.getPromotionlPrice()))}
 									</td>
 									<td style="font-size: 18px;"><c:if
 											test="${b.getStatus()==0}">
@@ -86,7 +86,7 @@
 																<div class="container">
 
 																	<div class="row">
-																		<div class="col-md-6">
+																		<div class="col-md-6 offset-3">
 																			<ul class="invoice-details">
 																				<li><b>Mã hóa đơn:</b> <span
 																					class="float-right text-primary">${b.getId()}</span>
@@ -137,7 +137,6 @@
 																						<th style="font-size: 20px;">Đơn giá</th>
 																						<th style="font-size: 20px;">Số lượng</th>
 																						<th style="font-size: 20px;">Thành tiền</th>
-																						<th style="font-size: 20px;">Đổi trả</th>
 																					</tr>
 																				</thead>
 																				<tbody>
@@ -152,12 +151,6 @@
 																							<td style="font-size: 18px;">${TienIch.toVND(sp.getDetailsUpdatePrice().getPrice())}</td>
 																							<td style="font-size: 18px;">${sp.getQuantity()}</td>
 																							<td style="font-size: 18px;">${TienIch.toVND(sp.getQuantity()*sp.getDetailsUpdatePrice().getPrice())}</td>
-																							<td style="font-size: 18px;"><a
-																								href="created_return_voucher/${b.getId()}">
-																									<i style="font-size: 18px;" class="fa fa-reply"
-																									aria-hidden="true"></i>
-																							</a></td>
-
 																						</tr>
 																					</c:forEach>
 																				</tbody>
@@ -168,23 +161,14 @@
 																		</div>
 																	</div>
 																	<div class="row">
-																		<div class="col-sm-3">
-																			<c:if
-																				test="${TienIch.isExpired_day(b.getApplicableDate(),7)}">
-																				<a href="thinh"><button></button></a>
-																			</c:if>
-																			<c:if
-																				test="${!TienIch.isExpired_day(b.getApplicableDate(),7)}">
-																				<button type="button" disabled>Hoàn đơn</button>
-																			</c:if>
-																		</div>
-																		<div class="col-sm-4 offset-4">
+																		
+																		<div class="col-sm-5 offset-4">
 																			<ul class="invoice-details">
 																				<li><b>Tiền ship:</b> <span
 																					class="float-right text-primary">${TienIch.toVND(b.getShip().getPrice())}</span>
 																				</li>
 																				<li style="color: red;"><h2>
-																						Tổng tiền:<span class="float-right text-primary">${TienIch.toVND(b.getTotalPrice())}</span>
+																						Tổng tiền:<span class="float-right text-primary"><del style="color:red;">${b.getTotalPrice()}</del> ${TienIch.toVND(TienIch.Substraction(b.getTotalPrice(),b.getPromotionlPrice()))}</span>
 																					</h2></li>
 																			</ul>
 																		</div>
@@ -217,29 +201,17 @@
 
 
 	<script>
-		$(document)
-				.ready(
-						function() {
-							$("#search")
-									.on(
-											"keyup",
-											function() {
-												var value = $(this).val()
-														.toLowerCase();
-												$("#myTable tr")
-														.filter(
-																function() {
-																	$(this)
-																			.toggle(
-																					$(
-																							this)
-																							.text()
-																							.toLowerCase()
-																							.indexOf(
-																									value) > -1)
-																});
-											});
-						});
+		$(document).ready(
+			function() {
+				$("#search").on("keyup",function() {
+						var value = $(this).val().toLowerCase();
+						$("#myTable tr").filter(function() {
+							$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+							});
+				});
+			});
 	</script>
+	
+	
 </body>
 </html>
