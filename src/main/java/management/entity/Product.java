@@ -207,9 +207,10 @@ public class Product {
 		} catch (ParseException e) {
 			
 			e.printStackTrace();
+			
 		}
 		
-
+ 
 		return convertedAmount;
 	}
 
