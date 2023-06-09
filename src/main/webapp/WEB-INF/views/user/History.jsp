@@ -50,7 +50,7 @@
 								<tr>
 									<td style="font-size: 18px;">${b.getId()}</td>
 									<td style="font-size: 18px;">${TienIch.dateToString(b.getApplicableDate())}</td>
-									<td style="font-size: 18px;"><del>${b.getTotalPrice()}</del> ${TienIch.toVND(TienIch.Substraction(b.getTotalPrice(),b.getPromotionlPrice()))}
+									<td style="font-size: 18px; "><del>${b.getTotalPrice()}</del> ${TienIch.toVND(TienIch.Substraction(b.getTotalPrice(),b.getPromotionlPrice()))}
 									</td>
 									<td style="font-size: 18px;"><c:if
 											test="${b.getStatus()==0}">
