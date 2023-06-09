@@ -56,9 +56,6 @@ public class ProductController {
 		Double kichthuocsp = Double.parseDouble(request.getParameter("kichthuoc"));
 		String hangsp = request.getParameter("hang");
 		String motasp = request.getParameter("mota");
-		Boolean uvsp = Boolean.parseBoolean(request.getParameter("uv"));
-		Boolean greensp = Boolean.parseBoolean(request.getParameter("green"));
-		Boolean altercolorsp = Boolean.parseBoolean(request.getParameter("altercolor"));
 //		Boolean trangthaisp = Boolean.parseBoolean(request.getParameter("trangthai"));
 		Integer thoigianbhsp = Integer.parseInt(request.getParameter("thoigianbh"));
 		Integer thoigianthsp = Integer.parseInt(request.getParameter("thoigianth"));
@@ -139,9 +136,6 @@ public class ProductController {
 		Double kichthuocsp = Double.parseDouble(request.getParameter("kichthuoc"));
 		String hangsp = request.getParameter("hang");
 		String motasp = request.getParameter("mota");
-		Boolean uvsp = Boolean.parseBoolean(request.getParameter("uv"));
-		Boolean greensp = Boolean.parseBoolean(request.getParameter("green"));
-		Boolean altercolorsp = Boolean.parseBoolean(request.getParameter("altercolor"));
 //		Boolean trangthaisp = Boolean.parseBoolean(request.getParameter("trangthai"));
 		Integer thoigianbhsp = Integer.parseInt(request.getParameter("thoigianbh"));
 		Integer thoigianthsp = Integer.parseInt(request.getParameter("thoigianth"));
@@ -274,12 +268,12 @@ public class ProductController {
 
 	@GetMapping("product")
 	public ModelAndView product(HttpServletRequest request, ModelMap model) {
-//		HttpSession session = request.getSession();
-//		Object userObj = session.getAttribute("user");
-//		
-//		if (userObj == null) {
-//	        return new ModelAndView("login");
-//	    }
+		HttpSession session = request.getSession();
+		Object userObj = session.getAttribute("user");
+		
+		if (userObj == null) {
+	        return new ModelAndView("login");
+	    }
 		List<Product> productlist = productAdminDao.getAllSP();
 		model.addAttribute("productAdminDao", productAdminDao);
 		List<Category> categorylist = productAdminDao.getAllLoai();

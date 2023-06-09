@@ -49,7 +49,7 @@
 							<div class="card">
 								<div class="card-header">
 									<div>
-										<form action="/WebBanKinh/admin/promotionForProduct">
+										<form action="/management/admin/promotionForProduct">
 											<button type="submit" class="btn btn-primary float-right">Áp
 												dụng khuyến mãi</button>
 										</form>
@@ -68,7 +68,8 @@
 												<th><button type="button"
 														class="btn btn  btn-success float-right"
 														style="color: white" data-toggle="modal"
-														data-target="#add-promotion-modal">Thêm Khuyến Mãi</button></th>
+														data-target="#add-promotion-modal">Thêm Khuyến
+														Mãi</button></th>
 												<th scope="col"></th>
 											</tr>
 										</thead>
@@ -143,7 +144,7 @@
 																		<div class="bg-primary-dark block block-h-auto">
 																			<div class="row edit-product-row">
 																				<form class="contener1-fix" method="POST"
-																					action="/WebBanKinh/admin/promotion/Edit">
+																					action="/management/admin/promotion/Edit">
 																					<div class="col-md-6">
 																						<div class="form-group">
 																							<label for="makm">Mã</label> <input type="text"
@@ -211,20 +212,22 @@
 															</div>
 															<div class="modal-body">
 																<div class="product-list">
-																	<c:forEach var="sp" items="${productlist}">
+																	<c:forEach var="up" items="${listDetailsUpdatePrice}">
 																		<div class="product-item">
 																			<div class="product-thumbnail">
 																				<img width="50" height="50"
-																					src="<c:url value='/templates/admin/dist/img/${sp.getId()}.jpg'/>">
+																					src="<c:url value='/templates/image/product/${up.product.getId()}.jpg'/>">
 																			</div>
 																			<div class="product-details">
-																				<h5 class="product-name">${sp.getName()}</h5>
-																				<p class="product-id">Mã sản phẩm: ${sp.getId()}</p>
+																				<h5 class="product-name">${up.product.getName()}</h5>
+																				<p class="product-id">Mã sản phẩm:
+																					${up.product.getId()}</p>
 																				<form class="contener1-fix" method="POST"
-																					action="/WebBanKinh/admin/promotionForProduct/AddPromotionForProduct">
+																					action="/management/admin/promotionForProduct/AddPromotionForProduct">
 																					<input type="hidden" name="makm"
 																						value="${km.getId()}"> <input
-																						type="hidden" name="masp" value="${sp.getId()}">
+																						type="hidden" name="masp"
+																						value="${up.product.getId()}">
 																					<button type="submit" class="btn btn-primary">Thêm
 																						sản phẩm</button>
 																				</form>
@@ -259,7 +262,7 @@
 													</div>
 													<div class="modal-body">
 														<form method="POST"
-															action="/WebBanKinh/admin/promotion/Add">
+															action="/management/admin/promotion/Add">
 															<div class="form-group">
 																<label for="makm">Mã</label> <input type="text"
 																	name="makm" placeholder="Nhập mã khuyến mãi"
